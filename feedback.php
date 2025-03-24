@@ -4,7 +4,7 @@ $host = "localhost";
 $user = "root";
 $password = "";
 $database = "travel";
-$port = 3306; // MySQL port in XAMPP
+$port = 3306; // MySQL port in XAMPP //for aviral
 
 $conn = new mysqli($host, $user, $password, $database, $port);
 
