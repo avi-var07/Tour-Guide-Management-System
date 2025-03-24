@@ -1,7 +1,8 @@
 <?php
 session_start();
 // Database Connection
-$con = mysqli_connect('localhost', 'root', '', 'travel');
+$con = mysqli_connect('localhost', 'root', '', 'travel', 3306);
+
 
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
@@ -95,7 +96,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
         }
     </script>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
+<body class="bg-gray-900 flex justify-center items-center min-h-screen pt-16">
+
+<nav class="bg-gray-800 p-4 w-full fixed top-0 left-0 shadow-lg">
+
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="mainPage.html" class="text-white text-lg font-bold">Tour Operator</a>
+            <ul class="flex space-x-6">
+                <li><a href="mainPage.html" class="text-white hover:text-yellow-400">Home</a></li>
+                <li><a href="destination.html" class="text-white hover:text-yellow-400">Destination</a></li>
+                <!-- <li><a href="gallery.html" class="text-white hover:text-yellow-400">Gallery</a></li> -->
+                <li><a href="feedback.html" class="text-white hover:text-yellow-400">Feedback</a></li>
+				<li><a href="http://localhost:8080/Project/Tourism/booking.html" class=" text-white hover:text-yellow-400">Bookings</a></li>
+                <li><a href="signup.php" class="text-white hover:text-yellow-400">SignUp/Login</a></li>
+            </ul>
+        </div>
+    </nav>
     <div class="bg-white p-6 rounded-lg shadow-lg w-[400px]">
         <h2 class="text-2xl font-bold mb-4 text-center">Create an Account</h2>
 
@@ -110,8 +126,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
         }
         ?>
 
-        <form action="" method="POST" onsubmit="return validateTerms()">
-            <div class="grid grid-cols-2 gap-3">
+        <form action="signup.php" method="POST" onsubmit="return validateTerms()">
+            <div class="grid grid-cols-2 gap-3 ">
                 <div class="col-span-2">
                     <label class="block text-gray-700">Full Name</label>
                     <input type="text" name="name" required 
@@ -179,6 +195,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
             <button type="submit" name="signup"
                     class="w-full mt-4 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">Sign Up
             </button>
+            <p class="text-center text-gray-700 mt-3">Already have an account? 
+                <a href="signin.php" class="text-blue-500 underline">Login</a>
+            </p>
+
         </form>
     </div>
 </body>
