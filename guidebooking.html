@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Navigation Bar -->
+    <nav class="flex justify-between items-center bg-gray-800 p-4">
+        <a href="mainPage.html" class="text-xl font-bold">Tour Operator</a>
+        
+        <ul class="flex space-x-4 relative">
+            <li><a href="mainPage.html" class="hover:text-yellow-400">Home</a></li>
+            <li><a href="destination.html" class="hover:text-yellow-400">Destination</a></li>
+            <li><a href="feedback.html" class="hover:text-yellow-400">Feedback</a></li>
+
+            <!-- Bookings Dropdown (Click to Open) -->
+            <li class="relative">
+                <button id="dropdownBtn" class="text-yellow-400 cursor-pointer focus:outline-none">
+                    Bookings ▼
+                </button>
+                <ul id="dropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-60">
+                    <li><a href="guidebooking.html" class="block px-4 py-2 hover:bg-gray-700">Hire a Guide</a></li>
+                    <li><a href="booking.html" class="block px-4 py-2 hover:bg-gray-700">Tour Booking</a></li>
+                    <li><a href="userDashboard.html" class="block px-4 py-2 hover:bg-gray-700">User Dashboard</a></li>
+                    <li><a href="packageManagement.html" class="block px-4 py-2 hover:bg-gray-700">Tour Package Management</a></li>
+                    <li><a href="customTour.html" class="block px-4 py-2 hover:bg-gray-700">Custom Tour Planning</a></li>
+                </ul>
+            </li>
+
+            <li><a href="http://localhost:8080/Project/Tourism/signup.php" class="hover:text-red-400">SignUp/Login</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        // JavaScript to toggle dropdown on click
+        document.getElementById("dropdownBtn").addEventListener("click", function () {
+            var menu = document.getElementById("dropdownMenu");
+            menu.classList.toggle("hidden");
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener("click", function (event) {
+            var dropdown = document.getElementById("dropdownMenu");
+            var button = document.getElementById("dropdownBtn");
+
+            if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+                dropdown.classList.add("hidden");
+            }
+        });
+    </script>
+    
+
+    <!-- Page Title -->
+    <div class="container mx-auto px-4 py-8 text-center">
+        <h1 class="text-3xl font-bold mb-4">Find & Book a Guide</h1>
+        <p class="text-gray-400">Choose from our expert guides for your trip.</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="container mx-auto px-4 mb-6">
+        <div class="flex justify-center gap-4">
+            <select id="locationFilter" class="bg-gray-700 text-white px-4 py-2 rounded-md">
+                <option value="">Select Location</option>
+                <option value="Goa">Goa</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Ladakh">Ladakh</option>
+                <option value="Rajasthan">Rajasthan</option>
+            </select>
+
+            <select id="expertiseFilter" class="bg-gray-700 text-white px-4 py-2 rounded-md">
+                <option value="">Select Expertise</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Wildlife">Wildlife</option>
+                <option value="Historical">Historical</option>
+            </select>
+
+            <button onclick="filterGuides()" class="bg-blue-500 px-6 py-2 rounded-md hover:bg-blue-600">Apply Filters</button>
+        </div>
+    </div>
+
+    <!-- Guide Profiles -->
+    <div class="container mx-auto px-4">
+        <div id="guideList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Guides will be loaded here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Sample guide data (Replace with API response later)
+        const guides = [
+            { id: 1, name: "Ravi Sharma", location: "Goa", expertise: "Adventure", experience: "5 Years", rating: 4.7, available: true },
+            { id: 2, name: "Priya Mehta", location: "Kerala", expertise: "Cultural", experience: "7 Years", rating: 4.9, available: true },
+            { id: 3, name: "Amit Kumar", location: "Ladakh", expertise: "Wildlife", experience: "4 Years", rating: 4.5, available: false },
+            { id: 4, name: "Sanya Gupta", location: "Rajasthan", expertise: "Historical", experience: "6 Years", rating: 4.8, available: true },
+        ];
+
+        function loadGuides(filterLocation = "", filterExpertise = "") {
+            const guideList = document.getElementById("guideList");
+            guideList.innerHTML = ""; // Clear previous results
+
+            guides.forEach(guide => {
+                if ((filterLocation === "" || guide.location === filterLocation) &&
+                    (filterExpertise === "" || guide.expertise === filterExpertise)) {
+
+                    guideList.innerHTML += `
+                        <div class="bg-gray-800 p-6 rounded-lg text-center">
+                            <h2 class="text-xl font-semibold">${guide.name}</h2>
+                            <p class="text-gray-400">${guide.expertise} Guide | ${guide.location}</p>
+                            <p class="text-gray-400">Experience: ${guide.experience}</p>
+                            <p class="text-yellow-400">⭐ ${guide.rating}</p>
+                            ${guide.available 
+                                ? `<button class="bg-green-500 px-4 py-2 rounded-md mt-2 hover:bg-green-600" onclick="bookGuide('${guide.name}')">Book Now</button>`
+                                : `<p class="text-red-500 mt-2">Not Available</p>`}
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        function filterGuides() {
+            const selectedLocation = document.getElementById("locationFilter").value;
+            const selectedExpertise = document.getElementById("expertiseFilter").value;
+            loadGuides(selectedLocation, selectedExpertise);
+        }
+
+        function bookGuide(guideName) {
+            alert(`Guide ${guideName} has been booked successfully!`);
+        }
+
+        // Load all guides on page load
+        loadGuides();
+    </script>
+
+</body>
+</html>

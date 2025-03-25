@@ -9,15 +9,47 @@
 
     <nav class="flex justify-between items-center bg-gray-800 p-4">
         <a href="mainPage.html" class="text-xl font-bold">Tour Operator</a>
-        <ul class="flex space-x-4">
-            <li><a href="http://localhost:8080/Project/Tourism/mainPage.html" class="hover:text-yellow-400">Home</a></li>
-            <li><a href="http://localhost:8080/Project/Tourism/destination.html" class="hover:text-yellow-400">Destination</a></li>
-            <!-- <li><a href="http://localhost:8080/Project/Tourism/gallery.html" class="hover:text-yellow-400">Gallery</a></li> -->
-            <li class="text-yellow-400"><a href="http://localhost:8080/Project/Tourism/feedback.html">Feedback</a></li>
-            <li class="text-yellow-400"><a href="http://localhost:8080/Project/Tourism/booking.html">Bookings</a></li>
-            <li><a href="http://localhost:8080/Project/Tourism/signup.php" class="hover:text-yellow-400">SignUp/Login</a></li>
+        
+        <ul class="flex space-x-4 relative">
+            <li><a href="mainPage.html" class="hover:text-yellow-400">Home</a></li>
+            <li><a href="destination.html" class="hover:text-yellow-400">Destination</a></li>
+            <li><a href="feedback.html" class="hover:text-yellow-400">Feedback</a></li>
+
+            <!-- Bookings Dropdown (Click to Open) -->
+            <li class="relative">
+                <button id="dropdownBtn" class="text-yellow-400 cursor-pointer focus:outline-none">
+                    Bookings ▼
+                </button>
+                <ul id="dropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-60">
+                    <li><a href="guidebooking.html" class="block px-4 py-2 hover:bg-gray-700">Hire a Guide</a></li>
+                    <li><a href="booking.html" class="block px-4 py-2 hover:bg-gray-700">Tour Booking</a></li>
+                    <li><a href="userDashboard.html" class="block px-4 py-2 hover:bg-gray-700">User Dashboard</a></li>
+                    <li><a href="packageManagement.html" class="block px-4 py-2 hover:bg-gray-700">Tour Package Management</a></li>
+                    <li><a href="customTour.html" class="block px-4 py-2 hover:bg-gray-700">Custom Tour Planning</a></li>
+                </ul>
+            </li>
+
+            <li><a href="http://localhost:8080/Project/Tourism/signup.php" class="hover:text-red-400">SignUp/Login</a></li>
         </ul>
     </nav>
+
+    <script>
+        // JavaScript to toggle dropdown on click
+        document.getElementById("dropdownBtn").addEventListener("click", function () {
+            var menu = document.getElementById("dropdownMenu");
+            menu.classList.toggle("hidden");
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener("click", function (event) {
+            var dropdown = document.getElementById("dropdownMenu");
+            var button = document.getElementById("dropdownBtn");
+
+            if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+                dropdown.classList.add("hidden");
+            }
+        });
+    </script>
 
     <div class="container mx-auto px-4 py-10">
         <h1 class="text-3xl font-bold text-center mb-6">Tour Feedback Form</h1>
