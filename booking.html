@@ -6,9 +6,9 @@
     <title>Tour Booking Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body class="">
     <nav class="flex justify-between items-center bg-gray-800 p-4">
-        <a href="mainPage.html" class="text-xl font-bold">Tour Operator</a>
+        <a href="mainPage.html" class="text-xl font-bold text-blue-400">Tour Operator</a>
         <ul class="flex space-x-4 relative items-center">
             <li><a href="mainPage.html" class="hover:text-yellow-400 text-blue-400">Home</a></li>
             <li><a href="destination.html" class="hover:text-yellow-400 text-blue-400">Destination</a></li>
@@ -28,9 +28,11 @@
                 <li><a href="customTour.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
               </ul>
             </li>
+            <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">
+              <img src="theme_icon.png" height="20px" width="20px">
+            </button>
+            <li><a href="http://localhost:8080/Project/Github/Tour-Guide-Management-System/signup.php" class="hover:text-red-400 bg-blue-500 text-white px-4 py-2 rounded">Login</a></li>
             
-            <li><a href="http://localhost:8080/Project/Tourism/signup.php" class="hover:text-red-400 text-blue-400">SignUp/Login</a></li>
-            <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">Light Mode</button>
         </ul>
       </nav>
 
@@ -140,8 +142,6 @@
           body.classList.toggle("text-black", savedTheme === "light");
           body.classList.toggle("text-white", savedTheme === "dark");
   
-          themeToggleBtn.textContent = savedTheme === "dark" ? "Light Mode" : "Dark Mode";
-  
           themeToggleBtn.addEventListener("click", function () {
               const newTheme = body.classList.contains("bg-gray-900") ? "light" : "dark";
               
@@ -151,10 +151,12 @@
               body.classList.toggle("text-white", newTheme === "dark");
               
               localStorage.setItem("theme", newTheme);
-              themeToggleBtn.textContent = newTheme === "dark" ? "Light Mode" : "Dark Mode";
           });
       });
     </script>
 
+<footer class="text-center mt-8 py-4 bg-gray-700 text-white">
+    <p>&copy; 2025 Tour Operator | <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a></p>
+  </footer>
 </body>
 </html>
