@@ -9,18 +9,32 @@
     
     <h1 class="text-4xl text-center font-bold mt-8">Popular Destinations</h1>
 
-    <nav class="flex justify-between items-center bg-gray-800 p-4 mt-6">
+    <nav class="flex justify-between items-center bg-gray-800 p-4">
         <a href="mainPage.html" class="text-xl font-bold">Tour Operator</a>
-        <ul class="flex space-x-4">
-            <li><a href="mainpage.html" class="hover:text-yellow-400">Home</a></li>
-            <li class="text-yellow-400"><a href="destination.html">Destination</a></li>
-            <!-- <li><a href="http://localhost:8080/Project/Tourism/gallery.html" class="hover:text-yellow-400">Gallery</a></li> -->
-            <li><a href="http://localhost:8080/Project/Tourism/feedback.html" class="hover:text-yellow-400">Feedback</a></li>
-            <li><a href="http://localhost:8080/Project/Tourism/booking.html" class="hover:text-yellow-400">Bookings</a></li>
-            <li><a href="http://localhost:8080/Project/Tourism/signup.php" class="hover:text-yellow-400">SignUp/Login</a></li>
+        <ul class="flex space-x-4 relative items-center">
+            <li><a href="mainPage.html" class="hover:text-yellow-400 text-blue-400">Home</a></li>
+            <li><a href="destination.html" class="hover:text-yellow-400 text-blue-400">Destination</a></li>
+            <li><a href="feedback.html" class="hover:text-yellow-400 text-blue-400">Feedback</a></li>
+            <li class="relative">
+              <button id="dropdownBtn" class="text-blue-400 cursor-pointer focus:outline-none flex items-center hover:text-yellow-400">
+                Bookings
+                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+              </button>
+              <ul id="dropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-60 z-50">
+                <li><a href="guidebooking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Hire a Guide</a></li>
+                <li><a href="booking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Booking</a></li>
+                <li><a href="userDashboard.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
+                <li><a href="packageManagement.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
+                <li><a href="customTour.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
+              </ul>
+            </li>
+            
+            <li><a href="http://localhost:8080/Project/Tourism/signup.php" class="hover:text-red-400 text-blue-400">SignUp/Login</a></li>
+            <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">Light Mode</button>
         </ul>
-    </nav>
-
+      </nav>
     <div class="container mx-auto px-4 py-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Destination Box -->
@@ -81,3 +95,50 @@
     </div>
 
     <footer class="text-center mt-8 py-4 bg-gray-800">
+        <p>&copy; 2025 Tour Operator | <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a></p>
+      </footer>
+
+      <script>
+        document.getElementById("dropdownBtn").addEventListener("click", function () {
+          var menu = document.getElementById("dropdownMenu");
+          menu.classList.toggle("hidden");
+      });
+      
+      document.addEventListener("click", function (event) {
+          var dropdown = document.getElementById("dropdownMenu");
+          var button = document.getElementById("dropdownBtn");
+          
+          if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+              dropdown.classList.add("hidden");
+          }
+      });
+  
+      document.addEventListener("DOMContentLoaded", function () {
+          const themeToggleBtn = document.getElementById("themeToggle");
+          const body = document.body;
+          
+          const savedTheme = localStorage.getItem("theme") || "dark";
+          body.classList.toggle("bg-gray-100", savedTheme === "light");
+          body.classList.toggle("bg-gray-900", savedTheme === "dark");
+          body.classList.toggle("text-black", savedTheme === "light");
+          body.classList.toggle("text-white", savedTheme === "dark");
+  
+          themeToggleBtn.textContent = savedTheme === "dark" ? "Light Mode" : "Dark Mode";
+  
+          themeToggleBtn.addEventListener("click", function () {
+              const newTheme = body.classList.contains("bg-gray-900") ? "light" : "dark";
+              
+              body.classList.toggle("bg-gray-100", newTheme === "light");
+              body.classList.toggle("bg-gray-900", newTheme === "dark");
+              body.classList.toggle("text-black", newTheme === "light");
+              body.classList.toggle("text-white", newTheme === "dark");
+              
+              localStorage.setItem("theme", newTheme);
+              themeToggleBtn.textContent = newTheme === "dark" ? "Light Mode" : "Dark Mode";
+          });
+      });
+      </script>
+
+</body>
+</html>
+
