@@ -5,40 +5,42 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Destinations</title>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="text-white">
     
-    <h1 class="text-4xl text-center font-bold mt-8">Popular Destinations</h1>
-
+    
     <nav class="flex justify-between items-center bg-gray-800 p-4">
-        <a href="mainPage.html" class="text-xl font-bold">Tour Operator</a>
+        <a href="mainPage.html" class="text-xl font-bold text-blue-400">Tour Operator</a>
         <ul class="flex space-x-4 relative items-center">
             <li><a href="mainPage.html" class="hover:text-yellow-400 text-blue-400">Home</a></li>
             <li><a href="destination.html" class="hover:text-yellow-400 text-blue-400">Destination</a></li>
             <li><a href="feedback.html" class="hover:text-yellow-400 text-blue-400">Feedback</a></li>
             <li class="relative">
-              <button id="dropdownBtn" class="text-blue-400 cursor-pointer focus:outline-none flex items-center hover:text-yellow-400">
-                Bookings
-                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                </svg>
-              </button>
-              <ul id="dropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-60 z-50">
-                <li><a href="guidebooking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Hire a Guide</a></li>
-                <li><a href="booking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Booking</a></li>
-                <li><a href="userDashboard.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
-                <li><a href="packageManagement.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
-                <li><a href="customTour.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
-              </ul>
+                <button id="dropdownBtn" class="text-blue-400 cursor-pointer focus:outline-none flex items-center hover:text-yellow-400">
+                    Bookings
+                    <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <ul id="dropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-60 z-50">
+                    <li><a href="guidebooking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Hire a Guide</a></li>
+                    <li><a href="booking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Booking</a></li>
+                    <li><a href="userDashboard.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
+                    <li><a href="packageManagement.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
+                    <li><a href="customTour.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
+                </ul>
             </li>
+            <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">
+                <img src="theme_icon.png" alt="Theme Toggle" height="20px" width="20px">
+            </button>
+            <li><a href="http://localhost:8080/Project/Github/Tour-Guide-Management-System/signup.php" class="hover:text-red-400 bg-blue-500 text-white px-4 py-2 rounded">Login</a></li>
             
-            <li><a href="http://localhost:8080/Project/Tourism/signup.php" class="hover:text-red-400 text-blue-400">SignUp/Login</a></li>
-            <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">Light Mode</button>
         </ul>
-      </nav>
+    </nav>
+    <h1 class="text-4xl text-center font-bold mt-8">Popular Destinations</h1>
     <div class="container mx-auto px-4 py-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Destination Box -->
-            <div class="bg-gray-800 p-4 rounded-lg text-center hover:scale-105 transition">
+            <div class="p-4 rounded-lg text-center hover:scale-105 transition">
                 <img src="images/destination/goa1.jpg" class="w-full h-60 object-cover rounded-md">
                 <h2 class="text-lg mt-2">Goa</h2>
                 <form method="POST" action="info.php">
@@ -47,7 +49,7 @@
                 </form>
             </div>
 
-            <div class="bg-gray-800 p-4 rounded-lg text-center hover:scale-105 transition">
+            <div class="p-4 rounded-lg text-center hover:scale-105 transition">
                 <img src="images/destination/kerala1.jpg" class="w-full h-60 object-cover rounded-md">
                 <h2 class="text-lg mt-2">Kerala</h2>
                 <form method="POST" action="info.php">
@@ -56,7 +58,7 @@
                 </form>
             </div>
 
-            <div class="bg-gray-800 p-4 rounded-lg text-center hover:scale-105 transition">
+            <div class="p-4 rounded-lg text-center hover:scale-105 transition">
                 <img src="images/destination/mysore1.jpg" class="w-full h-60 object-cover rounded-md">
                 <h2 class="text-lg mt-2">Mysore</h2>
                 <form method="POST" action="info.php">
@@ -65,7 +67,7 @@
                 </form>
             </div>
 
-            <div class="bg-gray-800 p-4 rounded-lg text-center hover:scale-105 transition">
+            <div class="p-4 rounded-lg text-center hover:scale-105 transition">
                 <img src="images/destination/ladakh1.jpg" class="w-full h-60 object-cover rounded-md">
                 <h2 class="text-lg mt-2">Ladakh</h2>
                 <form method="POST" action="info.php">
@@ -74,7 +76,7 @@
                 </form>
             </div>
 
-            <div class="bg-gray-800 p-4 rounded-lg text-center hover:scale-105 transition">
+            <div class="p-4 rounded-lg text-center hover:scale-105 transition">
                 <img src="images/destination/tajmahal1.jpg" class="w-full h-60 object-cover rounded-md">
                 <h2 class="text-lg mt-2">Agra</h2>
                 <form method="POST" action="info.php">
@@ -83,18 +85,17 @@
                 </form>
             </div>
 
-            <div class="bg-gray-800 p-4 rounded-lg text-center hover:scale-105 transition">
+            <div class="p-4 rounded-lg text-center hover:scale-105 transition">
                 <img src="images/destination/india_gate1.jpg" class="w-full h-60 object-cover rounded-md">
                 <h2 class="text-lg mt-2">India Gate</h2>
                 <form method="POST" action="info.php">
                     <input type="submit" name="india_gate" value="Visit"
-                        class="bg-blue-500 px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600 cursor-pointer">
+                        class="px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600 cursor-pointer">
                 </form>
             </div>
         </div>
     </div>
-
-    <footer class="text-center mt-8 py-4 bg-gray-800">
+    <footer class="text-center mt-8 py-4 bg-gray-700 text-white">
         <p>&copy; 2025 Tour Operator | <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a></p>
       </footer>
 
@@ -112,7 +113,6 @@
               dropdown.classList.add("hidden");
           }
       });
-  
       document.addEventListener("DOMContentLoaded", function () {
           const themeToggleBtn = document.getElementById("themeToggle");
           const body = document.body;
@@ -123,8 +123,6 @@
           body.classList.toggle("text-black", savedTheme === "light");
           body.classList.toggle("text-white", savedTheme === "dark");
   
-          themeToggleBtn.textContent = savedTheme === "dark" ? "Light Mode" : "Dark Mode";
-  
           themeToggleBtn.addEventListener("click", function () {
               const newTheme = body.classList.contains("bg-gray-900") ? "light" : "dark";
               
@@ -134,7 +132,6 @@
               body.classList.toggle("text-white", newTheme === "dark");
               
               localStorage.setItem("theme", newTheme);
-              themeToggleBtn.textContent = newTheme === "dark" ? "Light Mode" : "Dark Mode";
           });
       });
       </script>
