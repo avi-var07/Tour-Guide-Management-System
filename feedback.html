@@ -5,9 +5,9 @@
     <title>Tour Feedback Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="text-white">
     <nav class="flex justify-between items-center bg-gray-800 p-4">
-        <a href="mainPage.html" class="text-xl font-bold">Tour Operator</a>
+        <a href="mainPage.html" class="text-xl font-bold text-blue-400">Tour Operator</a>
         <ul class="flex space-x-4 relative items-center">
             <li><a href="mainPage.html" class="hover:text-yellow-400 text-blue-400">Home</a></li>
             <li><a href="destination.html" class="hover:text-yellow-400 text-blue-400">Destination</a></li>
@@ -27,9 +27,11 @@
                 <li><a href="customTour.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
               </ul>
             </li>
+            <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">
+              <img src="theme_icon.png" alt="Theme Toggle" height="20px" width="20px">
+            </button>
+            <li><a href="http://localhost:8080/Project/Github/Tour-Guide-Management-System/signup.php" class="hover:text-red-400 bg-blue-500 text-white px-4 py-2 rounded">Login</a></li>
             
-            <li><a href="http://localhost:8080/Project/Tourism/signup.php" class="hover:text-red-400 text-blue-400">SignUp/Login</a></li>
-            <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">Light Mode</button>
         </ul>
       </nav>
 
@@ -73,8 +75,6 @@
           body.classList.toggle("text-black", savedTheme === "light");
           body.classList.toggle("text-white", savedTheme === "dark");
   
-          themeToggleBtn.textContent = savedTheme === "dark" ? "Light Mode" : "Dark Mode";
-  
           themeToggleBtn.addEventListener("click", function () {
               const newTheme = body.classList.contains("bg-gray-900") ? "light" : "dark";
               
@@ -84,20 +84,19 @@
               body.classList.toggle("text-white", newTheme === "dark");
               
               localStorage.setItem("theme", newTheme);
-              themeToggleBtn.textContent = newTheme === "dark" ? "Light Mode" : "Dark Mode";
           });
       });
     </script>
 
     <div class="container mx-auto px-4 py-10">
         <h1 class="text-3xl font-bold text-center mb-6">Tour Feedback Form</h1>
-        <p class="text-center text-gray-400 mb-6">We would love to hear your feedback so we can improve our services. Thank you!</p>
+        <p class="text-center text-semibold text-blue-400 mb-6">We would love to hear your feedback so we can improve our services. Thank you!</p>
 
-        <form name='feedbackForm' method="POST" action="feedback.php" class="max-w-3xl mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
-            
+        
+        <form name='feedbackForm' method="POST" action="feedback.php" class="max-w-3xl mx-auto bg-green-500 p-6 rounded-lg shadow-lg">
             <!-- Tour Guide Name -->
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">Tour Guide Name</label>
+                <label class="text-black font-semibold mb-1">Tour Guide Name</label>
                 <div class="flex space-x-4">
                     <input type="text" name="guide_fname" placeholder="Name" required class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600">
                 
@@ -106,27 +105,27 @@
 
             <!-- Trip Name -->
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">Trip Name</label>
-                <input type="text" name="trip_name" placeholder="Trip Name" required class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600">
+                <label class="text-black font-semibold mb-1">Trip Name</label>
+                <input type="text" name="trip_name" placeholder="Trip Name" required class="w-full px-4 py-2 rounded-md bg-gray-700 text-black border border-gray-600">
             </div>
 
             <!-- Trip Destination -->
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">Trip Destination</label>
-                <input type="text" name="trip_destination" placeholder="Trip Destination" required class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600">
+                <label class="text-black font-semibold mb-1">Trip Destination</label>
+                <input type="text" name="trip_destination" placeholder="Trip Destination" required class="w-full px-4 py-2 rounded-md bg-gray-700 text-black border border-gray-600">
             </div>
             <!-- Departure Date -->
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">Trip Departure Date</label>
+                <label class="text-black font-semibold mb-1">Trip Departure Date</label>
                 <input type="date" name="departure_date" required
-                    class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:ring-2 focus:ring-blue-500">
+                    class="w-full px-4 py-2 rounded-md bg-gray-700 text-black border border-gray-600 focus:ring-2 focus:ring-blue-500">
             </div>
 
 
-            <!-- Rating Table -->
+        
             <div class="mb-6">
-                <label class="block text-gray-300 font-semibold mb-2">Please rate us using the following criteria:</label>
-                <table class="w-full text-center border border-gray-600 text-gray-400">
+                <label class="text-black font-semibold mb-2">Please rate us using the following criteria:</label>
+                <table class="w-full text-center border border-gray-600 text-white">
                     <tr>
                         <th class="border border-gray-600 p-2">Criteria</th>
                         <th class="border border-gray-600 p-2">Excellent</th>
@@ -134,7 +133,7 @@
                         <th class="border border-gray-600 p-2">Needs Improvement</th>
                         <th class="border border-gray-600 p-2">Not Satisfied</th>
                     </tr>
-                    <!-- Generate rating rows -->
+            
                     <script>
                         let criteria = ["Accommodation", "Transport", "Food", "Places", "Professionalism", "Costs", "Ease of Communication", "Safety", "Driver", "Tour Guide", "Knowledge", "Registration Process", "Payment Process"];
                         document.write(criteria.map(c => `
@@ -149,34 +148,34 @@
                 </table>
             </div>
 
-            <!-- 10-Star Rating -->
+        
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">What is your overall rating of the tour experience?</label>
+                <label class="text-black font-semibold mb-1">What is your overall rating of the tour experience?</label>
                 <div id="starRating" class="flex space-x-1 text-yellow-500 text-2xl cursor-pointer"></div>
                 <input type="hidden" name="overall_rating" id="ratingValue">
             </div>
-            <!-- Additional Questions -->
+            
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">What were the places you enjoyed during this tour?</label>
+                <label class="text-black font-semibold mb-1">What were the places you enjoyed during this tour?</label>
                 <textarea name="places_enjoyed" rows="3" placeholder="Type here..." required
                     class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600"></textarea>
             </div>
 
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">What were the places you did not enjoy during this tour?</label>
+                <label class="text-black font-semibold mb-1">What were the places you did not enjoy during this tour?</label>
                 <textarea name="places_not_enjoyed" rows="3" placeholder="Type here..."
                     class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600"></textarea>
             </div>
 
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">What places would you like to visit next?</label>
+                <label class="text-black font-semibold mb-1">What places would you like to visit next?</label>
                 <textarea name="places_next" rows="3" placeholder="Type here..."
                     class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600"></textarea>
             </div>
-            <!-- Additional Questions -->
+        
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">How did you hear about us?</label>
-                <select name="heard_about_us" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600">
+                <label class="text-black font-semibold mb-1">How did you hear about us?</label>
+                <select name="heard_about_us" class="w-full px-4 py-2 rounded-md bg-gray-700 text-gray-700 border border-gray-600">
                     <option>Please Select</option>
                     <option>Social Media</option>
                     <option>Friend Referral</option>
@@ -184,31 +183,31 @@
                 </select>
             </div>
 
-            <!-- Additional Questions -->
+        
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">More Comments, Feedback, Suggestions</label>
+                <label class="text-black font-semibold mb-1">More Comments, Feedback, Suggestions</label>
                 <textarea name="additional_feedback" rows="3" placeholder="Type here..." class="w-full px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600"></textarea>
             </div>
 
-            <!-- Referral Question -->
+
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">Would you refer or recommend us to your friends, colleagues, or family?</label>
+                <label class="text-black font-semibold mb-1">Would you refer or recommend us to your friends, colleagues, or family?</label>
                 <div class="flex space-x-4">
                     <label><input type="radio" name="recommend" value="Yes"> Yes</label>
                     <label><input type="radio" name="recommend" value="No"> No</label>
                 </div>
             </div>
 
-            <!-- Promotional Emails -->
+    
             <div class="mb-4">
-                <label class="block text-gray-300 font-semibold mb-1">Would you like to receive promotional emails from us?</label>
+                <label class="block text-black font-semibold mb-1">Would you like to receive promotional emails from us?</label>
                 <div class="flex space-x-4">
                     <label><input type="radio" name="promo_emails" value="Yes"> Yes</label>
                     <label><input type="radio" name="promo_emails" value="No"> No</label>
                 </div>
             </div>
 
-            <!-- Submit Button -->
+        
             <div class="text-center">
                 <button type="submit" class="bg-blue-500 px-6 py-2 rounded-md font-bold hover:bg-blue-600 transition">
                     Submit Feedback
@@ -217,15 +216,25 @@
         </form>
     </div>
 
-    <footer class="text-center mt-8 py-4 bg-gray-800">
-        <p>&copy; 2025 Tour Operator | 
-            <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | 
-            <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a>
-        </p>
-    </footer>
+    <footer class="text-center mt-8 py-4 bg-gray-700 text-white">
+        <p>&copy; 2025 Tour Operator | <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a></p>
+      </footer>
 
     <!-- JavaScript for 10-star rating system -->
     <script>
+        document.getElementById("dropdownBtn").addEventListener("click", function () {
+          var menu = document.getElementById("dropdownMenu");
+          menu.classList.toggle("hidden");
+      });
+      
+      document.addEventListener("click", function (event) {
+          var dropdown = document.getElementById("dropdownMenu");
+          var button = document.getElementById("dropdownBtn");
+          
+          if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+              dropdown.classList.add("hidden");
+          }
+      });
         const starContainer = document.getElementById("starRating");
         const ratingInput = document.getElementById("ratingValue");
     
