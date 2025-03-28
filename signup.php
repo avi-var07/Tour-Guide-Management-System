@@ -95,24 +95,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
         }
     </script>
 </head>
-<body class="bg-gray-900 flex justify-center items-center min-h-screen pt-16">
-
-<nav class="bg-gray-800 p-4 w-full fixed top-0 left-0 shadow-lg">
-    <div class="container mx-auto flex justify-between items-center">
-        <a href="mainPage.html" class="text-white text-lg font-bold">Tour Operator</a>
-        <ul class="flex space-x-6">
-            <li><a href="mainPage.html" class="text-white hover:text-yellow-400">Home</a></li>
-            <li><a href="destination.html" class="text-white hover:text-yellow-400">Destination</a></li>
-            <!-- <li><a href="gallery.html" class="text-white hover:text-yellow-400">Gallery</a></li> -->
-            <li><a href="feedback.html" class="text-white hover:text-yellow-400">Feedback</a></li>
-            <li><a href="http://localhost:8080/Project/Tourism/booking.html" class=" text-white hover:text-yellow-400">Bookings</a></li>
-            <li><a href="signup.php" class="text-white hover:text-yellow-400">SignUp/Login</a></li>
+<body>
+<nav class="flex justify-between items-center bg-gray-800 p-4">
+        <a href="mainPage.html" class="text-xl font-bold text-blue-400">Tour Operator</a>
+        <ul class="flex space-x-4 relative items-center">
+            <li><a href="mainPage.html" class="hover:text-yellow-400 text-blue-400">Home</a></li>
+            <li><a href="destination.html" class="hover:text-yellow-400 text-blue-400">Destination</a></li>
+            <li><a href="feedback.html" class="hover:text-yellow-400 text-blue-400">Feedback</a></li>
+            <li class="relative">
+              <button id="dropdownBtn" class="text-blue-400 cursor-pointer focus:outline-none flex items-center hover:text-yellow-400">
+                Bookings
+                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+              </button>
+              <ul id="dropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-60 z-50">
+                <li><a href="guidebooking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Hire a Guide</a></li>
+                <li><a href="booking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Booking</a></li>
+                <li><a href="userDashboard.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
+                <li><a href="packageManagement.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
+                <li><a href="customTour.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
+              </ul>
+            </li>
+            <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">
+              <img src="theme_icon.png" height="20px" width="20px">
+            </button>
+            <li><a href="http://localhost:8080/Project/Github/Tour-Guide-Management-System/signup.php" class="hover:text-red-400 bg-blue-500 text-white px-4 py-2 rounded">Login</a></li>
+            
         </ul>
-    </div>
-</nav>
-
-<div class="bg-white p-6 rounded-lg shadow-lg w-[400px]">
-    <h2 class="text-2xl font-bold mb-4 text-center">Create an Account</h2>
+      </nav>
+<div class="bg-white p-6 rounded-lg shadow-lg w-[400px] flexbox justify-center items-center mt-20 mx-auto">
+    <h2 class="text-2xl font-bold mb-4 text-center text-gray-700">Create an Account</h2>
 
     <?php
     if (isset($_SESSION['error'])) {
@@ -127,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
 
     <form action="signup.php" method="POST" onsubmit="return validateTerms()">
         <fieldset class="border p-4 rounded-lg">
-            <legend class="text-lg font-semibold">Personal Information</legend>
+            <legend class="text-lg text-gray-700">Personal Information</legend>
             <div class="grid grid-cols-2 gap-3">
                 <div class="col-span-2">
                     <label class="block text-gray-700">Full Name</label>
@@ -202,6 +215,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
         </p>
 
     </form>
+    
+    <script>
+      document.getElementById("dropdownBtn").addEventListener("click", function () {
+          var menu = document.getElementById("dropdownMenu");
+          menu.classList.toggle("hidden");
+      });
+      
+      document.addEventListener("click", function (event) {
+          var dropdown = document.getElementById("dropdownMenu");
+          var button = document.getElementById("dropdownBtn");
+          
+          if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+              dropdown.classList.add("hidden");
+          }
+      });
+  
+      document.addEventListener("DOMContentLoaded", function () {
+          const themeToggleBtn = document.getElementById("themeToggle");
+          const body = document.body;
+          
+          const savedTheme = localStorage.getItem("theme") || "dark";
+          body.classList.toggle("bg-gray-100", savedTheme === "light");
+          body.classList.toggle("bg-gray-900", savedTheme === "dark");
+          body.classList.toggle("text-black", savedTheme === "light");
+          body.classList.toggle("text-white", savedTheme === "dark");
+  
+          themeToggleBtn.addEventListener("click", function () {
+              const newTheme = body.classList.contains("bg-gray-900") ? "light" : "dark";
+              
+              body.classList.toggle("bg-gray-100", newTheme === "light");
+              body.classList.toggle("bg-gray-900", newTheme === "dark");
+              body.classList.toggle("text-black", newTheme === "light");
+              body.classList.toggle("text-white", newTheme === "dark");
+              
+              localStorage.setItem("theme", newTheme);
+          });
+      });
+    </script>
 </div>
+
+<footer class="text-center mt-8 py-4 bg-gray-700 text-white">
+    <p>&copy; 2025 Tour Operator | <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a></p>
+  </footer>
 </body>
 </html>
