@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
         $result = mysqli_stmt_get_result($stmt);
 
         if (mysqli_num_rows($result) > 0) {
-            $_SESSION['error'] = "Email already registered!";
+            $_SESSION['error'] = "Email is already registered!";
         } else {
             // Hash Password
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
