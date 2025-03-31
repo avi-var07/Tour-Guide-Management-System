@@ -23,7 +23,7 @@
               <ul id="dropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-60 z-50">
                 <li><a href="guidebooking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Hire a Guide</a></li>
                 <li><a href="booking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Booking</a></li>
-                <li><a href="userDashboard.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
+                <li><a href="userDashboard.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
                 <li><a href="packageManagement.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
                 <li><a href="customTour.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
               </ul>
@@ -73,9 +73,13 @@
     </div>
 
 
-    <footer class="text-center mt-8 py-4 bg-gray-700 text-white">
-        <p>&copy; 2025 Tour Operator | <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a></p>
-      </footer>
+    <footer class="text-center py-4 bg-gray-700 text-white fixed bottom-0 w-full">
+        <p>&copy; 2025 Tour Operator | 
+            <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | 
+            <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a>
+        </p>
+    </footer>
+    
     <script>
    document.getElementById("dropdownBtn").addEventListener("click", function () {
           var menu = document.getElementById("dropdownMenu");
@@ -148,10 +152,13 @@
             const selectedExpertise = document.getElementById("expertiseFilter").value;
             loadGuides(selectedLocation, selectedExpertise);
         }
-
         function bookGuide(guideName) {
-            alert(`Guide ${guideName} has been booked successfully!`);
+            window.location.href = `booking.html?guide=${encodeURIComponent(guideName)}`;
         }
+
+
+
+        
 
         // Load all guides on page load
         loadGuides();

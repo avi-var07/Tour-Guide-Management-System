@@ -26,7 +26,7 @@
               <ul id="dropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-60 z-50">
                 <li><a href="guidebooking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Hire a Guide</a></li>
                 <li><a href="booking.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Booking</a></li>
-                <li><a href="userDashboard.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
+                <li><a href="userDashboard.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
                 <li><a href="packageManagement.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
                 <li><a href="customTour.html" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
               </ul>
@@ -73,6 +73,25 @@
                 body.classList.toggle("text-white", newTheme === "dark");
                 
                 localStorage.setItem("theme", newTheme);
+            });
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url: "fetch_customer.php",
+                type: "GET",
+                dataType: "json",
+                success: function(response) {
+                    if (response.error) {
+                        alert(response.error);
+                    } else {
+                        $("#fullname").val(response.fname);
+                        $("#email").val(response.email);
+                        $("#phone").val(response.phone);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log("AJAX Error:", error);
+                }
             });
         });
       </script>
@@ -172,6 +191,39 @@
                 })
                 .catch(error => console.error("Error fetching user history:", error));
         });
+        document.addEventListener("DOMContentLoaded", function () {
+    fetch('fetch_customer.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error("Error:", data.error);
+            } else {
+                document.getElementById('fullName').value = data.fname;
+                document.getElementById('email').value = data.email;
+                document.getElementById('phone').value = data.phone;
+            }
+        })
+        .catch(error => console.error('Error fetching user data:', error));
+});
+
+        // Fetch User History
+        document.getElementById("fetchHistory").addEventListener("click", function () {
+            fetch('fetchUserHistory.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("history").innerHTML = data;
+                })
+                .catch(error => console.error('Error fetching history:', error));
+        });
+
+   
+</script>
+
+<!-- User Dashboard Fields -->
+<p>Full Name: <span id="fullname"></span></p>
+<p>Email: <span id="email"></span></p>
+<p>Phone: <span id="phone"></span></p>
+
     </script>
     <div class="bg-gray-800 p-6 rounded-md shadow-md text-white">
         <h2 class="text-xl font-semibold mb-4">Wallet & Payment Methods</h2>
