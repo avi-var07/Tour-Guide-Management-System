@@ -48,8 +48,7 @@ if (isset($_POST['send_otp'])) {
     $mail->Password = 'dzbj qcar iihw lbga'; 
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
-    $mail->SMTPDebug = 2; 
-    $mail->Debugoutput = 'html'; 
+ 
 
 
     $mail->setFrom('aviralvarshney07@gmail.com', 'Aviral Varshney');
@@ -147,8 +146,6 @@ if (isset($_POST['signup'])) {
     }
     
 }
-// session_unset();  // clears all session variables
-// session_destroy(); // ends the session
 
 ?>
 
