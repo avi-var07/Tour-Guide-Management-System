@@ -1,15 +1,79 @@
 <?php
 session_start();
+
+require 'vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
+include 'config.php';
+
 // Database Connection
 $con = mysqli_connect('localhost', 'root', '', 'travel', 3306);
-
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
-    $firstname = trim($_POST['name']);
-    $email = trim($_POST['email']);
+// Handle OTP Sending
+if (isset($_POST['send_otp'])) {
+    $_SESSION['name'] = $_POST['name'];
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['phone'] = $_POST['phone'];
+    $_SESSION['dob'] = $_POST['dob'];
+    $_SESSION['pincode'] = $_POST['pincode'];
+    $_SESSION['city'] = $_POST['city'];
+    $_SESSION['state'] = $_POST['state'];
+    $_SESSION['password'] = $_POST['password'];
+    $_SESSION['confirm_password'] = $_POST['confirm_password'];
+    $_SESSION['terms'] = isset($_POST['terms']) ? 1 : 0;
+    $email = $_POST['email'];
+    $_SESSION['email'] = $email;
+    $_SESSION['otp_time'] = time();
+
+
+    // Generate OTP
+    $otp = rand(100000, 999999);
+    $_SESSION['otp'] = password_hash($otp, PASSWORD_DEFAULT);
+    
+    
+    
+    // Send OTP via email
+    $mail = new PHPMailer(true);
+    try {
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com'; 
+    $mail->SMTPAuth = true;
+    $mail->Username = 'aviralvarshney07@gmail.com'; 
+    $mail->Password = 'dzbj qcar iihw lbga'; 
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
+    $mail->SMTPDebug = 2; 
+    $mail->Debugoutput = 'html'; 
+
+
+    $mail->setFrom('aviralvarshney07@gmail.com', 'Aviral Varshney');
+    $mail->addAddress($email);
+    $mail->Subject = "Your OTP for Signup";
+    $mail->Body = "Your OTP is: " . $otp;
+    $mail->SMTPDebug = 2;  // Debugging enable karein
+    $mail->Debugoutput = 'html';
+    
+    $mail->send();
+    $_SESSION['otp_sent'] = "OTP sent successfully!";
+} catch (Exception $e) {
+    $_SESSION['error'] = "OTP sending failed: " . $mail->ErrorInfo;
+}
+
+}
+// Handle Signup
+if (isset($_POST['signup'])) {
+    if (!isset($_POST['terms'])) {
+        $_SESSION['error'] = "You must agree to the Terms and Conditions!";
+    }
+
+    $firstname = htmlspecialchars(trim($_POST['name']));
+    $email = htmlspecialchars(trim($_POST['email']));
     $phone = trim($_POST['phone']);
     $dob = $_POST['dob'];
     $pincode = trim($_POST['pincode']);
@@ -17,33 +81,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
     $state = trim($_POST['state']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-
-    // Terms & Conditions validation
-    if (!isset($_POST['terms'])) {
-        $_SESSION['error'] = "You must agree to the Terms and Conditions!";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $otp_entered = $_POST['otp'];
+    
+    if (time() - $_SESSION['otp_time'] > 300) {
+        $_SESSION['error'] = "OTP expired!";
+        header("Location: signup.php");
+        exit();
+    } elseif (!password_verify($otp_entered, $_SESSION['otp'])) {
+        $_SESSION['error'] = "Invalid OTP!";
+        header("Location: signup.php");
+        exit();
+    }
+    
+    // Store values in session to retain them on form submission failure
+    $_SESSION['name'] = $firstname;
+    $_SESSION['email'] = $email;
+    $_SESSION['phone'] = $phone;
+    $_SESSION['dob'] = $dob;
+    $_SESSION['pincode'] = $pincode;
+    $_SESSION['city'] = $city;
+    $_SESSION['state'] = $state;
+    $_SESSION['password'] = $password;
+    $_SESSION['confirm_password'] = $confirm_password;
+   
+    
+    // Validate OTP
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['error'] = "Invalid email format!";
     } elseif ($password !== $confirm_password) {
         $_SESSION['error'] = "Passwords do not match!";
     } else {
-        // Check if email already exists
-        $email_check_query = "SELECT * FROM `customer` WHERE email=?";
-        $stmt = mysqli_prepare($con, $email_check_query);
+        // Check if email exists
+        $stmt = mysqli_prepare($con, "SELECT * FROM `customer` WHERE email=?");
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-
+        
         if (mysqli_num_rows($result) > 0) {
             $_SESSION['error'] = "Email is already registered!";
         } else {
             // Hash Password
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
+            
             // Insert Data
-            $insert = "INSERT INTO `customer` (fname, email, phone, dob, pincode, city, state, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            $stmt = mysqli_prepare($con, $insert);
+            $stmt = mysqli_prepare($con, "INSERT INTO `customer` (fname, email, phone, dob, pincode, city, state, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             mysqli_stmt_bind_param($stmt, "ssssssss", $firstname, $email, $phone, $dob, $pincode, $city, $state, $hashed_password);
-
+            
             if (mysqli_stmt_execute($stmt)) {
                 $_SESSION['success'] = "Signup Successful! Please login.";
                 header("Location: signin.php");
@@ -53,8 +136,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
             }
         }
     }
+    if (isset($_POST['signup'])) {
+        // Form validation aur database insertion yaha ho raha hai...
+    
+        if ($signup_successful) {  // If signup is successful
+            unset($_SESSION['name'], $_SESSION['email'], $_SESSION['phone'], $_SESSION['dob'], $_SESSION['pincode'], $_SESSION['city'], $_SESSION['state'],$_SESSION['password'], $_SESSION['confirm_password']);
+            header("Location: signin.php");
+            exit();
+        }
+    }
+    
 }
+// session_unset();  // clears all session variables
+// session_destroy(); // ends the session
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -144,58 +241,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
             <div class="grid grid-cols-2 gap-3">
                 <div class="col-span-2">
                     <label class="block text-gray-700">Full Name</label>
-                    <input type="text" name="name" required 
-                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                    <input type="text" name="name" value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black">
+
                 </div>
 
                 <div class="col-span-2">
                     <label class="block text-gray-700">Email</label>
-                    <input type="email" name="email" required 
-                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                    <input type="email" name="email" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black" >
                 </div>
 
                 <div class="col-span-2">
                     <label class="block text-gray-700">Contact Number</label>
-                    <input type="tel" name="phone" pattern="[0-9]{10}" maxlength="10" required 
-                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                           placeholder="Enter 10-digit number">
+                    <input type="tel" name="phone" pattern="[0-9]{10}" maxlength="10" value="<?= isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>" required 
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black"
+                           placeholder="Enter 10-digit number" >
                 </div>
 
                 <div>
                     <label class="block text-gray-700">DOB</label>
-                    <input type="date" name="dob" required 
-                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                    <input type="date" name="dob" value="<?= isset($_POST['dob']) ? htmlspecialchars($_POST['dob']) : ''; ?>" required 
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black" value="<?= isset($_SESSION['dob']) ? $_SESSION['dob'] : '' ?>">
                 </div>
 
                 <div>
                     <label class="block text-gray-700">Pincode</label>
                     <input type="text" id="pincode" name="pincode" required maxlength="6" pattern="[0-9]{6}"
-                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                           placeholder="Enter Pincode" onkeyup="fetchLocation()">
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black"
+                           placeholder="Enter Pincode" onkeyup="fetchLocation()" value="<?= isset($_SESSION['pincode']) ? $_SESSION['pincode'] : '' ?>">
                 </div>
 
                 <div>
                     <label class="block text-gray-700">City</label>
-                    <input type="text" id="city" name="city" readonly 
-                           class="w-full px-3 py-2 border rounded-lg bg-gray-200">
+                    <input type="text" id="city" name="city" readonly value="<?= isset($_POST['city']) ? htmlspecialchars($_POST['city']) : ''; ?>" required
+                           class="w-full px-3 py-2 border rounded-lg bg-gray-200 text-black" >
                 </div>
 
                 <div>
                     <label class="block text-gray-700">State</label>
-                    <input type="text" id="state" name="state" readonly 
-                           class="w-full px-3 py-2 border rounded-lg bg-gray-200">
+                    <input type="text" id="state" name="state" readonly value="<?= isset($_POST['state']) ? htmlspecialchars($_POST['state']) : ''; ?>" required
+                           class="w-full px-3 py-2 border rounded-lg bg-gray-200 text-black" >
                 </div>
 
                 <div class="col-span-2">
                     <label class="block text-gray-700">Password</label>
-                    <input type="password" name="password" required 
-                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                    <input type="password" name="password" value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>" required 
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black" >
                 </div>
 
                 <div class="col-span-2">
                     <label class="block text-gray-700">Confirm Password</label>
-                    <input type="password" name="confirm_password" required 
-                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                    <input type="password" name="confirm_password" value="<?= isset($_POST['confirm_password']) ? htmlspecialchars($_POST['confirm_password']) : ''; ?>" required 
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black" >
                 </div>
 
                 <div class="col-span-2 flex items-center">
@@ -204,6 +300,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
                         <a href="terms.php" class="text-blue-500 underline">Terms and Conditions</a>
                     </label>
                 </div>
+                <div class="col-span-2">
+                
+                <button type="submit" name="send_otp" formnovalidate class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Send OTP</button>
+
+            </div>
+
+            <div class="col-span-2">
+                <label class="block text-gray-700">Enter OTP</label>
+                <input type="text" name="otp" maxlength="6" 
+                       class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black" >
+            </div>
             </div>
         </fieldset>
 
