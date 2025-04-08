@@ -108,7 +108,7 @@ session_start();
                 <h2 class="text-lg mt-2">India Gate</h2>
                 <form method="POST" action="info.php">
                     <input type="submit" name="india_gate" value="Visit"
-                        class="px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600 cursor-pointer">
+                        class="bg-blue-500 px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600 cursor-pointer">
                 </form>
             </div>
         </div>
