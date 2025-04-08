@@ -44,7 +44,7 @@ session_start();
               </svg>
             </button>
             <ul id="userDropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-48 z-50">
-              <li><a href="logout.php" class="block px-4 py-2 hover:bg-gray-700 text-red-400">Logout</a></li>
+              <li><a href="logout.php" class="block px-4 py-2 hover:text-red-700 text-white">Logout</a></li>
             </ul>
           </li>
           <?php else: ?>
@@ -53,13 +53,18 @@ session_start();
           </ul>
         </nav>
         <script>
-   document.addEventListener("DOMContentLoaded", function () {
-    // Bookings dropdown toggle
+document.addEventListener("DOMContentLoaded", function () {
     const dropdownBtn = document.getElementById("dropdownBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
+    const userDropdownBtn = document.getElementById("userDropdownBtn");
+    const userDropdownMenu = document.getElementById("userDropdownMenu");
+    const themeToggleBtn = document.getElementById("themeToggle");
+    const body = document.body;
 
+    // Bookings Dropdown Toggle
     if (dropdownBtn && dropdownMenu) {
-        dropdownBtn.addEventListener("click", function () {
+        dropdownBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
             dropdownMenu.classList.toggle("hidden");
         });
 
@@ -70,10 +75,21 @@ session_start();
         });
     }
 
-    // Theme toggle
-    const themeToggleBtn = document.getElementById("themeToggle");
-    const body = document.body;
+    // User Dropdown Toggle
+    if (userDropdownBtn && userDropdownMenu) {
+        userDropdownBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            userDropdownMenu.classList.toggle("hidden");
+        });
 
+        document.addEventListener("click", function (event) {
+            if (!userDropdownMenu.contains(event.target) && !userDropdownBtn.contains(event.target)) {
+                userDropdownMenu.classList.add("hidden");
+            }
+        });
+    }
+
+    // Theme Toggle
     if (themeToggleBtn) {
         const savedTheme = localStorage.getItem("theme") || "dark";
         body.classList.toggle("bg-gray-100", savedTheme === "light");
@@ -92,26 +108,8 @@ session_start();
             localStorage.setItem("theme", newTheme);
         });
     }
-
-    // User dropdown toggle
-    const userDropdownBtn = document.getElementById("userDropdownBtn");
-    const userDropdownMenu = document.getElementById("userDropdownMenu");
-
-    if (userDropdownBtn && userDropdownMenu) {
-        userDropdownBtn.addEventListener("click", function (event) {
-            event.stopPropagation();
-            userDropdownMenu.classList.toggle("hidden");
-        });
-
-        document.addEventListener("click", function (event) {
-            if (!userDropdownMenu.contains(event.target) && !userDropdownBtn.contains(event.target)) {
-                userDropdownMenu.classList.add("hidden");
-            }
-        });
-    }
 });
-
-    </script>
+</script>
 
     <div class="container mx-auto px-4 py-10">
         <h1 class="text-3xl font-bold text-center mb-6">Tour Feedback Form</h1>
@@ -248,6 +246,62 @@ session_start();
 
     <!-- JavaScript for 10-star rating system -->
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const dropdownBtn = document.getElementById("dropdownBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const userDropdownBtn = document.getElementById("userDropdownBtn");
+    const userDropdownMenu = document.getElementById("userDropdownMenu");
+    const themeToggleBtn = document.getElementById("themeToggle");
+    const body = document.body;
+
+    // Bookings Dropdown Toggle
+    if (dropdownBtn && dropdownMenu) {
+        dropdownBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            dropdownMenu.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!dropdownMenu.contains(event.target) && !dropdownBtn.contains(event.target)) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+    }
+
+    // User Dropdown Toggle
+    if (userDropdownBtn && userDropdownMenu) {
+        userDropdownBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            userDropdownMenu.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!userDropdownMenu.contains(event.target) && !userDropdownBtn.contains(event.target)) {
+                userDropdownMenu.classList.add("hidden");
+            }
+        });
+    }
+
+    // Theme Toggle
+    if (themeToggleBtn) {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        body.classList.toggle("bg-gray-100", savedTheme === "light");
+        body.classList.toggle("bg-gray-900", savedTheme === "dark");
+        body.classList.toggle("text-black", savedTheme === "light");
+        body.classList.toggle("text-white", savedTheme === "dark");
+
+        themeToggleBtn.addEventListener("click", function () {
+            const newTheme = body.classList.contains("bg-gray-900") ? "light" : "dark";
+
+            body.classList.toggle("bg-gray-100", newTheme === "light");
+            body.classList.toggle("bg-gray-900", newTheme === "dark");
+            body.classList.toggle("text-black", newTheme === "light");
+            body.classList.toggle("text-white", newTheme === "dark");
+
+            localStorage.setItem("theme", newTheme);
+        });
+    }
+});
         document.getElementById("dropdownBtn").addEventListener("click", function () {
           var menu = document.getElementById("dropdownMenu");
           menu.classList.toggle("hidden");
