@@ -68,13 +68,18 @@ session_start();
     </div>
       
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-    // Bookings dropdown toggle
+document.addEventListener("DOMContentLoaded", function () {
     const dropdownBtn = document.getElementById("dropdownBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
+    const userDropdownBtn = document.getElementById("userDropdownBtn");
+    const userDropdownMenu = document.getElementById("userDropdownMenu");
+    const themeToggleBtn = document.getElementById("themeToggle");
+    const body = document.body;
 
+    // Bookings Dropdown Toggle
     if (dropdownBtn && dropdownMenu) {
-        dropdownBtn.addEventListener("click", function () {
+        dropdownBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
             dropdownMenu.classList.toggle("hidden");
         });
 
@@ -85,10 +90,21 @@ session_start();
         });
     }
 
-    // Theme toggle
-    const themeToggleBtn = document.getElementById("themeToggle");
-    const body = document.body;
+    // User Dropdown Toggle
+    if (userDropdownBtn && userDropdownMenu) {
+        userDropdownBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            userDropdownMenu.classList.toggle("hidden");
+        });
 
+        document.addEventListener("click", function (event) {
+            if (!userDropdownMenu.contains(event.target) && !userDropdownBtn.contains(event.target)) {
+                userDropdownMenu.classList.add("hidden");
+            }
+        });
+    }
+
+    // Theme Toggle
     if (themeToggleBtn) {
         const savedTheme = localStorage.getItem("theme") || "dark";
         body.classList.toggle("bg-gray-100", savedTheme === "light");
@@ -107,27 +123,8 @@ session_start();
             localStorage.setItem("theme", newTheme);
         });
     }
-
-    // User dropdown toggle
-    const userDropdownBtn = document.getElementById("userDropdownBtn");
-    const userDropdownMenu = document.getElementById("userDropdownMenu");
-
-    if (userDropdownBtn && userDropdownMenu) {
-        userDropdownBtn.addEventListener("click", function (event) {
-            event.stopPropagation();
-            userDropdownMenu.classList.toggle("hidden");
-        });
-
-        document.addEventListener("click", function (event) {
-            if (!userDropdownMenu.contains(event.target) && !userDropdownBtn.contains(event.target)) {
-                userDropdownMenu.classList.add("hidden");
-            }
-        });
-    }
 });
-
-    </script>
-
+</script>
   </header>
 
   <section class="text-center my-8">
@@ -155,7 +152,7 @@ session_start();
       <div class="p-4 rounded-lg text-center transition-transform transform hover:scale-105">
         <img src="images/destination/goa1.jpg" class="w-full h-60 object-cover rounded-md">
         <h3 class="text-lg mt-2">Goa</h3>
-        <a href="destination.php" class="px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600">Visit</a>
+        <a href="destination.php" class="bg-blue-500 px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600">Visit</a>
       </div>
     </div>
   </section>
