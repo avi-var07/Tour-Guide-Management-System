@@ -1,7 +1,4 @@
-<?php
-session_start();
-
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +6,12 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tour Booking Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-image: url('background-travel.jpg'); background-size: cover; background-position: center; }
+        .form-container { background: rgba(255, 255, 255, 0.9); border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    </style>
 </head>
-<body class="">
+<body class="text-black">
 <nav class="flex justify-between items-center bg-gray-800 p-4">
     <a href="mainPage.php" class="text-xl font-bold text-blue-400">Tour Operator</a>
     <ul class="flex space-x-4 relative items-center">
@@ -53,95 +54,160 @@ session_start();
             <?php endif; ?>
           </ul>
         </nav>
-    <!-- Booking Form -->
-    <div class="flex justify-center items-center min-h-screen">
-        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-            <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Book A Memory with Us</h1>
-            <form method="POST" action="booking.php" name="form" onsubmit="return validateForm()" class="space-y-4">
 
-                <input type="text" name="ffirst" placeholder="First Name" class="w-full p-3 border rounded-lg focus:ring focus:ring-orange-300 text-black" required>
-                <input type="text" name="flast" placeholder="Last Name" class="w-full p-3 border rounded-lg focus:ring focus:ring-orange-300 text-black" required>
-                <input type="email" name="femail" placeholder="Email" class="w-full p-3 border rounded-lg focus:ring focus:ring-orange-300 text-black" required>
+<div class="flex justify-center items-center min-h-screen">
+    <div class="form-container p-8 rounded-lg w-full max-w-lg">
+        <h1 class="text-2xl font-bold text-center text-black mb-6">Book A Memory with Us</h1>
+        <form method="POST" action="booking.php" name="form" onsubmit="return validateForm()" class="space-y-4">
 
-            
-                <input type="text" id="pincode" name="pincode" required maxlength="6" pattern="[0-9]{6}"
-                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black"
-                placeholder="Pincode" onkeyup="fetchLocation()">
+            <?php
+            include 'config.php'; // Ensure this file contains your database connection
 
-            
-                <input type="text" id="city" name="city" placeholder="City" class="w-full p-3 border rounded-lg focus:ring focus:ring-orange-300 text-black" readonly required>
-                <input type="text" id="state" name="state" placeholder="State" class="w-full p-3 border rounded-lg focus:ring focus:ring-orange-300 text-black" readonly required>
+            if (isset($_SESSION['username'])) {
+                $email = $_SESSION['username'];
+                $sql = "SELECT fname, email, phone, pincode, city, state FROM customer WHERE email = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-                <input type="tel" name="fphone" pattern="[0-9]{10}" maxlength="10" placeholder="Phone" class="w-full p-3 border rounded-lg focus:ring focus:ring-orange-300 text-black" pattern="[0-9]{10}" required>
-                <input type="text" name="fdesti" placeholder="Destination" class="w-full p-3 border rounded-lg focus:ring focus:ring-orange-300 text-black" required>
+                if ($row = $result->fetch_assoc()) {
+                    $full_name = $row['fname'];
+                    $email = $row['email'];
+                    $phone = $row['phone'] ?? '';
+                    $pincode = $row['pincode'] ?? '';
+                    $city = $row['city'] ?? '';
+                    $state = $row['state'] ?? '';
+                } else {
+                    $full_name = $email = $phone = $pincode = $city = $state = "";
+                }
+                $stmt->close();
+            } else {
+                $full_name = $email = $phone = $pincode = $city = $state = "";
+            }
+            ?>
 
-                <button type="submit" class="w-full bg-orange-500 text-white p-3 rounded-lg hover:bg-orange-600 transition duration-300">
-                    Submit
-                </button>
-            </form>
-        </div>
+            <input type="text" name="first_name" value="<?php echo htmlspecialchars($full_name); ?>" placeholder="Full Name" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" required>
+            <input type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" placeholder="Email" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" required>
+
+            <input type="text" id="pincode" name="pincode" value="<?php echo htmlspecialchars($pincode); ?>" required maxlength="6" pattern="[0-9]{6}" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-green-500 text-black" placeholder="Pincode" onkeyup="fetchLocation()">
+
+            <input type="text" id="city" name="city" value="<?php echo htmlspecialchars($city); ?>" placeholder="City" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" readonly required>
+            <input type="text" id="state" name="state" value="<?php echo htmlspecialchars($state); ?>" placeholder="State" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" readonly required>
+
+            <input type="tel" name="phone" value="<?php echo htmlspecialchars($phone); ?>" pattern="[0-9]{10}" maxlength="10" placeholder="Phone" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" pattern="[0-9]{10}" required>
+            <input type="text" name="destination" placeholder="Destination" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" required>
+
+            <button type="submit" class="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition duration-300">
+                Submit
+            </button>
+        </form>
     </div>
+</div>
 
-    <script>
-        function validateForm() {
-            let firstName = document.forms["form"]["ffirst"].value.trim();
-            let lastName = document.forms["form"]["flast"].value.trim();
-            let email = document.forms["form"]["femail"].value.trim();
-            let phone = document.forms["form"]["fphone"].value.trim();
-            let pincode = document.getElementById("pincode").value.trim();
 
-            if (firstName === "" || lastName === "") {
-                alert("First and Last name are required!");
-                return false;
-            }
-            if (!/^\S+@\S+\.\S+$/.test(email)) {
-                alert("Please enter a valid email!");
-                return false;
-            }
-            if (!/^\d{10}$/.test(phone)) {
-                alert("Phone number must be 10 digits!");
-                return false;
-            }
-            if (!/^\d{6}$/.test(pincode)) {
-                alert("Pincode must be 6 digits!");
-                return false;
-            }
-            return true;
+<footer class="text-center mt-8 py-4 bg-gray-700 text-white">
+    <p>&copy; 2025 Tour Operator | <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a></p>
+  </footer>
+<script>
+    function validateForm() {
+        let fullName = document.forms["form"]["first_name"].value.trim();
+        let email = document.forms["form"]["email"].value.trim();
+        let phone = document.forms["form"]["phone"].value.trim();
+        let pincode = document.getElementById("pincode").value.trim();
+
+        if (fullName === "") {
+            alert("Full name is required!");
+            return false;
         }
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+            alert("Please enter a valid email!");
+            return false;
+        }
+        if (!/^\d{10}$/.test(phone)) {
+            alert("Phone number must be 10 digits!");
+            return false;
+        }
+        if (!/^\d{6}$/.test(pincode)) {
+            alert("Pincode must be 6 digits!");
+            return false;
+        }
+        return true;
+    }
 
-        function fetchLocation() {
-            let pincode = document.getElementById("pincode").value;
-            let cityField = document.getElementById("city");
-            let stateField = document.getElementById("state");
+    function fetchLocation() {
+        let pincode = document.getElementById("pincode").value;
+        let cityField = document.getElementById("city");
+        let stateField = document.getElementById("state");
 
-            if (pincode.length === 6) {
-                fetch(`https://api.postalpincode.in/pincode/${pincode}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data[0] && data[0].Status === "Success" && data[0].PostOffice) {
-                            cityField.value = data[0].PostOffice[0].District;
-                            stateField.value = data[0].PostOffice[0].State;
-                        } else {
-                            cityField.value = "";
-                            stateField.value = "";
-                            alert("Invalid Pincode! Please enter a valid one.");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error fetching location:", error);
+        if (pincode.length === 6) {
+            fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data[0] && data[0].Status === "Success" && data[0].PostOffice) {
+                        cityField.value = data[0].PostOffice[0].District;
+                        stateField.value = data[0].PostOffice[0].State;
+                    } else {
                         cityField.value = "";
                         stateField.value = "";
-                        alert("Could not fetch location. Please try again.");
-                    });
-            }
+                        alert("Invalid Pincode! Please enter a valid one.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching location:", error);
+                    cityField.value = "";
+                    stateField.value = "";
+                    alert("Could not fetch location. Please try again.");
+                });
         }
-      document.addEventListener("DOMContentLoaded", function () {
-    // Bookings dropdown toggle
+    }
+</script>
+
+<?php
+include 'config.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $first_name = trim($_POST["first_name"]);
+    $email = trim($_POST["email"]);
+    $pincode = trim($_POST["pincode"]);
+    $city = trim($_POST["city"]);
+    $state = trim($_POST["state"]);
+    $phone = trim($_POST["phone"]);
+    $destination = trim($_POST["destination"]);
+
+    if (empty($first_name) || empty($email) || empty($pincode) || empty($city) || empty($state) || empty($phone) || empty($destination)) {
+        echo "<script>alert('All fields are required!'); window.history.back();</script>";
+        exit;
+    }
+
+    // Insert into bookings table, using first_name instead of separate first_name and last_name
+    $stmt = $conn->prepare("INSERT INTO bookings (first_name, email, pincode, city, state, phone, destination) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssss", $first_name, $email, $pincode, $city, $state, $phone, $destination);
+
+    if ($stmt->execute()) {
+        echo "<script>alert('Booking Successful!'); window.location.href='mainpage.php';</script>";
+    } else {
+        echo "<script>alert('Error occurred! Please try again.'); window.history.back();</script>";
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
+<!-- Include the common JavaScript for dropdown and theme toggle -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
     const dropdownBtn = document.getElementById("dropdownBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
+    const userDropdownBtn = document.getElementById("userDropdownBtn");
+    const userDropdownMenu = document.getElementById("userDropdownMenu");
+    const themeToggleBtn = document.getElementById("themeToggle");
+    const body = document.body;
 
     if (dropdownBtn && dropdownMenu) {
-        dropdownBtn.addEventListener("click", function () {
+        dropdownBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
             dropdownMenu.classList.toggle("hidden");
         });
 
@@ -152,9 +218,18 @@ session_start();
         });
     }
 
-    // Theme toggle
-    const themeToggleBtn = document.getElementById("themeToggle");
-    const body = document.body;
+    if (userDropdownBtn && userDropdownMenu) {
+        userDropdownBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            userDropdownMenu.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!userDropdownMenu.contains(event.target) && !userDropdownBtn.contains(event.target)) {
+                userDropdownMenu.classList.add("hidden");
+            }
+        });
+    }
 
     if (themeToggleBtn) {
         const savedTheme = localStorage.getItem("theme") || "dark";
@@ -174,61 +249,8 @@ session_start();
             localStorage.setItem("theme", newTheme);
         });
     }
-
-    // User dropdown toggle
-    const userDropdownBtn = document.getElementById("userDropdownBtn");
-    const userDropdownMenu = document.getElementById("userDropdownMenu");
-
-    if (userDropdownBtn && userDropdownMenu) {
-        userDropdownBtn.addEventListener("click", function (event) {
-            event.stopPropagation();
-            userDropdownMenu.classList.toggle("hidden");
-        });
-
-        document.addEventListener("click", function (event) {
-            if (!userDropdownMenu.contains(event.target) && !userDropdownBtn.contains(event.target)) {
-                userDropdownMenu.classList.add("hidden");
-            }
-        });
-    }
 });
-    </script>
+</script>
 
-<footer class="text-center mt-8 py-4 bg-gray-700 text-white">
-    <p>&copy; 2025 Tour Operator | <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a></p>
-  </footer>
 </body>
 </html>
-<?php
-include 'config.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $first_name = trim($_POST["ffirst"]);
-    $last_name = trim($_POST["flast"]);
-    $email = trim($_POST["femail"]);
-    $pincode = trim($_POST["pincode"]);
-    $city = trim($_POST["city"]);
-    $state = trim($_POST["state"]);
-    $phone = trim($_POST["fphone"]);
-    $destination = trim($_POST["fdesti"]);
-
-    // Validation
-    if (empty($first_name) || empty($last_name) || empty($email) || empty($pincode) || empty($city) || empty($state) || empty($phone) || empty($destination)) {
-        echo "<script>alert('All fields are required!'); window.history.back();</script>";
-        exit;
-    }
-
-    // Insert Data into Database
-    $stmt = $conn->prepare("INSERT INTO bookings (first_name, last_name, email, pincode, city, state, phone, destination) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssss", $first_name, $last_name, $email, $pincode, $city, $state, $phone, $destination);
-
-    if ($stmt->execute()) {
-        echo "<script>alert('Booking Successful!'); window.location.href='mainpage.php';</script>";
-    } else {
-        echo "<script>alert('Error occurred! Please try again.'); window.history.back();</script>";
-    }
-
-    $stmt->close();
-    $conn->close();
-}
-?>
