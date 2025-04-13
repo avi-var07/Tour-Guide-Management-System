@@ -17,7 +17,7 @@ session_start();
         <ul class="flex space-x-4 relative items-center">
             <li><a href="mainPage.php" class="hover:text-yellow-400 text-blue-400">Home</a></li>
             <li><a href="destination.php" class="hover:text-yellow-400 text-blue-400">Destination</a></li>
-            <li><a href="about.php" class="hover:text-yellow-400 text-blue-400">About Us</a></li>
+            
             <li><a href="feedback.php" class="hover:text-yellow-400 text-blue-400">Feedback</a></li>
             <li class="relative">
                 <button id="dropdownBtn" class="text-blue-400 cursor-pointer focus:outline-none flex items-center hover:text-yellow-400">
@@ -34,6 +34,7 @@ session_start();
                     <li><a href="customTour.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
                 </ul>
             </li>
+            <li><a href="about.php" class="hover:text-yellow-400 text-blue-400">About</a></li>
             <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">
                 <img src="theme_icon.png" alt="Theme Toggle" height="20px" width="20px">
             </button>
