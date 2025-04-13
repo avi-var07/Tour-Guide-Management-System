@@ -34,6 +34,7 @@ session_start();
                 <li><a href="customTour.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
             </ul>
         </li>
+        <li><a href="about.php" class="hover:text-yellow-400 text-blue-400">About</a></li>
         <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">
           <img src="theme_icon.png" alt="Theme Toggle" height="20px" width="20px">
         </button>
