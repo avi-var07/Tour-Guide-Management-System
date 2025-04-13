@@ -2,29 +2,13 @@
 session_start();
 $destinations = include 'destinations_data.php';
 
-// Filter logic
-$filtered_destinations = $destinations;
-$selected_state = isset($_GET['state']) ? $_GET['state'] : 'All';
-$selected_budget = isset($_GET['budget']) ? $_GET['budget'] : 'All';
-$selected_type = isset($_GET['type']) ? $_GET['type'] : 'All';
-$selected_duration = isset($_GET['duration']) ? $_GET['duration'] : 'All';
+$dest_id = isset($_GET['dest_id']) ? (int)$_GET['dest_id'] : -1;
+$destination = isset($destinations[$dest_id]) ? $destinations[$dest_id] : null;
 
-if ($selected_state !== 'All' || $selected_budget !== 'All' || $selected_type !== 'All' || $selected_duration !== 'All') {
-    $filtered_destinations = array_filter($destinations, function ($dest) use ($selected_state, $selected_budget, $selected_type, $selected_duration) {
-        $state_match = $selected_state === 'All' || $dest['state'] === $selected_state;
-        $budget_match = $selected_budget === 'All' || $dest['budget'] === $selected_budget;
-        $type_match = $selected_type === 'All' || $dest['type'] === $selected_type;
-        $duration_match = $selected_duration === 'All' || $dest['duration'] === $selected_duration;
-        return $state_match && $budget_match && $type_match && $duration_match;
-    });
+if (!$destination) {
+    header("Location: destination.php");
+    exit;
 }
-
-// Get unique values for filters
-$states = array_unique(array_column($destinations, 'state'));
-$budgets = ['Budget', 'Mid-range', 'Luxury'];
-$types = ['Adventure', 'Spiritual', 'Chill', 'Party', 'Offbeat'];
-$durations = ['Weekend', '5-day', 'Week-long'];
-sort($states);
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +16,7 @@ sort($states);
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Destinations</title>
+    <title><?php echo htmlspecialchars($destination['name']); ?> Package Details</title>
 </head>
 <body class="text-white bg-gray-900">
     <nav class="flex justify-between items-center bg-gray-800 p-4">
@@ -77,74 +61,56 @@ sort($states);
         </ul>
     </nav>
 
-    <div class="container mx-auto px-4 py-4">
-        <form method="GET" action="destination.php" class="flex flex-wrap justify-center mb-8 gap-4">
-            <div>
-                <label for="state" class="mr-2 text-lg font-semibold text-blue-400">State:</label>
-                <select name="state" id="state" onchange="this.form.submit()" class="bg-gray-700 text-white px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500">
-                    <option value="All" <?php echo $selected_state === 'All' ? 'selected' : ''; ?>>All States</option>
-                    <?php foreach ($states as $state): ?>
-                        <option value="<?php echo htmlspecialchars($state); ?>" <?php echo $selected_state === $state ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($state); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div>
-                <label for="budget" class="mr-2 text-lg font-semibold text-blue-400">Budget:</label>
-                <select name="budget" id="budget" onchange="this.form.submit()" class="bg-gray-700 text-white px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500">
-                    <option value="All" <?php echo $selected_budget === 'All' ? 'selected' : ''; ?>>All Budgets</option>
-                    <?php foreach ($budgets as $budget): ?>
-                        <option value="<?php echo htmlspecialchars($budget); ?>" <?php echo $selected_budget === $budget ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($budget); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div>
-                <label for="type" class="mr-2 text-lg font-semibold text-blue-400">Type:</label>
-                <select name="type" id="type" onchange="this.form.submit()" class="bg-gray-700 text-white px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500">
-                    <option value="All" <?php echo $selected_type === 'All' ? 'selected' : ''; ?>>All Types</option>
-                    <?php foreach ($types as $type): ?>
-                        <option value="<?php echo htmlspecialchars($type); ?>" <?php echo $selected_type === $type ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($type); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div>
-                <label for="duration" class="mr-2 text-lg font-semibold text-blue-400">Duration:</label>
-                <select name="duration" id="duration" onchange="this.form.submit()" class="bg-gray-700 text-white px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500">
-                    <option value="All" <?php echo $selected_duration === 'All' ? 'selected' : ''; ?>>All Durations</option>
-                    <?php foreach ($durations as $duration): ?>
-                        <option value="<?php echo htmlspecialchars($duration); ?>" <?php echo $selected_duration === $duration ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($duration); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-        </form>
-    </div>
-
-    <h1 class="text-4xl text-center font-bold mt-8">Popular Destinations</h1>
     <div class="container mx-auto px-4 py-8">
-        <?php if (empty($filtered_destinations)): ?>
-            <p class="text-center text-gray-400">No destinations match your filters. Try adjusting your selection.</p>
-        <?php else: ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <?php foreach ($filtered_destinations as $index => $dest): ?>
-                    <div class="p-4 rounded-lg text-center hover:scale-105 transition bg-gray-800 shadow-lg">
-                        <img src="<?php echo htmlspecialchars(file_exists($dest['image']) ? $dest['image'] : 'images/destination/default.jpg'); ?>" alt="<?php echo htmlspecialchars($dest['name']); ?>" class="w-full h-60 object-cover rounded-md">
-                        <h2 class="text-lg mt-2 font-semibold"><?php echo htmlspecialchars($dest['name']); ?></h2>
-                        <p class="text-sm text-gray-400"><?php echo htmlspecialchars($dest['state']); ?> | <?php echo htmlspecialchars($dest['budget']); ?> | <?php echo htmlspecialchars($dest['type']); ?></p>
-                        <form method="GET" action="package_details.php">
-                            <input type="hidden" name="dest_id" value="<?php echo $index; ?>">
-                            <input type="submit" value="View Details" class="bg-blue-500 px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600 cursor-pointer text-white">
-                        </form>
+        <h1 class="text-4xl font-bold text-center mb-8"><?php echo htmlspecialchars($destination['name']); ?> Package Details</h1>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <img src="<?php echo htmlspecialchars(file_exists($destination['image']) ? $destination['image'] : 'images/destination/default.jpg'); ?>" alt="<?php echo htmlspecialchars($destination['name']); ?>" class="w-full h-96 object-cover rounded-md mb-6">
+            
+            <h2 class="text-2xl font-semibold mb-4">About <?php echo htmlspecialchars($destination['name']); ?></h2>
+            <p class="text-gray-300 mb-4">
+                Located in <?php echo htmlspecialchars($destination['state']); ?>, this <?php echo htmlspecialchars($destination['type']); ?> destination is perfect for a <?php echo htmlspecialchars($destination['budget']); ?> trip lasting <?php echo htmlspecialchars($destination['duration']); ?>.
+            </p>
+
+            <h3 class="text-xl font-semibold mt-6 mb-2">Key Attractions</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <?php foreach (array_combine($destination['attractions'], $destination['attractions_images']) as $attraction => $image): ?>
+                    <div class="text-center">
+                        <img src="<?php echo htmlspecialchars(file_exists($image) ? $image : 'images/destination/default.jpg'); ?>" alt="<?php echo htmlspecialchars($attraction); ?>" class="w-full h-48 object-cover rounded-md mb-2" loading="lazy">
+                        <p class="text-gray-300"><?php echo htmlspecialchars($attraction); ?></p>
                     </div>
                 <?php endforeach; ?>
             </div>
-        <?php endif; ?>
+
+            <h3 class="text-xl font-semibold mt-6 mb-2">Cultural Festivals</h3>
+            <ul class="list-disc list-inside text-gray-300">
+                <?php foreach ($destination['festivals'] as $festival): ?>
+                    <li><?php echo htmlspecialchars($festival); ?></li>
+                <?php endforeach; ?>
+            </ul>
+
+            <h3 class="text-xl font-semibold mt-6 mb-2">Local Cuisines</h3>
+            <ul class="list-disc list-inside text-gray-300">
+                <?php foreach ($destination['cuisines'] as $cuisine): ?>
+                    <li><?php echo htmlspecialchars($cuisine); ?></li>
+                <?php endforeach; ?>
+            </ul>
+
+            <h3 class="text-xl font-semibold mt-6 mb-2">Famous Spots</h3>
+            <ul class="list-disc list-inside text-gray-300">
+                <?php foreach ($destination['famous_spots'] as $spot): ?>
+                    <li><?php echo htmlspecialchars($spot); ?></li>
+                <?php endforeach; ?>
+            </ul>
+
+            <h3 class="text-xl font-semibold mt-6 mb-2">Nearby Destinations</h3>
+            <ul class="list-disc list-inside text-gray-300">
+                <?php foreach ($destination['nearby'] as $nearby): ?>
+                    <li><?php echo htmlspecialchars($nearby); ?></li>
+                <?php endforeach; ?>
+            </ul>
+
+            <a href="booking.php?dest=<?php echo urlencode($destination['name']); ?>" class="mt-6 inline-block bg-blue-500 px-6 py-3 rounded-md text-white hover:bg-blue-600">Book Now</a>
+        </div>
     </div>
 
     <footer class="text-center mt-8 py-4 bg-gray-700 text-white">
