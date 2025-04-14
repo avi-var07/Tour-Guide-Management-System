@@ -1,212 +1,600 @@
 <?php
-session_start();
-$destinations = include 'destinations_data.php';
 
-// Filter logic
-$filtered_destinations = $destinations;
-$selected_state = isset($_GET['state']) ? $_GET['state'] : 'All';
-$selected_budget = isset($_GET['budget']) ? $_GET['budget'] : 'All';
-$selected_type = isset($_GET['type']) ? $_GET['type'] : 'All';
-$selected_duration = isset($_GET['duration']) ? $_GET['duration'] : 'All';
+$destinations = [
+    [
+        'name' => 'Srinagar',
+        'state' => 'Jammu & Kashmir',
+        'budget' => 'Mid-range',
+        'type' => 'Chill',
+        'duration' => '5-day',
+        'image' => 'images/destination/srinagar.jpg',
+        'attractions' => ['Dal Lake', 'Mughal Gardens', 'Shankaracharya Temple', 'Hazratbal Shrine', 'Nishat Bagh', 'Chashme Shahi', 'Pari Mahal'],
+        'attractions_images' => [
+            'images/destination/dal_lake.jpg',
+            'images/destination/mughal_gardens.jpg',
+            'images/destination/shankaracharya_temple.jpg',
+            'images/destination/hazratbal_shrine.jpg',
+            'images/destination/nishat_bagh.jpg',
+            'images/destination/chashme_shahi.jpg',
+            'images/destination/pari_mahal.jpg'
+        ],
+        'festivals' => ['Tulip Festival', 'Shikara Festival', 'Srinagar Festival', 'Navroz', 'Urs of Sheikh Nooruddin', 'Baisakhi', 'Saffron Festival'],
+        'cuisines' => ['Rogan Josh', 'Dum Aloo', 'Kahwa', 'Yakhni', 'Gushtaba', 'Nadir Monji', 'Haaq'],
+        'famous_spots' => ['Shikara Ride at Dal Lake', 'Floating Market', 'Café de Linz', 'Shalimar Bagh', 'Khanqah-e-Moula', 'Char Chinar', 'Harwan Garden'],
+        'nearby' => ['Gulmarg', 'Sonamarg', 'Pahalgam', 'Yusmarg', 'Dachigam National Park', 'Aru Valley', 'Betaab Valley'],
+    ],
+    [
+        'name' => 'Leh-Ladakh',
+        'state' => 'Jammu & Kashmir',
+        'budget' => 'Luxury',
+        'type' => 'Adventure',
+        'duration' => 'Week-long',
+        'image' => 'images/destination/leh_ladakh.jpg',
+        'attractions' => ['Pangong Lake', 'Magnetic Hill', 'Thiksey Monastery', 'Nubra Valley', 'Hemis Monastery', 'Shanti Stupa', 'Zanskar Valley'],
+        'attractions_images' => [
+            'images/destination/pangong_lake.jpg',
+            'images/destination/magnetic_hill.jpg',
+            'images/destination/thiksey_monastery.jpg',
+            'images/destination/nubra_valley.jpg',
+            'images/destination/hemis_monastery.jpg',
+            'images/destination/shanti_stupa.jpg',
+            'images/destination/zanskar_valley.jpg'
+        ],
+        'festivals' => ['Hemis Festival', 'Losar Festival', 'Ladakh Festival', 'Sindhu Darshan', 'Thiksey Gustor', 'Spituk Gustor', 'Dosmoche Festival'],
+        'cuisines' => ['Thukpa', 'Momos', 'Skyu', 'Butter Tea', 'Chhutagi', 'Paba', 'Tingmo'],
+        'famous_spots' => ['Leh Market', 'Leh Palace', 'German Bakery', 'Hall of Fame', 'Sangam (Confluence)', 'Diskit Monastery', 'Tso Kar Lake'],
+        'nearby' => ['Nubra Valley', 'Tso Moriri Lake', 'Kargil', 'Alchi', 'Lamayuru', 'Stok Village', 'Dras'],
+    ],
+    [
+        'name' => 'Shimla',
+        'state' => 'Himachal Pradesh',
+        'budget' => 'Mid-range',
+        'type' => 'Chill',
+        'duration' => 'Weekend',
+        'image' => 'images/destination/shimla.jpg',
+        'attractions' => ['The Ridge', 'Mall Road', 'Jakhu Temple', 'Viceregal Lodge', 'Christ Church', 'Annandale', 'Kali Bari Temple'],
+        'attractions_images' => [
+            'images/destination/the_ridge.jpg',
+            'images/destination/mall_road.jpg',
+            'images/destination/jakhu_temple.jpg',
+            'images/destination/viceregal_lodge.jpg',
+            'images/destination/christ_church.jpg',
+            'images/destination/annandale.jpg',
+            'images/destination/kali_bari_temple.jpg'
+        ],
+        'festivals' => ['Summer Festival', 'Ice Skating Carnival', 'Shimla Winter Carnival', 'Baisakhi Mela', 'Lavi Fair', 'Holi Festival', 'Christmas Celebrations'],
+        'cuisines' => ['Chana Madra', 'Siddu', 'Babru', 'Himachali Trout', 'Dham', 'Patande', 'Sepu Vadi'],
+        'famous_spots' => ['Scandal Point', 'Indian Coffee House', 'Christ Church', 'Lakkar Bazaar', 'Green Valley', 'Toy Train Ride', 'State Museum'],
+        'nearby' => ['Kufri', 'Chail', 'Narkanda', 'Mashobra', 'Fagu', 'Tattapani', 'Naldehra'],
+    ],
+    [
+        'name' => 'Manali',
+        'state' => 'Himachal Pradesh',
+        'budget' => 'Mid-range',
+        'type' => 'Adventure',
+        'duration' => '5-day',
+        'image' => 'images/destination/manali.jpg',
+        'attractions' => ['Solang Valley', 'Hadimba Temple', 'Rohtang Pass', 'Vashisht Hot Springs', 'Manu Temple', 'Jogini Falls', 'Beas Kund'],
+        'attractions_images' => [
+            'images/destination/solang_valley.jpg',
+            'images/destination/hadimba_temple.jpg',
+            'images/destination/rohtang_pass.jpg',
+            'images/destination/vashisht_hot_springs.jpg',
+            'images/destination/manu_temple.jpg',
+            'images/destination/jogini_falls.jpg',
+            'images/destination/beas_kund.jpg'
+        ],
+        'festivals' => ['Dussehra Festival', 'Winter Carnival', 'Kullu Dussehra', 'Hadimba Devi Fair', 'Spring Festival', 'Holi Festival', 'Losar Festival'],
+        'cuisines' => ['Siddu', 'Trout Fish', 'Babru', 'Mittha', 'Dham', 'Chana Madra', 'Kullu Puti'],
+        'famous_spots' => ['Old Manali Cafes', 'Manali Club House', 'Manu Temple', 'Tibetan Monastery', 'Naggar Castle', 'Van Vihar', 'Mall Road'],
+        'nearby' => ['Naggar', 'Kasol', 'Kullu', 'Manikaran', 'Rohtang La', 'Parvati Valley', 'Sissu'],
+    ],
+    [
+        'name' => 'Nainital',
+        'state' => 'Uttarakhand',
+        'budget' => 'Mid-range',
+        'type' => 'Chill',
+        'duration' => 'Weekend',
+        'image' => 'images/destination/nainital.jpg',
+        'attractions' => ['Naini Lake', 'Snow View Point', 'Naina Devi Temple', 'Tiffin Top', 'Eco Cave Gardens', 'High Altitude Zoo', 'Naina Peak'],
+        'attractions_images' => [
+            'images/destination/naini_lake.jpg',
+            'images/destination/snow_view_point.jpg',
+            'images/destination/naina_devi_temple.jpg',
+            'images/destination/tiffin_top.jpg',
+            'images/destination/eco_cave_gardens.jpg',
+            'images/destination/high_altitude_zoo.jpg',
+            'images/destination/naina_peak.jpg'
+        ],
+        'festivals' => ['Nanda Devi Fair', 'Autumn Festival', 'Phool Dei', 'Holi Festival', 'Diwali Mela', 'Sharadotsav', 'Uttarayani Fair'],
+        'cuisines' => ['Aloo Ke Gutke', 'Bhatt Ki Churkani', 'Bal Mithai', 'Ras Bhaat', 'Kafuli', 'Singori', 'Phaanu'],
+        'famous_spots' => ['Café Lakeside', 'Tiffin Top', 'Nainital Zoo', 'Mall Road', 'Governor’s House', 'St. John’s Church', 'Hanuman Garhi'],
+        'nearby' => ['Bhimtal', 'Naukuchiatal', 'Sattal', 'Ranikhet', 'Almora', 'Mukteshwar', 'Kausani'],
+    ],
+    [
+        'name' => 'Gangtok',
+        'state' => 'Sikkim',
+        'budget' => 'Mid-range',
+        'type' => 'Chill',
+        'duration' => '5-day',
+        'image' => 'images/destination/gangtok.jpg',
+        'attractions' => ['Tsomgo Lake', 'Rumtek Monastery', 'Nathula Pass', 'Enchey Monastery', 'Ban Jhakri Falls', 'Hanuman Tok', 'Do-Drul Chorten'],
+        'attractions_images' => [
+            'images/destination/tsomgo_lake.jpg',
+            'images/destination/rumtek_monastery.jpg',
+            'images/destination/nathula_pass.jpg',
+            'images/destination/enchey_monastery.jpg',
+            'images/destination/ban_jhakri_falls.jpg',
+            'images/destination/hanuman_tok.jpg',
+            'images/destination/do-drul_chorten.jpg'
+        ],
+        'festivals' => ['Losar Festival', 'Saga Dawa Festival', 'Pang Lhabsol', 'Dasain Festival', 'Tihar Festival', 'Bumchu Festival', 'Drukpa Tsheshi'],
+        'cuisines' => ['Phagshapa', 'Thukpa', 'Momos', 'Sel Roti', 'Gundruk', 'Sinki Soup', 'Chhurpi'],
+        'famous_spots' => ['MG Marg', 'Baker’s Café', 'Flower Exhibition Centre', 'Tashi View Point', 'Gangtok Ropeway', 'Sikkim Himalayan Zoo', 'Café Live & Loud'],
+        'nearby' => ['Namchi', 'Pelling', 'Ravangla', 'Yuksom', 'Lachung', 'Lachen', 'Zuluk'],
+    ],
+    [
+        'name' => 'Shillong',
+        'state' => 'Meghalaya',
+        'budget' => 'Mid-range',
+        'type' => 'Chill',
+        'duration' => '5-day',
+        'image' => 'images/destination/shillong.jpg',
+        'attractions' => ['Elephant Falls', 'Umiam Lake', 'Shillong Peak', 'Ward’s Lake', 'Lady Hydari Park', 'Laitlum Canyons', 'Cathedral of Mary'],
+        'attractions_images' => [
+            'images/destination/elephant_falls.jpg',
+            'images/destination/umiam_lake.jpg',
+            'images/destination/shillong_peak.jpg',
+            'images/destination/wards_lake.jpg',
+            'images/destination/lady_hydari_park.jpg',
+            'images/destination/laitlum_canyons.jpg',
+            'images/destination/cathedral_of_mary.jpg'
+        ],
+        'festivals' => ['Shad Suk Mynsiem', 'Wangala Festival', 'Nongkrem Dance Festival', 'Behdienkhlam Festival', 'Strawberry Festival', 'Christmas Festival', 'Meghalaya Day'],
+        'cuisines' => ['Jadoh', 'Dohneiiong', 'Tungrymbai', 'Pukhlein', 'Nakham Bitchi', 'Pumaloi', 'Dohjem'],
+        'famous_spots' => ['Café Shillong', 'Don Bosco Museum', 'Police Bazar', 'Mawjymbuin Cave', 'Air Force Museum', 'All Saints Cathedral', 'Butterfly Museum'],
+        'nearby' => ['Cherrapunji', 'Mawlynnong', 'Dawki', 'Mawsynram', 'Nongpoh', 'Jowai', 'Nartiang'],
+    ],
+    [
+        'name' => 'Kaziranga',
+        'state' => 'Assam',
+        'budget' => 'Mid-range',
+        'type' => 'Adventure',
+        'duration' => '5-day',
+        'image' => 'images/destination/kaziranga.jpg',
+        'attractions' => ['Elephant Safaris', 'Jeep Safari', 'Tea Gardens', 'Kaziranga Orchid Park', 'Panbari Reserve', 'Kakochang Falls', 'Deopahar Ruins'],
+        'attractions_images' => [
+            'images/destination/elephant_safaris.jpg',
+            'images/destination/jeep_safari.jpg',
+            'images/destination/tea_gardens.jpg',
+            'images/destination/kaziranga_orchid_park.jpg',
+            'images/destination/panbari_reserve.jpg',
+            'images/destination/kakochang_falls.jpg',
+            'images/destination/deopahar_ruins.jpg'
+        ],
+        'festivals' => ['Bihu Festival', 'Kaziranga Elephant Festival', 'Tea Festival', 'Ambubachi Mela', 'Dehing Patkai Festival', 'Ras Mahotsav', 'Majuli Festival'],
+        'cuisines' => ['Masor Tenga', 'Khar', 'Duck Meat Curry', 'Pitika', 'Pork Anishi', 'Aloo Pitika', 'Ou Tenga'],
+        'famous_spots' => ['Kaziranga Orchid Park', 'Local Tea Gardens', 'Ethnic Village Restaurant', 'Hathikuli Tea Estate', 'Brahmaputra River Bank', 'Kohora Village', 'Rangmon Bird Watching'],
+        'nearby' => ['Majuli', 'Tezpur', 'Jorhat', 'Sivsagar', 'Dibrugarh', 'Golaghat', 'Hoollongapar Gibbon Sanctuary'],
+    ],
+    [
+        'name' => 'Jaipur',
+        'state' => 'Rajasthan',
+        'budget' => 'Mid-range',
+        'type' => 'Chill',
+        'duration' => '5-day',
+        'image' => 'images/destination/jaipur.jpg',
+        'attractions' => ['Hawa Mahal', 'Amber Fort', 'City Palace', 'Jantar Mantar', 'Nahargarh Fort', 'Jaigarh Fort', 'Albert Hall Museum'],
+        'attractions_images' => [
+            'images/destination/hawa_mahal.jpg',
+            'images/destination/amber_fort.jpg',
+            'images/destination/city_palace.jpg',
+            'images/destination/jantar_mantar.jpg',
+            'images/destination/nahargarh_fort.jpg',
+            'images/destination/jaigarh_fort.jpg',
+            'images/destination/albert_hall_museum.jpg'
+        ],
+        'festivals' => ['Jaipur Literature Festival', 'Teej Festival', 'Diwali Festival', 'Gangaur Festival', 'Kite Festival', 'Elephant Festival', 'Pushkar Fair'],
+        'cuisines' => ['Dal Baati Churma', 'Laal Maas', 'Ghewar', 'Ker Sangri', 'Pyaaz Kachori', 'Mawa Kachori', 'Rajasthani Thali'],
+        'famous_spots' => ['Patrika Gate', 'Masala Chowk', 'Albert Hall Museum', 'Chokhi Dhani', 'Jal Mahal', 'Hathi Gaon', 'Bapu Bazaar'],
+        'nearby' => ['Ajmer', 'Pushkar', 'Alwar', 'Ranthambore', 'Neemrana', 'Bharatpur', 'Tonk'],
+    ],
+    [
+        'name' => 'Varanasi',
+        'state' => 'Uttar Pradesh',
+        'budget' => 'Budget',
+        'type' => 'Spiritual',
+        'duration' => '5-day',
+        'image' => 'images/destination/varanasi.jpg',
+        'attractions' => ['Kashi Vishwanath Temple', 'Dashashwamedh Ghat', 'Sarnath', 'Assi Ghat', 'Manikarnika Ghat', 'Ramnagar Fort', 'Bharat Mata Temple'],
+        'attractions_images' => [
+            'images/destination/kashi_vishwanath_temple.jpg',
+            'images/destination/dashashwamedh_ghat.jpg',
+            'images/destination/sarnath.jpg',
+            'images/destination/assi_ghat.jpg',
+            'images/destination/manikarnika_ghat.jpg',
+            'images/destination/ramnagar_fort.jpg',
+            'images/destination/bharat_mata_temple.jpg'
+        ],
+        'festivals' => ['Dev Deepawali', 'Ganga Mahotsav', 'Maha Shivaratri', 'Holi Festival', 'Buddha Purnima', 'Diwali Festival', 'Chhath Puja'],
+        'cuisines' => ['Kachori Sabzi', 'Tamatar Chaat', 'Baati Chokha', 'Malaiyo', 'Litti Chokha', 'Puri Sabzi', 'Banarasi Paan'],
+        'famous_spots' => ['Blue Lassi Shop', 'Assi Ghat', 'Banaras Hindu University', 'Gyanvapi Mosque', 'Sankat Mochan Temple', 'Kashi Kalash Foundation', 'Man Mandir Ghat'],
+        'nearby' => ['Sarnath', 'Allahabad', 'Ayodhya', 'Mirzapur', 'Chunar', 'Jaunpur', 'Vindhyachal'],
+    ],
+    [
+        'name' => 'Kasol',
+        'state' => 'Himachal Pradesh',
+        'budget' => 'Budget',
+        'type' => 'Offbeat',
+        'duration' => 'Weekend',
+        'image' => 'images/destination/kasol.jpg',
+        'attractions' => ['Parvati Valley', 'Kheerganga Trek', 'Manikaran Sahib', 'Tosh Village', 'Chalal Trek', 'Rasol Village', 'Malana Village'],
+        'attractions_images' => [
+            'images/destination/parvati_valley.jpg',
+            'images/destination/kheerganga_trek.jpg',
+            'images/destination/manikaran_sahib.jpg',
+            'images/destination/tosh_village.jpg',
+            'images/destination/chalal_trek.jpg',
+            'images/destination/rasol_village.jpg',
+            'images/destination/malana_village.jpg'
+        ],
+        'festivals' => ['Indrasan Festival', 'Himalayan Music Festival', 'Parvati Peeth Festival', 'Holi Festival', 'Kullu Dussehra', 'Shivratri Festival', 'Baisakhi'],
+        'cuisines' => ['Israeli Salad', 'Shakshuka', 'Tandoori Trout', 'Falafel', 'Hummus Platter', 'Nutella Pancakes', 'Himachali Dham'],
+        'famous_spots' => ['Moon Dance Café', 'Jim Morrison Café', 'Tosh Village', 'Evergreen Café', 'Bhoj Café', 'Parvati River Bank', 'The Psychedelic'],
+        'nearby' => ['Malana', 'Manikaran', 'Tosh', 'Pulga', 'Barshaini', 'Nakthan', 'Kutla'],
+    ],
+    [
+        'name' => 'Rishikesh',
+        'state' => 'Uttarakhand',
+        'budget' => 'Budget',
+        'type' => 'Spiritual',
+        'duration' => '5-day',
+        'image' => 'images/destination/rishikesh.jpg',
+        'attractions' => ['Lakshman Jhula', 'Neelkanth Mahadev Temple', 'River Rafting', 'Triveni Ghat', 'The Beatles Ashram', 'Ram Jhula', 'Parmarth Niketan'],
+        'attractions_images' => [
+            'images/destination/lakshman_jhula.jpg',
+            'images/destination/neelkanth_mahadev_temple.jpg',
+            'images/destination/river_rafting.jpg',
+            'images/destination/triveni_ghat.jpg',
+            'images/destination/the_beatles_ashram.jpg',
+            'images/destination/ram_jhula.jpg',
+            'images/destination/parmarth_niketan.jpg'
+        ],
+        'festivals' => ['International Yoga Festival', 'Ganga Dussehra', 'Maha Shivaratri', 'Holi Festival', 'Diwali Festival', 'Kanwar Mela', 'Basant Panchami'],
+        'cuisines' => ['Aloo Puri', 'Kachori', 'Chole Bhature', 'Lassi', 'Pahadi Thali', 'Samosa', 'Gulab Jamun'],
+        'famous_spots' => ['The Beatles Ashram', 'Little Buddha Café', 'Ganga Beach', 'Café de Goa', 'Shivpuri Rafting Point', 'Trayambakeshwar Temple', 'Bairaj Lake'],
+        'nearby' => ['Haridwar', 'Neelkanth Mahadev', 'Dehradun', 'Mussoorie', 'Shivpuri', 'Kanatal', 'Tehri'],
+    ],
+    [
+        'name' => 'Tawang',
+        'state' => 'Arunachal Pradesh',
+        'budget' => 'Luxury',
+        'type' => 'Offbeat',
+        'duration' => 'Week-long',
+        'image' => 'images/destination/tawang.jpg',
+        'attractions' => ['Tawang Monastery', 'Sela Pass', 'Madhuri Lake', 'Nuranang Falls', 'Bum La Pass', 'Gorsam Chorten', 'Tawang War Memorial'],
+        'attractions_images' => [
+            'images/destination/tawang_monastery.jpg',
+            'images/destination/sela_pass.jpg',
+            'images/destination/madhuri_lake.jpg',
+            'images/destination/nuranang_falls.jpg',
+            'images/destination/bum_la_pass.jpg',
+            'images/destination/gorsam_chorten.jpg',
+            'images/destination/tawang_war_memorial.jpg'
+        ],
+        'festivals' => ['Torgya Festival', 'Losar Festival', 'Saka Dawa', 'Dukpa Tsheshi', 'Chokor Festival', 'Tawang Festival', 'Ganden Ngamchoe'],
+        'cuisines' => ['Zan', 'Gyapa Khazi', 'Momos', 'Thukpa', 'Khura', 'Pika Pila', 'Lukter'],
+        'famous_spots' => ['Tawang War Memorial', 'Craft Centre', 'Dragon Restaurant', 'PT Tso Lake', 'Sela Lake', 'Monpa Village', 'Tawang Market'],
+        'nearby' => ['Bomdila', 'Zemithang', 'Dirang', 'Sangti Valley', 'Mandala Top', 'Thembang Village', 'Gorsam'],
+    ],
+    [
+        'name' => 'Mcleodganj',
+        'state' => 'Himachal Pradesh',
+        'budget' => 'Budget',
+        'type' => 'Chill',
+        'duration' => 'Weekend',
+        'image' => 'images/destination/mcleodganj.jpg',
+        'attractions' => ['Triund Trek', 'Dalai Lama Temple', 'Bhagsu Waterfall', 'Namgyal Monastery', 'St. John in the Wilderness', 'Naddi View Point', 'Kangra Fort'],
+        'attractions_images' => [
+            'images/destination/triund_trek.jpg',
+            'images/destination/dalai_lama_temple.jpg',
+            'images/destination/bhagsu_waterfall.jpg',
+            'images/destination/namgyal_monastery.jpg',
+            'images/destination/st_john_in_the_wilderness.jpg',
+            'images/destination/naddi_view_point.jpg',
+            'images/destination/kangra_fort.jpg'
+        ],
+        'festivals' => ['Dal Festival', 'Losar Festival', 'Himalayan Festival', 'Holi Festival', 'Dharamshala Film Festival', 'Tibetan Uprising Day', 'Buddha Purnima'],
+        'cuisines' => ['Tingmo', 'Thenthuk', 'Momos', 'Butter Tea', 'Shapale', 'Tsampa Porridge', 'Bhagsu Cake'],
+        'famous_spots' => ['Illiterati Café', 'Norbulingka Institute', 'Tsuglagkhang Complex', 'Tibet Museum', 'Moonpeak Espresso', 'McLeod Ganj Market', 'Shiva Café'],
+        'nearby' => ['Dharamkot', 'Bhagsu Nag', 'Kangra', 'Palampur', 'Kareri Lake', 'Billing', 'Masroor Temples'],
+    ],
+    [
+        'name' => 'Chopta',
+        'state' => 'Uttarakhand',
+        'budget' => 'Budget',
+        'type' => 'Offbeat',
+        'duration' => '5-day',
+        'image' => 'images/destination/chopta.jpg',
+        'attractions' => ['Tungnath Temple', 'Deoria Tal', 'Chandrashila Trek', 'Kanchula Korak Musk Deer Sanctuary', 'Sari Village', 'Omkeshwar Temple', 'Ukhimath'],
+        'attractions_images' => [
+            'images/destination/tungnath_temple.jpg',
+            'images/destination/deoria_tal.jpg',
+            'images/destination/chandrashila_trek.jpg',
+            'images/destination/kanchula_korak_musk_deer_sanctuary.jpg',
+            'images/destination/sari_village.jpg',
+            'images/destination/omkeshwar_temple.jpg',
+            'images/destination/ukhimath.jpg'
+        ],
+        'festivals' => ['Makar Sankranti', 'Bikhauti Mela', 'Holi Festival', 'Diwali Festival', 'Nanda Devi Raj Jat', 'Butter Festival', 'Shivratri Festival'],
+        'cuisines' => ['Chainsoo', 'Aloo Ke Gutke', 'Madua Roti', 'Kafuli', 'Phaanu', 'Jhangora Ki Kheer', 'Gahat Dal'],
+        'famous_spots' => ['Local Campsites', 'Tungnath Café', 'Village Walks', 'Chopta Meadows', 'Anusuya Devi Temple', 'Kalimath Temple', 'Gopeshwar Market'],
+        'nearby' => ['Rudraprayag', 'Ukhimath', 'Kedarnath', 'Guptkashi', 'Auli', 'Joshimath', 'Madmaheshwar'],
+    ],
+    [
+        'name' => 'Meghamalai',
+        'state' => 'Tamil Nadu',
+        'budget' => 'Mid-range',
+        'type' => 'Offbeat',
+        'duration' => 'Weekend',
+        'image' => 'images/destination/meghamalai.jpg',
+        'attractions' => ['Highwavy Dam', 'Vellimalai', 'Suruli Falls', 'Meghamalai Wildlife Sanctuary', 'Manalar Falls', 'Maharaja Mettu', 'Thoovanam Falls'],
+        'attractions_images' => [
+            'images/destination/highwavy_dam.jpg',
+            'images/destination/vellimalai.jpg',
+            'images/destination/suruli_falls.jpg',
+            'images/destination/meghamalai_wildlife_sanctuary.jpg',
+            'images/destination/manalar_falls.jpg',
+            'images/destination/maharaja_mettu.jpg',
+            'images/destination/thoovanam_falls.jpg'
+        ],
+        'festivals' => ['Pongal', 'Chitra Pournami', 'Tamil New Year', 'Deepavali', 'Karthigai Deepam', 'Thaipusam', 'Aadi Perukku'],
+        'cuisines' => ['Pongal', 'Chettinad Chicken', 'Meen Kuzhambu', 'Banana Bonda', 'Paruppu Vadai', 'Kambu Koozh', 'Pepper Rasam'],
+        'famous_spots' => ['Tea Estates', 'Chellarkovil Viewpoint', 'Cloudlands Road', 'Meghamalai Viewpoint', 'Cardamom Plantations', 'Vattaparai Falls', 'Pothamedu'],
+        'nearby' => ['Thekkady', 'Periyar Wildlife Sanctuary', 'Munnar', 'Kodaikanal', 'Madurai', 'Cumbum', 'Sabarimala'],
+    ],
+    [
+        'name' => 'Spiti Valley',
+        'state' => 'Himachal Pradesh',
+        'budget' => 'Luxury',
+        'type' => 'Offbeat',
+        'duration' => 'Week-long',
+        'image' => 'images/destination/spiti_valley.jpg',
+        'attractions' => ['Key Monastery', 'Chandratal Lake', 'Pin Valley National Park', 'Tabo Monastery', 'Dhankar Monastery', 'Kibber Village', 'Langza Buddha Statue'],
+        'attractions_images' => [
+            'images/destination/key_monastery.jpg',
+            'images/destination/chandratal_lake.jpg',
+            'images/destination/pin_valley_national_park.jpg',
+            'images/destination/tabo_monastery.jpg',
+            'images/destination/dhankar_monastery.jpg',
+            'images/destination/kibber_village.jpg',
+            'images/destination/langza_buddha_statue.jpg'
+        ],
+        'festivals' => ['Gustor Festival', 'Tribal Fair', 'Ladarcha Fair', 'Tsuglagan Festival', 'Chakhar Festival', 'Fagli Festival', 'Losar Festival'],
+        'cuisines' => ['Thukpa', 'Chhang', 'Momos', 'Butter Tea', 'Tsampa', 'Siddu', 'Paba'],
+        'famous_spots' => ['Kaza Market', 'The Himalayan Café', 'Spiti River Walk', 'Hikkim Post Office', 'Komik Village', 'Dhankar Lake', 'Mud Village'],
+        'nearby' => ['Tabo', 'Langza', 'Komic', 'Kaza', 'Hikkim', 'Dhankar', 'Nako'],
+    ],
+    [
+        'name' => 'Ziro Valley',
+        'state' => 'Arunachal Pradesh',
+        'budget' => 'Mid-range',
+        'type' => 'Offbeat',
+        'duration' => '5-day',
+        'image' => 'images/destination/ziro_valley.jpg',
+        'attractions' => ['Talley Valley', 'Kile Pakho', 'Ziro Puto', 'Shivling at Siddeshwar Nath', 'Meghna Cave Temple', 'Pine Grove', 'Dolo Mando'],
+        'attractions_images' => [
+            'images/destination/talley_valley.jpg',
+            'images/destination/kile_pakho.jpg',
+            'images/destination/ziro_puto.jpg',
+            'images/destination/shivling_at_siddeshwar_nath.jpg',
+            'images/destination/meghna_cave_temple.jpg',
+            'images/destination/pine_grove.jpg',
+            'images/destination/dolo_mando.jpg'
+        ],
+        'festivals' => ['Ziro Music Festival', 'Dree Festival', 'Myoko Festival', 'Nyokum Festival', 'Siang River Festival', 'Boori Boot Festival', 'Solung Festival'],
+        'cuisines' => ['Pika Pila', 'Bamboo Shoot Curry', 'Apong', 'Fish Stew', 'Lukter', 'Pe Hak', 'Dung Po'],
+        'famous_spots' => ['Tarin Fish Farm', 'Ziro Pine Grove', 'Hapoli Market', 'Rice Fields', 'Hong Village', 'Ziro Church', 'Pine Bamboo Restaurant'],
+        'nearby' => ['Itanagar', 'Daporijo', 'Along', 'Pasighat', 'Tuting', 'Majuli', 'Yingkiong'],
+    ],
+    [
+        'name' => 'Auli',
+        'state' => 'Uttarakhand',
+        'budget' => 'Mid-range',
+        'type' => 'Adventure',
+        'duration' => '5-day',
+        'image' => 'images/destination/auli.jpg',
+        'attractions' => ['Skiing Slopes', 'Gurso Bugyal', 'Joshimath', 'Nanda Devi National Park', 'Auli Ropeway', 'Chattrakund Lake', 'Vishnuprayag'],
+        'attractions_images' => [
+            'images/destination/skiing_slopes.jpg',
+            'images/destination/gurso_bugyal.jpg',
+            'images/destination/joshimath.jpg',
+            'images/destination/nanda_devi_national_park.jpg',
+            'images/destination/auli_ropeway.jpg',
+            'images/destination/chattrakund_lake.jpg',
+            'images/destination/vishnuprayag.jpg'
+        ],
+        'festivals' => ['Winter Carnival', 'Basant Panchami', 'Makar Sankranti', 'Nanda Devi Festival', 'Holi Festival', 'Diwali Festival', 'Shivratri Festival'],
+        'cuisines' => ['Chainsoo', 'Gahat Dal', 'Aloo Ke Gutke', 'Bal Mithai', 'Kafuli', 'Jhangora Ki Kheer', 'Singori'],
+        'famous_spots' => ['Ski Resorts', 'Auli Chair Lift', 'Joshimath Market', 'Narsingh Temple', 'Auli Lake', 'Chenab Lake', 'Kwani Bugyal'],
+        'nearby' => ['Valley of Flowers', 'Badrinath', 'Hemkund Sahib', 'Mana Village', 'Tapkeshwar', 'Kedarnath', 'Chamoli'],
+    ],
+    [
+        'name' => 'Gokarna',
+        'state' => 'Karnataka',
+        'budget' => 'Budget',
+        'type' => 'Chill',
+        'duration' => 'Weekend',
+        'image' => 'images/destination/gokarna.jpg',
+        'attractions' => ['Om Beach', 'Kudle Beach', 'Mahabaleshwar Temple', 'Half Moon Beach', 'Paradise Beach', 'Gokarna Main Beach', 'Yana Caves'],
+        'attractions_images' => [
+            'images/destination/om_beach.jpg',
+            'images/destination/kudle_beach.jpg',
+            'images/destination/mahabaleshwar_temple.jpg',
+            'images/destination/half_moon_beach.jpg',
+            'images/destination/paradise_beach.jpg',
+            'images/destination/gokarna_main_beach.jpg',
+            'images/destination/yana_caves.jpg'
+        ],
+        'festivals' => ['Shivaratri Festival', 'Gokarna Beach Festival', 'Holi Festival', 'Ganesh Chaturthi', 'Deepavali', 'Ugadi Festival', 'Vittala Purnima'],
+        'cuisines' => ['Neer Dosa', 'Kane Rava Fry', 'Fish Curry', 'Banana Buns', 'Bangude Pulimunchi', 'Chicken Sukka', 'Mysore Pak'],
+        'famous_spots' => ['Namaste Café', 'Half Moon Beach', 'Mirjan Fort', 'Prema Restaurant', 'Gokarna Cliffs', 'Sunset Point', 'Shri Hari Café'],
+        'nearby' => ['Murudeshwar', 'Yana Caves', 'Karwar', 'Ankola', 'Dandeli', 'Udupi', 'Honnavar'],
+    ],
+    [
+        'name' => 'Coorg',
+        'state' => 'Karnataka',
+        'budget' => 'Mid-range',
+        'type' => 'Chill',
+        'duration' => '5-day',
+        'image' => 'images/destination/coorg.jpg',
+        'attractions' => ['Abbey Falls', 'Mandalpatti', 'Dubare Elephant Camp', 'Talacauvery', 'Raja’s Seat', 'Iruppu Falls', 'Nagarhole National Park'],
+        'attractions_images' => [
+            'images/destination/abbey_falls.jpg',
+            'images/destination/mandalpatti.jpg',
+            'images/destination/dubare_elephant_camp.jpg',
+            'images/destination/talacauvery.jpg',
+            'images/destination/rajas_seat.jpg',
+            'images/destination/iruppu_falls.jpg',
+            'images/destination/nagarhole_national_park.jpg'
+        ],
+        'festivals' => ['Puthari Festival', 'Kailpodh Festival', 'Madikeri Dasara', 'Holi Festival', 'Deepavali', 'Tula Sankramana', 'Coorg Food Festival'],
+        'cuisines' => ['Pandi Curry', 'Kadambuttu', 'Noolputtu', 'Coorgi Style Chicken Curry', 'Bamboo Shoot Curry', 'Akki Roti', 'Koli Curry'],
+        'famous_spots' => ['Raja’s Seat', 'Namdroling Monastery', 'Coorg Cuisine', 'Madikeri Fort', 'Coffee Plantations', 'Tadiandamol Peak', 'Omkareshwara Temple'],
+        'nearby' => ['Nagarhole', 'Madikeri', 'Mysore', 'Wayanad', 'Mangalore', 'Kushalnagar', 'Kabini'],
+    ],
+    [
+        'name' => 'Andaman & Nicobar',
+        'state' => 'Andaman & Nicobar',
+        'budget' => 'Luxury',
+        'type' => 'Adventure',
+        'duration' => 'Week-long',
+        'image' => 'images/destination/andaman_nicobar.jpg',
+        'attractions' => ['Havelock Island', 'Radhanagar Beach', 'Cellular Jail', 'Neil Island', 'Ross Island', 'Barren Island', 'Elephant Beach'],
+        'attractions_images' => [
+            'images/destination/havelock_island.jpg',
+            'images/destination/radhanagar_beach.jpg',
+            'images/destination/cellular_jail.jpg',
+            'images/destination/neil_island.jpg',
+            'images/destination/ross_island.jpg',
+            'images/destination/barren_island.jpg',
+            'images/destination/elephant_beach.jpg'
+        ],
+        'festivals' => ['Island Tourism Festival', 'Subhash Mela', 'Andaman Marathon', 'Monsoon Music Festival', 'Diwali Festival', 'Beach Festival', 'Film Festival'],
+        'cuisines' => ['Fish Curry', 'Grilled Lobster', 'Prawn Masala', 'Coconut Prawn Curry', 'Chilli Crab', 'Tandoori Fish', 'Amritsari Kulcha'],
+        'famous_spots' => ['SeaShell Bar & Lounge', 'Corbyn’s Cove', 'Aberdeen Bazaar', 'Viper Island', 'Samudrika Museum', 'Chatham Saw Mill', 'Marina Park'],
+        'nearby' => ['Neil Island', 'Baratang Island', 'Diglipur', 'Little Andaman', 'Rangat', 'Long Island', 'Mayabunder'],
+    ],
+    [
+        'name' => 'Darjeeling',
+        'state' => 'West Bengal',
+        'budget' => 'Mid-range',
+        'type' => 'Chill',
+        'duration' => '5-day',
+        'image' => 'images/destination/darjeeling.jpg',
+        'attractions' => ['Tiger Hill', 'Batasia Loop', 'Darjeeling Himalayan Railway', 'Padmaja Naidu Himalayan Zoo', 'Peace Pagoda', 'Ghoom Monastery', 'Rock Garden'],
+        'attractions_images' => [
+            'images/destination/tiger_hill.jpg',
+            'images/destination/batasia_loop.jpg',
+            'images/destination/darjeeling_himalayan_railway.jpg',
+            'images/destination/padmaja_naidu_himalayan_zoo.jpg',
+            'images/destination/peace_pagoda.jpg',
+            'images/destination/ghoom_monastery.jpg',
+            'images/destination/rock_garden.jpg'
+        ],
+        'festivals' => ['Darjeeling Carnival', 'Losar Festival', 'Teej Festival', 'Durga Puja', 'Holi Festival', 'Orange Festival', 'Tea Festival'],
+        'cuisines' => ['Thukpa', 'Momos', 'Sel Roti', 'Churpee Soup', 'Aloo Dum', 'Gundruk', 'Sael Roti'],
+        'famous_spots' => ['Glenary’s Bakery', 'Chowrasta', 'Japanese Peace Pagoda', 'Tea Gardens', 'Mall Road', 'Keventer’s Café', 'Himalayan Mountaineering Institute'],
+        'nearby' => ['Kalimpong', 'Mirik', 'Kurseong', 'Gangtok', 'Pelling', 'Lava', 'Sikkim'],
+    ],
+    [
+        'name' => 'Lonavala & Khandala',
+        'state' => 'Maharashtra',
+        'budget' => 'Budget',
+        'type' => 'Chill',
+        'duration' => 'Weekend',
+        'image' => 'images/destination/lonavala_khandala.jpg',
+        'attractions' => ['Tiger’s Leap', 'Bhushi Dam', 'Rajmachi Fort', 'Karla Caves', 'Lohagad Fort', 'Pawna Lake', 'Duke’s Nose'],
+        'attractions_images' => [
+            'images/destination/tigers_leap.jpg',
+            'images/destination/bhushi_dam.jpg',
+            'images/destination/rajmachi_fort.jpg',
+            'images/destination/karla_caves.jpg',
+            'images/destination/lohagad_fort.jpg',
+            'images/destination/pawna_lake.jpg',
+            'images/destination/dukes_nose.jpg'
+        ],
+        'festivals' => ['Ganesh Chaturthi', 'Diwali Trekking Events', 'Monsoon Festival', 'Holi Festival', 'Shivratri Festival', 'Khandala Food Festival', 'Pawna Camping Festival'],
+        'cuisines' => ['Vada Pav', 'Misal Pav', 'Chikki', 'Puran Poli', 'Pav Bhaji', 'Sabudana Vada', 'Bhel Puri'],
+        'famous_spots' => ['Cooper’s Chikki', 'Lion’s Point', 'German Bakery', 'Kune Falls', 'Sunset Point', 'Della Adventure Park', 'Wax Museum'],
+        'nearby' => ['Karla Caves', 'Pawna Lake', 'Maval', 'Kamshet', 'Talegaon', 'Khopoli', 'Igatpuri'],
+    ],
+    [
+        'name' => 'Mahabaleshwar',
+        'state' => 'Maharashtra',
+        'budget' => 'Mid-range',
+        'type' => 'Chill',
+        'duration' => 'Weekend',
+        'image' => 'images/destination/mahabaleshwar.jpg',
+        'attractions' => ['Elephant’s Head Point', 'Venna Lake', 'Pratapgad Fort', 'Mapro Garden', 'Lingmala Falls', 'Wilson Point', 'Kate’s Point'],
+        'attractions_images' => [
+            'images/destination/elephants_head_point.jpg',
+            'images/destination/venna_lake.jpg',
+            'images/destination/pratapgad_fort.jpg',
+            'images/destination/mapro_garden.jpg',
+            'images/destination/lingmala_falls.jpg',
+            'images/destination/wilson_point.jpg',
+            'images/destination/kates_point.jpg'
+        ],
+        'festivals' => ['Strawberry Festival', 'Holi Celebration', 'Ganesh Chaturthi', 'Diwali Festival', 'Monsoon Festival', 'Shivratri Festival', 'Mahabaleshwar Fair'],
+        'cuisines' => ['Strawberries with Cream', 'Puran Poli', 'Bhakri', 'Kanda Bhaji', 'Misal Pav', 'Corn Patties', 'Pav Bhaji'],
+        'famous_spots' => ['Mapro Garden', 'Lingmala Falls', 'Venna Lake Boating', 'Arthur’s Seat', 'Sunset Point', 'Strawberry Farms', 'Mahabaleshwar Temple'],
+        'nearby' => ['Panchgani', 'Tapola', 'Wai', 'Satara', 'Raigad', 'Pratapgad', 'Kaas Plateau'],
+    ],
+    [
+        'name' => 'Tirthan Valley',
+        'state' => 'Himachal Pradesh',
+        'budget' => 'Budget',
+        'type' => 'Offbeat',
+        'duration' => '5-day',
+        'image' => 'images/destination/tirthan_valley.jpg',
+        'attractions' => ['Great Himalayan National Park', 'Serolsar Lake', 'Jalori Pass', 'Chhoie Waterfall', 'Tirthan River', 'Lambri Village', 'Raghupur Fort'],
+        'attractions_images' => [
+            'images/destination/great_himalayan_national_park.jpg',
+            'images/destination/serolsar_lake.jpg',
+            'images/destination/jalori_pass.jpg',
+            'images/destination/chhoie_waterfall.jpg',
+            'images/destination/tirthan_river.jpg',
+            'images/destination/lambri_village.jpg',
+            'images/destination/raghupur_fort.jpg'
+        ],
+        'festivals' => ['Fagli Festival', 'Holi Festival', 'Kullu Dussehra', 'Losar Festival', 'Sazo Festival', 'Baisakhi Festival', 'Tirthan Fish Festival'],
+        'cuisines' => ['Siddu', 'Chana Madra', 'Bhatura', 'Rajma Chawal', 'Lingdi Aloo', 'Kullu Trout', 'Babru'],
+        'famous_spots' => ['Raju’s Cottage', 'Gushaini Trails', 'River Crossing Camps', 'Trout Fishing Spots', 'Banjar Market', 'Sai Ropa', 'Sojha Village'],
+        'nearby' => ['Shoja', 'Jibhi', 'Manali', 'Kullu', 'Aut', 'Banjar', 'Mandi'],
+    ],
+    [
+        'name' => 'Puducherry',
+        'state' => 'Puducherry',
+        'budget' => 'Mid-range',
+        'type' => 'Party',
+        'duration' => 'Weekend',
+        'image' => 'images/destination/puducherry.jpg',
+        'attractions' => ['Promenade Beach', 'Auroville', 'Paradise Beach', 'Sri Aurobindo Ashram', 'French Quarter', 'Puducherry Museum', 'Botanical Garden'],
+        'attractions_images' => [
+            'images/destination/promenade_beach.jpg',
+            'images/destination/auroville.jpg',
+            'images/destination/paradise_beach.jpg',
+            'images/destination/sri_aurobindo_ashram.jpg',
+            'images/destination/french_quarter.jpg',
+            'images/destination/puducherry_museum.jpg',
+            'images/destination/botanical_garden.jpg'
+        ],
+        'festivals' => ['Bastille Day', 'Pondicherry Heritage Festival', 'Pongal Festival', 'Deepavali', 'French Food Festival', 'Yoga Festival', 'Masi Magam'],
+        'cuisines' => ['Creole Curries', 'Baguettes', 'Seafood Vindaloo', 'Stuffed Crab', 'Prawn Balchao', 'Mutton Korma', 'Pain au Chocolat'],
+        'famous_spots' => ['Café Des Arts', 'White Town', 'Rock Beach', 'Le Café', 'Serenity Beach', 'Goubert Market', 'La Maison Rose'],
+        'nearby' => ['Auroville', 'Paradise Beach', 'Chidambaram', 'Mahabalipuram', 'Kanchipuram', 'Pichavaram Mangroves', 'Tharangambadi'],
+    ],
+];
 
-if ($selected_state !== 'All' || $selected_budget !== 'All' || $selected_type !== 'All' || $selected_duration !== 'All') {
-    $filtered_destinations = array_filter($destinations, function ($dest) use ($selected_state, $selected_budget, $selected_type, $selected_duration) {
-        $state_match = $selected_state === 'All' || $dest['state'] === $selected_state;
-        $budget_match = $selected_budget === 'All' || $dest['budget'] === $selected_budget;
-        $type_match = $selected_type === 'All' || $dest['type'] === $selected_type;
-        $duration_match = $selected_duration === 'All' || $dest['duration'] === $selected_duration;
-        return $state_match && $budget_match && $type_match && $duration_match;
-    });
-}
-
-// Get unique values for filters
-$states = array_unique(array_column($destinations, 'state'));
-$budgets = ['Budget', 'Mid-range', 'Luxury'];
-$types = ['Adventure', 'Spiritual', 'Chill', 'Party', 'Offbeat'];
-$durations = ['Weekend', '5-day', 'Week-long'];
-sort($states);
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Destinations</title>
-</head>
-<body class="text-white bg-gray-900">
-    <nav class="flex justify-between items-center bg-gray-800 p-4">
-        <a href="mainPage.php" class="text-xl font-bold text-blue-400">Tour Operator</a>
-        <ul class="flex space-x-4 relative items-center">
-            <li><a href="mainPage.php" class="hover:text-yellow-400 text-blue-400">Home</a></li>
-            <li><a href="destination.php" class="hover:text-yellow-400 text-blue-400">Destination</a></li>
-            <li><a href="feedback.php" class="hover:text-yellow-400 text-blue-400">Feedback</a></li>
-            <li class="relative">
-                <button id="dropdownBtn" class="text-blue-400 cursor-pointer focus:outline-none flex items-center hover:text-yellow-400">
-                    Bookings
-                    <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-                <ul id="dropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-60 z-50">
-                    <li><a href="guidebooking.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Hire a Guide</a></li>
-                    <li><a href="booking.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Booking</a></li>
-                    <li><a href="userDashboard.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
-                    <li><a href="packageManagement.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
-                    <li><a href="customTour.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
-                </ul>
-            </li>
-            <li><a href="about.php" class="hover:text-yellow-400 text-blue-400">About</a></li>
-            <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">
-                <img src="theme_icon.png" alt="Theme Toggle" height="20px" width="20px">
-            </button>
-            <?php if (isset($_SESSION['username'])): ?>
-                <li class="relative">
-                    <button id="userDropdownBtn" class="text-blue-400 cursor-pointer focus:outline-none flex items-center hover:text-yellow-400">
-                        <?php echo htmlspecialchars($_SESSION['username']); ?>
-                        <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                    <ul id="userDropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-48 z-50">
-                        <li><a href="logout.php" class="block px-4 py-2 hover:bg-gray-700 text-red-400">Logout</a></li>
-                    </ul>
-                </li>
-            <?php else: ?>
-                <li><a href="signup.php" class="hover:text-red-400 bg-blue-500 text-white px-4 py-2 rounded">Login</a></li>
-            <?php endif; ?>
-        </ul>
-    </nav>
-
-    <div class="container mx-auto px-4 py-4">
-        <form method="GET" action="destination.php" class="flex flex-wrap justify-center mb-8 gap-4">
-            <div>
-                <label for="state" class="mr-2 text-lg font-semibold text-blue-400">State:</label>
-                <select name="state" id="state" onchange="this.form.submit()" class="bg-gray-700 text-white px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500">
-                    <option value="All" <?php echo $selected_state === 'All' ? 'selected' : ''; ?>>All States</option>
-                    <?php foreach ($states as $state): ?>
-                        <option value="<?php echo htmlspecialchars($state); ?>" <?php echo $selected_state === $state ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($state); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div>
-                <label for="budget" class="mr-2 text-lg font-semibold text-blue-400">Budget:</label>
-                <select name="budget" id="budget" onchange="this.form.submit()" class="bg-gray-700 text-white px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500">
-                    <option value="All" <?php echo $selected_budget === 'All' ? 'selected' : ''; ?>>All Budgets</option>
-                    <?php foreach ($budgets as $budget): ?>
-                        <option value="<?php echo htmlspecialchars($budget); ?>" <?php echo $selected_budget === $budget ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($budget); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div>
-                <label for="type" class="mr-2 text-lg font-semibold text-blue-400">Type:</label>
-                <select name="type" id="type" onchange="this.form.submit()" class="bg-gray-700 text-white px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500">
-                    <option value="All" <?php echo $selected_type === 'All' ? 'selected' : ''; ?>>All Types</option>
-                    <?php foreach ($types as $type): ?>
-                        <option value="<?php echo htmlspecialchars($type); ?>" <?php echo $selected_type === $type ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($type); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div>
-                <label for="duration" class="mr-2 text-lg font-semibold text-blue-400">Duration:</label>
-                <select name="duration" id="duration" onchange="this.form.submit()" class="bg-gray-700 text-white px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500">
-                    <option value="All" <?php echo $selected_duration === 'All' ? 'selected' : ''; ?>>All Durations</option>
-                    <?php foreach ($durations as $duration): ?>
-                        <option value="<?php echo htmlspecialchars($duration); ?>" <?php echo $selected_duration === $duration ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($duration); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-        </form>
-    </div>
-
-    <h1 class="text-4xl text-center font-bold mt-8">Popular Destinations</h1>
-    <div class="container mx-auto px-4 py-8">
-        <?php if (empty($filtered_destinations)): ?>
-            <p class="text-center text-gray-400">No destinations match your filters. Try adjusting your selection.</p>
-        <?php else: ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <?php foreach ($filtered_destinations as $index => $dest): ?>
-                    <div class="p-4 rounded-lg text-center hover:scale-105 transition bg-gray-800 shadow-lg">
-                        <img src="<?php echo htmlspecialchars(file_exists($dest['image']) ? $dest['image'] : 'images/destination/default.jpg'); ?>" alt="<?php echo htmlspecialchars($dest['name']); ?>" class="w-full h-60 object-cover rounded-md">
-                        <h2 class="text-lg mt-2 font-semibold"><?php echo htmlspecialchars($dest['name']); ?></h2>
-                        <p class="text-sm text-gray-400"><?php echo htmlspecialchars($dest['state']); ?> | <?php echo htmlspecialchars($dest['budget']); ?> | <?php echo htmlspecialchars($dest['type']); ?></p>
-                        <form method="GET" action="package_details.php">
-                            <input type="hidden" name="dest_id" value="<?php echo $index; ?>">
-                            <input type="submit" value="View Details" class="bg-blue-500 px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600 cursor-pointer text-white">
-                        </form>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
-    </div>
-
-    <footer class="text-center mt-8 py-4 bg-gray-700 text-white">
-        <p>© 2025 Tour Operator | <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a></p>
-    </footer>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const dropdownBtn = document.getElementById("dropdownBtn");
-            const dropdownMenu = document.getElementById("dropdownMenu");
-
-            if (dropdownBtn && dropdownMenu) {
-                dropdownBtn.addEventListener("click", function () {
-                    dropdownMenu.classList.toggle("hidden");
-                });
-
-                document.addEventListener("click", function (event) {
-                    if (!dropdownMenu.contains(event.target) && !dropdownBtn.contains(event.target)) {
-                        dropdownMenu.classList.add("hidden");
-                    }
-                });
-            }
-
-            const themeToggleBtn = document.getElementById("themeToggle");
-            const body = document.body;
-
-            if (themeToggleBtn) {
-                const savedTheme = localStorage.getItem("theme") || "dark";
-                body.classList.toggle("bg-gray-100", savedTheme === "light");
-                body.classList.toggle("bg-gray-900", savedTheme === "dark");
-                body.classList.toggle("text-black", savedTheme === "light");
-                body.classList.toggle("text-white", savedTheme === "dark");
-
-                themeToggleBtn.addEventListener("click", function () {
-                    const newTheme = body.classList.contains("bg-gray-900") ? "light" : "dark";
-
-                    body.classList.toggle("bg-gray-100", newTheme === "light");
-                    body.classList.toggle("bg-gray-900", newTheme === "dark");
-                    body.classList.toggle("text-black", newTheme === "light");
-                    body.classList.toggle("text-white", newTheme === "dark");
-
-                    localStorage.setItem("theme", newTheme);
-                });
-            }
-
-            const userDropdownBtn = document.getElementById("userDropdownBtn");
-            const userDropdownMenu = document.getElementById("userDropdownMenu");
-
-            if (userDropdownBtn && userDropdownMenu) {
-                userDropdownBtn.addEventListener("click", function (event) {
-                    event.stopPropagation();
-                    userDropdownMenu.classList.toggle("hidden");
-                });
-
-                document.addEventListener("click", function (event) {
-                    if (!userDropdownMenu.contains(event.target) && !userDropdownBtn.contains(event.target)) {
-                        userDropdownMenu.classList.add("hidden");
-                    }
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+return $destinations;
