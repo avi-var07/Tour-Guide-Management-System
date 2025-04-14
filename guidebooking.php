@@ -28,7 +28,7 @@ session_start();
                 <li><a href="guidebooking.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Hire a Guide</a></li>
                 <li><a href="booking.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Booking</a></li>
                 <li><a href="userDashboard.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
-                <li><a href="packageManagement.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
+                <li><a href="package LATManagement.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
                 <li><a href="customTour.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
             </ul>
         </li>
@@ -119,7 +119,6 @@ session_start();
 
     if (themeToggleBtn) {
         const savedTheme = localStorage.getItem("theme") || "dark";
-        body.classListाई
         body.classList.toggle("bg-gray-100", savedTheme === "light");
         body.classList.toggle("bg-gray-900", savedTheme === "dark");
         body.classList.toggle("text-black", savedTheme === "light");
@@ -165,7 +164,17 @@ session_start();
             { id: 7, name: "Karan Thakur", location: "Ladakh", expertise: "Adventure", experience: "6 Years", rating: 4.8, available: true },
             { id: 8, name: "Meera Joshi", location: "Rajasthan", expertise: "Cultural", experience: "5 Years", rating: 4.7, available: true },
             { id: 9, name: "Suresh Patel", location: "Goa", expertise: "Historical", experience: "10 Years", rating: 4.9, available: true },
-            { id: 10, name: "Nisha Rawat", location: "Kerala", expertise: "Wildlife", experience: "4 Years", rating: 4.5, available: false }
+            { id: 10, name: "Nisha Rawat", location: "Kerala", expertise: "Wildlife", experience: "4 Years", rating: 4.5, available: false },
+            { id: 11, name: "Rahul Desai", location: "Goa", expertise: "Cultural", experience: "6 Years", rating: 4.6, available: true },
+            { id: 12, name: "Lakshmi Menon", location: "Kerala", expertise: "Historical", experience: "9 Years", rating: 4.8, available: true },
+            { id: 13, name: "Tenzin Norbu", location: "Ladakh", expertise: "Cultural", experience: "5 Years", rating: 4.7, available: false },
+            { id: 14, name: "Arjun Rathore", location: "Rajasthan", expertise: "Adventure", experience: "7 Years", rating: 4.9, available: true },
+            { id: 15, name: "Deepa Kulkarni", location: "Goa", expertise: "Wildlife", experience: "4 Years", rating: 4.5, available: true },
+            { id: 16, name: "Manu Varghese", location: "Kerala", expertise: "Adventure", experience: "6 Years", rating: 4.7, available: true },
+            { id: 17, name: "Sonam Dorji", location: "Ladakh", expertise: "Historical", experience: "8 Years", rating: 4.8, available: true },
+            { id: 18, name: "Kavita Sharma", location: "Rajasthan", expertise: "Wildlife", experience: "5 Years", rating: 4.6, available: false },
+            { id: 19, name: "Naveen D’Souza", location: "Goa", expertise: "Adventure", experience: "7 Years", rating: 4.8, available: true },
+            { id: 20, name: "Rekha Pillai", location: "Kerala", expertise: "Cultural", experience: "6 Years", rating: 4.7, available: true }
         ];
 
         function loadGuides(filterLocation = "", filterExpertise = "") {
