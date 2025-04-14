@@ -204,21 +204,51 @@ session_start();
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="text-center mt-8 py-4 bg-gray-700 text-white">
-        <p>
-            © 2025 Tour Operator | 
-            <a href="https://www.instagram.com/" class="hover:text-pink-400 mx-2">
-                <i class="fab fa-instagram"></i> Instagram
-            </a> | 
-            <a href="https://x.com/" class="hover:text-blue-400 mx-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="inline-block">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg> X
-            </a>
-        </p>
-    </footer>
+<!-- Footer -->
+    <footer class="bg-gray-700 text-white py-8">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Navigation Links -->
+            <div>
+                <h3 class="text-lg font-semibold text-blue-400 mb-4">Explore</h3>
+                <ul class="space-y-2">
+                    <li><a href="mainPage.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-home mr-2"></i>Home</a></li>
+                    <li><a href="destination.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-map-marker-alt mr-2"></i>Destinations</a></li>
+                    <li><a href="guidebooking.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-user-guide mr-2"></i>Hire a Guide</a></li>
+                    <li><a href="booking.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-ticket-alt mr-2"></i>Tour Booking</a></li>
+                    <li><a href="customTour.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-map mr-2"></i>Custom Tour Planning</a></li>
+                </ul>
+            </div>
+            <!-- Account Links -->
+            <div>
+                <h3 class="text-lg font-semibold text-blue-400 mb-4">Account</h3>
+                <ul class="space-y-2">
+                    <li><a href="userDashboard.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-user mr-2"></i>User Dashboard</a></li>
+                    <li><a href="packageManagement.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-suitcase mr-2"></i>Tour Package Management</a></li>
+                    <li><a href="feedback.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-comment mr-2"></i>Feedback</a></li>
+                    <?php if (isset($_SESSION['username'])): ?>
+                        <li><a href="logout.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
+                    <?php else: ?>
+                        <li><a href="signup.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-sign-in-alt mr-2"></i>Login</a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+            <!-- Social Media & Contact -->
+            <div>
+                <h3 class="text-lg font-semibold text-blue-400 mb-4">Connect With Us</h3>
+                <ul class="space-y-2">
+                    <li><a href="about.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-info-circle mr-2"></i>About Us</a></li>
+                    <li><a href="https://www.instagram.com/" target="_blank" class="hover:text-pink-400 text-gray-300"><i class="fab fa-instagram mr-2"></i>Instagram</a></li>
+                    <li><a href="https://x.com/" target="_blank" class="hover:text-blue-400 text-gray-300"><i class="fab fa-twitter mr-2"></i>X</a></li>
+                    <li><a href="mailto:support@touroperator.com" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-envelope mr-2"></i>Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-8 text-center border-t border-gray-600 pt-4">
+            <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 
     <!-- JavaScript for Dropdowns and Theme Toggle -->
     <script>

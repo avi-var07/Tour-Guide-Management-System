@@ -9,6 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Package Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="text-white">
 <nav class="flex justify-between items-center bg-gray-800 p-4">
@@ -184,9 +185,50 @@ session_start();
             loadPackages(); // Initial fetch
         });
     </script>
-    <footer class="text-center mt-8 py-4 bg-gray-700 text-white">
-        <p>&copy; 2025 Tour Operator | <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a></p>
-      </footer>
+    <footer class="bg-gray-700 text-white py-8">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Navigation Links -->
+            <div>
+                <h3 class="text-lg font-semibold text-blue-400 mb-4">Explore</h3>
+                <ul class="space-y-2">
+                    <li><a href="mainPage.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-home mr-2"></i>Home</a></li>
+                    <li><a href="destination.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-map-marker-alt mr-2"></i>Destinations</a></li>
+                    <li><a href="guidebooking.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-user-guide mr-2"></i>Hire a Guide</a></li>
+                    <li><a href="booking.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-ticket-alt mr-2"></i>Tour Booking</a></li>
+                    <li><a href="customTour.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-map mr-2"></i>Custom Tour Planning</a></li>
+                </ul>
+            </div>
+            <!-- Account Links -->
+            <div>
+                <h3 class="text-lg font-semibold text-blue-400 mb-4">Account</h3>
+                <ul class="space-y-2">
+                    <li><a href="userDashboard.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-user mr-2"></i>User Dashboard</a></li>
+                    <li><a href="packageManagement.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-suitcase mr-2"></i>Tour Package Management</a></li>
+                    <li><a href="feedback.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-comment mr-2"></i>Feedback</a></li>
+                    <?php if (isset($_SESSION['username'])): ?>
+                        <li><a href="logout.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
+                    <?php else: ?>
+                        <li><a href="signup.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-sign-in-alt mr-2"></i>Login</a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+            <!-- Social Media & Contact -->
+            <div>
+                <h3 class="text-lg font-semibold text-blue-400 mb-4">Connect With Us</h3>
+                <ul class="space-y-2">
+                    <li><a href="about.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-info-circle mr-2"></i>About Us</a></li>
+                    <li><a href="https://www.instagram.com/" target="_blank" class="hover:text-pink-400 text-gray-300"><i class="fab fa-instagram mr-2"></i>Instagram</a></li>
+                    <li><a href="https://x.com/" target="_blank" class="hover:text-blue-400 text-gray-300"><i class="fab fa-twitter mr-2"></i>X</a></li>
+                    <li><a href="mailto:support@touroperator.com" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-envelope mr-2"></i>Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-8 text-center border-t border-gray-600 pt-4">
+            <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
