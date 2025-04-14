@@ -1,4 +1,13 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+
+// Check if user is logged in
+if (!isset($_SESSION['username'])) {
+    // User is not logged in - show message and redirect
+    echo "<script>alert('Please login first!'); window.location.href='signup.php';</script>";
+    exit; // Stop further execution
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,6 +176,12 @@
 include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Double check the login status before processing form submission
+    if (!isset($_SESSION['username'])) {
+        echo "<script>alert('Please login first!'); window.location.href='signup.php';</script>";
+        exit;
+    }
+    
     $first_name = trim($_POST["first_name"]);
     $email = trim($_POST["email"]);
     $pincode = trim($_POST["pincode"]);
