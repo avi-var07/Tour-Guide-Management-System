@@ -110,7 +110,7 @@ if (!$destination) {
                 <?php endforeach; ?>
             </ul>
 
-            <a href="booking.php?dest=<?php echo urlencode($destination['name']); ?>" class="mt-6 inline-block bg-blue-500 px-6 py-3 rounded-md text-white hover:bg-blue-600">Book Now</a>
+            <a href="booking.php?destination=Bali Paradise&price=1299" class="book-now-btn mt-6 inline-block bg-blue-500 px-6 py-3 rounded-md text-black hover:bg-blue-600">Book Now</a>
         </div>
     </div>
 
@@ -176,3 +176,4 @@ if (!$destination) {
     </script>
 </body>
 </html>
+Enhancing PhonePe Payment Flow for Tour Booking - Claude
