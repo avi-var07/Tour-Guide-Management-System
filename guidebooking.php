@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,9 +54,6 @@ session_start();
           </ul>
         </nav>
 
-
-    
-
     <!-- Page Title -->
     <div class="container mx-auto px-4 py-8 text-center">
         <h1 class="text-3xl font-bold mb-4">Find & Book a Guide</h1>
@@ -92,16 +88,14 @@ session_start();
         </div>
     </div>
 
-
     <footer class="text-center py-4 bg-gray-700 text-white fixed bottom-0 w-full">
-        <p>&copy; 2025 Tour Operator | 
+        <p>© 2025 Tour Operator | 
             <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | 
             <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a>
         </p>
     </footer>
     
     <script>
-  
       document.addEventListener("DOMContentLoaded", function () {
     // Bookings dropdown toggle
     const dropdownBtn = document.getElementById("dropdownBtn");
@@ -125,6 +119,7 @@ session_start();
 
     if (themeToggleBtn) {
         const savedTheme = localStorage.getItem("theme") || "dark";
+        body.classListाई
         body.classList.toggle("bg-gray-100", savedTheme === "light");
         body.classList.toggle("bg-gray-900", savedTheme === "dark");
         body.classList.toggle("text-black", savedTheme === "light");
@@ -159,11 +154,18 @@ session_start();
         });
     }
 });
+
         const guides = [
             { id: 1, name: "Ravi Sharma", location: "Goa", expertise: "Adventure", experience: "5 Years", rating: 4.7, available: true },
             { id: 2, name: "Priya Mehta", location: "Kerala", expertise: "Cultural", experience: "7 Years", rating: 4.9, available: true },
             { id: 3, name: "Amit Kumar", location: "Ladakh", expertise: "Wildlife", experience: "4 Years", rating: 4.5, available: false },
             { id: 4, name: "Sanya Gupta", location: "Rajasthan", expertise: "Historical", experience: "6 Years", rating: 4.8, available: true },
+            { id: 5, name: "Vikram Singh", location: "Goa", expertise: "Wildlife", experience: "3 Years", rating: 4.4, available: true },
+            { id: 6, name: "Anjali Nair", location: "Kerala", expertise: "Adventure", experience: "8 Years", rating: 4.6, available: false },
+            { id: 7, name: "Karan Thakur", location: "Ladakh", expertise: "Adventure", experience: "6 Years", rating: 4.8, available: true },
+            { id: 8, name: "Meera Joshi", location: "Rajasthan", expertise: "Cultural", experience: "5 Years", rating: 4.7, available: true },
+            { id: 9, name: "Suresh Patel", location: "Goa", expertise: "Historical", experience: "10 Years", rating: 4.9, available: true },
+            { id: 10, name: "Nisha Rawat", location: "Kerala", expertise: "Wildlife", experience: "4 Years", rating: 4.5, available: false }
         ];
 
         function loadGuides(filterLocation = "", filterExpertise = "") {
@@ -194,17 +196,13 @@ session_start();
             const selectedExpertise = document.getElementById("expertiseFilter").value;
             loadGuides(selectedLocation, selectedExpertise);
         }
+
         function bookGuide(guideName) {
             window.location.href = `booking.php?guide=${encodeURIComponent(guideName)}`;
         }
 
-
-
-        
-
         // Load all guides on page load
         loadGuides();
     </script>
-
 </body>
 </html>
