@@ -173,7 +173,7 @@ session_start();
             { id: 16, name: "Manu Varghese", location: "Kerala", expertise: "Adventure", experience: "6 Years", rating: 4.7, available: true },
             { id: 17, name: "Sonam Dorji", location: "Ladakh", expertise: "Historical", experience: "8 Years", rating: 4.8, available: true },
             { id: 18, name: "Kavita Sharma", location: "Rajasthan", expertise: "Wildlife", experience: "5 Years", rating: 4.6, available: false },
-            { id: 19, name: "Naveen D’Souza", location: "Goa", expertise: "Adventure", experience: "7 Years", rating: 4.8, available: true },
+            { id: 19, name: "Naveen D'Souza", location: "Goa", expertise: "Adventure", experience: "7 Years", rating: 4.8, available: true },
             { id: 20, name: "Rekha Pillai", location: "Kerala", expertise: "Cultural", experience: "6 Years", rating: 4.7, available: true }
         ];
 
