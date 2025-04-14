@@ -10,13 +10,13 @@ $destinations = [
         'image' => 'images/destination/srinagar.jpg',
         'attractions' => ['Dal Lake', 'Mughal Gardens', 'Shankaracharya Temple', 'Hazratbal Shrine', 'Nishat Bagh', 'Chashme Shahi', 'Pari Mahal'],
         'attractions_images' => [
-            'images/destination/srinagar/dal_lake.jpg',
-            'images/destination/srinagar/mughal_gardens.jpg',
-            'images/destination/srinagar/shankaracharya_temple.jpg',
-            'images/destination/srinagar/hazratbal_shrine.jpg',
-            'images/destination/srinagar/nishat_bagh.jpg',
-            'images/destination/srinagar/chashme_shahi.jpg',
-            'images/destination/srinagar/pari_mahal.jpg'
+            'images/destination/srinnagar/dal_lake.jpg',
+            'images/destination/srinnagar/mughal_gardens.jpg',
+            'images/destination/srinnagar/shankaracharya_temple.jpg',
+            'images/destination/srinnagar/hazratbal_shrine.jpg',
+            'images/destination/srinnagar/nishat_bagh.jpg',
+            'images/destination/srinnagar/chashme_shahi.jpg',
+            'images/destination/srinnagar/pari_mahal.jpg'
         ],
         'festivals' => ['Tulip Festival', 'Shikara Festival', 'Srinagar Festival', 'Navroz', 'Urs of Sheikh Nooruddin', 'Baisakhi', 'Saffron Festival'],
         'cuisines' => ['Rogan Josh', 'Dum Aloo', 'Kahwa', 'Yakhni', 'Gushtaba', 'Nadir Monji', 'Haaq'],
@@ -29,12 +29,12 @@ $destinations = [
         'budget' => 'Luxury',
         'type' => 'Adventure',
         'duration' => 'Week-long',
-        'image' => 'images/destination/leh_ladakh.jpg',
+        'image' => 'images/destination/leh-ladakh.jpg',
         'attractions' => ['Pangong Lake', 'Magnetic Hill', 'Thiksey Monastery', 'Nubra Valley', 'Hemis Monastery', 'Shanti Stupa', 'Zanskar Valley'],
         'attractions_images' => [
-            'images/destination/leh-ladakh/pangong_lake.jpg',
+            'images/destination/leh-ladakh/pongong_lake.jpg',
             'images/destination/leh-ladakh/magnetic_hill.jpg',
-            'images/destination/leh-ladakh/thiksey_monastery.jpg',
+            'images/destination/leh-ladakh/thicksey_monastery.jpg',
             'images/destination/leh-ladakh/nubra_valley.jpg',
             'images/destination/leh-ladakh/hemis_monastery.jpg',
             'images/destination/leh-ladakh/shanti_stupa.jpg',
@@ -79,7 +79,7 @@ $destinations = [
             'images/destination/manali/solang_valley.jpg',
             'images/destination/manali/hadimba_temple.jpg',
             'images/destination/manali/rohtang_pass.jpg',
-            'images/destination/manali/vashisht_hot_springs.jpg',
+            'images/destination/manali/vashisht_hot_spring.jpg',
             'images/destination/manali/manu_temple.jpg',
             'images/destination/manali/jogini_falls.jpg',
             'images/destination/manali/beas_kund.jpg'
@@ -120,13 +120,13 @@ $destinations = [
         'image' => 'images/destination/gangtok.jpg',
         'attractions' => ['Tsomgo Lake', 'Rumtek Monastery', 'Nathula Pass', 'Enchey Monastery', 'Ban Jhakri Falls', 'Hanuman Tok', 'Do-Drul Chorten'],
         'attractions_images' => [
-            'images/destination/gangtok/tsomgo_lake.jpg',
+            'images/destination/gangtok/tmsao_lake.jpg',
             'images/destination/gangtok/rumtek_monastery.jpg',
             'images/destination/gangtok/nathula_pass.jpg',
             'images/destination/gangtok/enchey_monastery.jpg',
-            'images/destination/gangtok/ban_jhakri_falls.jpg',
-            'images/destination/gangtok/hanuman_tok.jpg',
-            'images/destination/gangtok/do-drul_chorten.jpg'
+            'images/destination/gangtok/ban_jhakri-falls.jpg',
+            'images/destination/gangtok/hanuman_tok.png',
+            'images/destination/gangtok/do_drul_chorten.jpg'
         ],
         'festivals' => ['Losar Festival', 'Saga Dawa Festival', 'Pang Lhabsol', 'Dasain Festival', 'Tihar Festival', 'Bumchu Festival', 'Drukpa Tsheshi'],
         'cuisines' => ['Phagshapa', 'Thukpa', 'Momos', 'Sel Roti', 'Gundruk', 'Sinki Soup', 'Chhurpi'],
@@ -143,7 +143,7 @@ $destinations = [
         'attractions' => ['Elephant Falls', 'Umiam Lake', 'Shillong Peak', 'Ward’s Lake', 'Lady Hydari Park', 'Laitlum Canyons', 'Cathedral of Mary'],
         'attractions_images' => [
             'images/destination/shillong/elephant_falls.jpg',
-            'images/destination/shillong/umiam_lake.jpg',
+            'images/destination/shillong/umimam_lake.jpg',
             'images/destination/shillong/shillong_peak.jpg',
             'images/destination/shillong/wards_lake.jpg',
             'images/destination/shillong/lady_hydari_park.jpg',
@@ -164,9 +164,9 @@ $destinations = [
         'image' => 'images/destination/kaziranga.jpg',
         'attractions' => ['Elephant Safaris', 'Jeep Safari', 'Tea Gardens', 'Kaziranga Orchid Park', 'Panbari Reserve', 'Kakochang Falls', 'Deopahar Ruins'],
         'attractions_images' => [
-            'images/destination/kaziranga/elephant_safaris.jpg',
+            'images/destination/kaziranga/elephant_safaris.png',
             'images/destination/kaziranga/jeep_safari.jpg',
-            'images/destination/kaziranga/tea_gardens.jpg',
+            'images/destination/kaziranga/tea_garden.jpg',
             'images/destination/kaziranga/kaziranga_orchid_park.jpg',
             'images/destination/kaziranga/panbari_reserve.jpg',
             'images/destination/kaziranga/kakochang_falls.jpg',
@@ -188,7 +188,7 @@ $destinations = [
         'attractions_images' => [
             'images/destination/jaipur/hawa_mahal.jpg',
             'images/destination/jaipur/amber_fort.jpg',
-            'images/destination/jaipur/city_palace.jpg',
+            'images/destination/jaipur/city_palace.jpeg',
             'images/destination/jaipur/jantar_mantar.jpg',
             'images/destination/jaipur/nahargarh_fort.jpg',
             'images/destination/jaipur/jaigarh_fort.jpg',
@@ -208,7 +208,7 @@ $destinations = [
         'image' => 'images/destination/varanasi.jpg',
         'attractions' => ['Kashi Vishwanath Temple', 'Dashashwamedh Ghat', 'Sarnath', 'Assi Ghat', 'Manikarnika Ghat', 'Ramnagar Fort', 'Bharat Mata Temple'],
         'attractions_images' => [
-            'images/destination/varanasi/kashi_vishwanath_temple.jpg',
+            'images/destination/varanasi/kashi_vishwanath_temple.webp',
             'images/destination/varanasi/dashashwamedh_ghat.jpg',
             'images/destination/varanasi/sarnath.jpg',
             'images/destination/varanasi/assi_ghat.jpg',
@@ -232,7 +232,7 @@ $destinations = [
         'attractions_images' => [
             'images/destination/kasol/parvati_valley.jpg',
             'images/destination/kasol/kheerganga_trek.jpg',
-            'images/destination/kasol/manikaran_sahib.jpg',
+            'images/destination/kasol/manikaran_sahib.avif',
             'images/destination/kasol/tosh_village.jpg',
             'images/destination/kasol/chalal_trek.jpg',
             'images/destination/kasol/rasol_village.jpg',
@@ -254,9 +254,9 @@ $destinations = [
         'attractions_images' => [
             'images/destination/rishikesh/lakshman_jhula.jpg',
             'images/destination/rishikesh/neelkanth_mahadev_temple.jpg',
-            'images/destination/rishikesh/river_rafting.jpg',
+            'images/destination/rishikesh/riverrafting.jpg',
             'images/destination/rishikesh/triveni_ghat.jpg',
-            'images/destination/rishikesh/the_beatles_ashram.jpg',
+            'images/destination/rishikesh/the_beatles_ashram.jpeg',
             'images/destination/rishikesh/ram_jhula.jpg',
             'images/destination/rishikesh/parmarth_niketan.jpg'
         ],
@@ -274,10 +274,10 @@ $destinations = [
         'image' => 'images/destination/tawang.jpg',
         'attractions' => ['Tawang Monastery', 'Sela Pass', 'Madhuri Lake', 'Nuranang Falls', 'Bum La Pass', 'Gorsam Chorten', 'Tawang War Memorial'],
         'attractions_images' => [
-            'images/destination/tawang/tawang_monastery.jpg',
+            'images/destination/tawang/tawang monastery.jpg',
             'images/destination/tawang/sela_pass.jpg',
             'images/destination/tawang/madhuri_lake.jpg',
-            'images/destination/tawang/nuranang_falls.jpg',
+            'images/destination/tawang/nuranang_falls.jpeg',
             'images/destination/tawang/bum_la_pass.jpg',
             'images/destination/tawang/gorsam_chorten.jpg',
             'images/destination/tawang/tawang_war_memorial.jpg'
@@ -296,9 +296,9 @@ $destinations = [
         'image' => 'images/destination/mcleodganj.jpg',
         'attractions' => ['Triund Trek', 'Dalai Lama Temple', 'Bhagsu Waterfall', 'Namgyal Monastery', 'St. John in the Wilderness', 'Naddi View Point', 'Kangra Fort'],
         'attractions_images' => [
-            'images/destination/mcleodganj/triund_trek.jpg',
+            'images/destination/mcleodganj/truind_trek.jpg',
             'images/destination/mcleodganj/dalai_lama_temple.jpg',
-            'images/destination/mcleodganj/bhagsu_waterfall.jpg',
+            'images/destination/mcleodganj/bhagsu_waterfall.jpeg',
             'images/destination/mcleodganj/namgyal_monastery.jpg',
             'images/destination/mcleodganj/st_john_in_the_wilderness.jpg',
             'images/destination/mcleodganj/naddi_view_point.jpg',
@@ -315,11 +315,11 @@ $destinations = [
         'budget' => 'Budget',
         'type' => 'Offbeat',
         'duration' => '5-day',
-        'image' => 'images/destination/chopta.jpg',
+        'image' => 'images/destination/chopta/chopta.jpg',
         'attractions' => ['Tungnath Temple', 'Deoria Tal', 'Chandrashila Trek', 'Kanchula Korak Musk Deer Sanctuary', 'Sari Village', 'Omkeshwar Temple', 'Ukhimath'],
         'attractions_images' => [
-            'images/destination/chopta/tungnath_temple.jpg',
-            'images/destination/chopta/deoria_tal.jpg',
+            'images/destination/chopta/tungnath.jpg',
+            'images/destination/chopta/deoria_tal.jpeg',
             'images/destination/chopta/chandrashila_trek.jpg',
             'images/destination/chopta/kanchula_korak_musk_deer_sanctuary.jpg',
             'images/destination/chopta/sari_village.jpg',
@@ -403,7 +403,7 @@ $destinations = [
         'budget' => 'Mid-range',
         'type' => 'Adventure',
         'duration' => '5-day',
-        'image' => 'images/destination/auli.jpg',
+        'image' => 'images/destination/auli/auli.jpg',
         'attractions' => ['Skiing Slopes', 'Gurso Bugyal', 'Joshimath', 'Nanda Devi National Park', 'Auli Ropeway', 'Chattrakund Lake', 'Vishnuprayag'],
         'attractions_images' => [
             'images/destination/auli/skiing_slopes.jpg',
@@ -425,7 +425,7 @@ $destinations = [
         'budget' => 'Budget',
         'type' => 'Chill',
         'duration' => 'Weekend',
-        'image' => 'images/destination/gokarna.jpg',
+        'image' => 'images/destination/gokarna/gokarna.jpg',
         'attractions' => ['Om Beach', 'Kudle Beach', 'Mahabaleshwar Temple', 'Half Moon Beach', 'Gokarna', 'Gokarna Main Beach', 'Yana Caves'],
         'attractions_images' => [
             'images/destination/gokarna/om_beach.jpg',
@@ -433,7 +433,7 @@ $destinations = [
             'images/destination/gokarna/mahabaleshwar_temple.jpg',
             'images/destination/gokarna/half_moon_beach.jpg',
             'images/destination/gokarna/gokarna.jpg',
-            'images/destination/gokarna/gokarna_main_beach.jpg',
+            'images/destination/gokarna/gokarna_main_beach.png',
             'images/destination/gokarna/yana_caves.jpg'
         ],
         'festivals' => ['Shivaratri Festival', 'Gokarna Beach Festival', 'Holi Festival', 'Ganesh Chaturthi', 'Deepavali', 'Ugadi Festival', 'Vittala Purnima'],
@@ -469,7 +469,7 @@ $destinations = [
         'budget' => 'Luxury',
         'type' => 'Adventure',
         'duration' => 'Week-long',
-        'image' => 'images/destination/andaman_nicobar.jpg',
+        'image' => 'images/destination/andaman n nico/andaman_nicobar.jpg',
         'attractions' => ['Havelock Island', 'Radhanagar Beach', 'Cellular Jail', 'Neil Island', 'Ross Island', 'Barren Island', 'Elephant Beach'],
         'attractions_images' => [
             'images/destination/andaman n nico/havelock_island.jpg',
@@ -478,7 +478,7 @@ $destinations = [
             'images/destination/andaman n nico/neil_island.jpg',
             'images/destination/andaman n nico/ross_island.jpg',
             'images/destination/andaman n nico/barren_island.jpg',
-            'images/destination/andaman n nico/elephant_beach.jpg'
+            'images/destination/andaman n nico/elephant_beach.png'
         ],
         'festivals' => ['Island Tourism Festival', 'Subhash Mela', 'Andaman Marathon', 'Monsoon Music Festival', 'Diwali Festival', 'Beach Festival', 'Film Festival'],
         'cuisines' => ['Fish Curry', 'Grilled Lobster', 'Prawn Masala', 'Coconut Prawn Curry', 'Chilli Crab', 'Tandoori Fish', 'Amritsari Kulcha'],
@@ -517,8 +517,8 @@ $destinations = [
         'attractions' => ['Tiger’s Leap', 'Bhushi Dam', 'Rajmachi Fort', 'Karla Caves', 'Lohagad Fort', 'Pawna Lake', 'Duke’s Nose'],
         'attractions_images' => [
             'images/destination/lonavala/tigers_leap.jpg',
-            'images/destination/lonavala/bhushi_dam.jpg',
-            'images/destination/lonavala/rajmachi_fort.jpg',
+            'images/destination/lonavala/bhushi_dam.jpeg',
+            'images/destination/lonavala/rajmachi.jpg',
             'images/destination/lonavala/karla_caves.jpg',
             'images/destination/lonavala/lohagad_fort.jpg',
             'images/destination/lonavala/pawna_lake.jpg',
@@ -582,7 +582,7 @@ $destinations = [
         'image' => 'images/destination/puducherry.jpg',
         'attractions' => ['Promenade Beach', 'Auroville', 'Paradise Beach', 'Sri Aurobindo Ashram', 'French Quarter', 'Puducherry Museum', 'Botanical Garden'],
         'attractions_images' => [
-            'images/destination/puducherry/promenade_beach.jpg',
+            'images/destination/puducherry/promanade_beach.jpg',
             'images/destination/puducherry/auroville.jpg',
             'images/destination/puducherry/paradise_beach.jpg',
             'images/destination/puducherry/sri_aurobindo_ashram.jpg',
