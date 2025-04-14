@@ -598,3 +598,4 @@ $destinations = [
 ];
 
 return $destinations;
+
