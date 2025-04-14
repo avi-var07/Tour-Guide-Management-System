@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,23 +137,23 @@ document.addEventListener("DOMContentLoaded", function () {
     <h2 class="text-2xl font-semibold text-center mb-4">Popular Destinations</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 z-10">
       <div class="p-4 rounded-lg text-center transition-transform transform hover:scale-105">
-        <img src="images/destination/tajmahal1.jpg" class="w-full h-60 object-cover rounded-md">
-        <h3 class="text-lg mt-2">Taj Mahal</h3>
+        <img src="images/destination/jaipur/hawa_mahal.jpg" class="w-full h-60 object-cover rounded-md">
+        <h3 class="text-lg mt-2">Jaipur</h3>
         <a href="destination.php" class="bg-blue-500 px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600">Visit</a>
       </div>
       <div class="p-4 rounded-lg text-center transition-transform transform hover:scale-105">
-        <img src="images/destination/ladakh1.jpg" class="w-full h-60 object-cover rounded-md">
+        <img src="images/destination/leh_ladakh.jpg" class="w-full h-60 object-cover rounded-md">
         <h3 class="text-lg mt-2">Ladakh</h3>
         <a href="destination.php" class="bg-blue-500 px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600">Visit</a>
       </div>
       <div class="p-4 rounded-lg text-center transition-transform transform hover:scale-105">
-        <img src="images/destination/kerala1.jpg" class="w-full h-60 object-cover rounded-md">
-        <h3 class="text-lg mt-2">Kerala</h3>
+        <img src="images/destination/varanasi/kashi_vishwanath_temple.webp" class="w-full h-60 object-cover rounded-md">
+        <h3 class="text-lg mt-2">Varanasi</h3>
         <a href="destination.php" class="bg-blue-500 px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600">Visit</a>
       </div>
       <div class="p-4 rounded-lg text-center transition-transform transform hover:scale-105">
-        <img src="images/destination/goa1.jpg" class="w-full h-60 object-cover rounded-md">
-        <h3 class="text-lg mt-2">Goa</h3>
+        <img src="images/destination/auli/auli.jpg" class="w-full h-60 object-cover rounded-md">
+        <h3 class="text-lg mt-2">Auli</h3>
         <a href="destination.php" class="bg-blue-500 px-4 py-2 rounded-md mt-2 inline-block hover:bg-blue-600">Visit</a>
       </div>
     </div>
