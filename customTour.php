@@ -1,7 +1,12 @@
 <?php
 session_start();
+require 'config.php'; // Include database configuration
+require 'vendor/autoload.php'; // Include PHPMailer (ensure it's installed via Composer)
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,6 +60,44 @@ session_start();
             <?php endif; ?>
           </ul>
         </nav>
+
+        <div class="bg-gray-900 text-white p-6">
+    <h1 class="text-2xl font-bold mb-4">Plan Your Custom Tour</h1>
+
+    <!-- Custom Tour Form -->
+    <div class="bg-gray-800 p-4 rounded-lg">
+        <form id="customTourForm">
+            <label class="block mb-2">Select Destination:</label>
+            <select id="destination" class="w-full p-2 rounded mb-2 text-black">
+                <option value="Manali">Manali</option>
+                <option value="Goa">Goa</option>
+                <option value="Shimla">Shimla</option>
+                <option value="Jaipur">Jaipur</option>
+            </select>
+
+            <label class="block mb-2">Duration (Days):</label>
+            <input type="number" id="duration" class="w-full p-2 rounded mb-2 text-black">
+
+            <label class="block mb-2">Budget (₹):</label>
+            <input type="number" id="budget" class="w-full p-2 rounded mb-2 text-black">
+
+            <label class="block mb-2">Additional Services:</label>
+            <div class="flex gap-4 mb-2">
+                <label><input type="checkbox" id="guide" class="mr-1"> Guide</label>
+                <label><input type="checkbox" id="hotel" class="mr-1"> Hotel</label>
+                <label><input type="checkbox" id="transport" class="mr-1"> Transport</label>
+            </div>
+
+            <button type="submit" class="bg-blue-500 px-4 py-2 rounded">Submit Request</button>
+        </form>
+    </div>
+
+    <!-- Display User's Custom Requests -->
+    <div class="bg-gray-800 p-4 rounded-lg mt-6">
+        <h2 class="text-lg font-semibold mb-2">Your Custom Tour Requests</h2>
+        <ul id="tourRequests" class="list-disc ml-5"></ul>
+    </div>
+</div>
         <script>
       document.addEventListener("DOMContentLoaded", function () {
     // Bookings dropdown toggle
@@ -115,94 +158,62 @@ session_start();
 });
 
     </script>
-<div class="bg-gray-900 text-white p-6">
-    <h1 class="text-2xl font-bold mb-4">Plan Your Custom Tour</h1>
-
-    <!-- Custom Tour Form -->
-    <div class="bg-gray-800 p-4 rounded-lg">
-        <form id="customTourForm">
-            <label class="block mb-2">Select Destination:</label>
-            <select id="destination" class="w-full p-2 rounded mb-2 text-black">
-                <option value="Manali">Manali</option>
-                <option value="Goa">Goa</option>
-                <option value="Shimla">Shimla</option>
-                <option value="Jaipur">Jaipur</option>
-            </select>
-
-            <label class="block mb-2">Duration (Days):</label>
-            <input type="number" id="duration" class="w-full p-2 rounded mb-2 text-black">
-
-            <label class="block mb-2">Budget (₹):</label>
-            <input type="number" id="budget" class="w-full p-2 rounded mb-2 text-black">
-
-            <label class="block mb-2">Additional Services:</label>
-            <div class="flex gap-4 mb-2">
-                <label><input type="checkbox" id="guide" class="mr-1"> Guide</label>
-                <label><input type="checkbox" id="hotel" class="mr-1"> Hotel</label>
-                <label><input type="checkbox" id="transport" class="mr-1"> Transport</label>
-            </div>
-
-            <button type="submit" class="bg-blue-500 px-4 py-2 rounded">Submit Request</button>
-        </form>
-    </div>
-
-    <!-- Display User's Custom Requests -->
-    <div class="bg-gray-800 p-4 rounded-lg mt-6">
-        <h2 class="text-lg font-semibold mb-2">Your Custom Tour Requests</h2>
-        <ul id="tourRequests" class="list-disc ml-5"></ul>
-    </div>
-</div>
-
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            function loadCustomTours() {
-                fetch("fetchCustomTours.php")
-                    .then(response => response.json())
-                    .then(data => {
-                        const tourRequests = document.getElementById("tourRequests");
-                        tourRequests.innerHTML = "";
-                        data.forEach(tour => {
-                            tourRequests.innerHTML += `
-                                <li class="mb-2">
-                                    <strong>${tour.destination}</strong> - ${tour.duration} days | ₹${tour.budget} 
-                                    (${tour.services})
-                                    <button onclick="deleteCustomTour(${tour.id})" class="text-red-400 ml-2">Cancel</button>
-                                </li>`;
-                        });
-                    });
-            }
-
-            document.getElementById("customTourForm").addEventListener("submit", function (event) {
-                event.preventDefault();
-                const destination = document.getElementById("destination").value;
-                const duration = document.getElementById("duration").value;
-                const budget = document.getElementById("budget").value;
-                const services = [
-                    document.getElementById("guide").checked ? "Guide" : "",
-                    document.getElementById("hotel").checked ? "Hotel" : "",
-                    document.getElementById("transport").checked ? "Transport" : ""
-                ].filter(Boolean).join(", ");
-
-                fetch("addCustomTour.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ destination, duration, budget, services }),
-                })
-                .then(response => response.json())
-                .then(() => {
-                    loadCustomTours(); // Refresh list
-                    document.getElementById("customTourForm").reset();
+document.addEventListener("DOMContentLoaded", function () {
+    function loadCustomTours() {
+        fetch("fetchCustomTours.php")
+            .then(response => response.json())
+            .then(data => {
+                const tourRequests = document.getElementById("tourRequests");
+                tourRequests.innerHTML = "";
+                data.forEach(tour => {
+                    tourRequests.innerHTML += `
+                        <li class="mb-2">
+                            <strong>${tour.destination}</strong> - ${tour.duration} days | ₹${tour.budget}
+                            (${tour.services})
+                            <button onclick="deleteCustomTour(${tour.id})" class="text-red-400 ml-2">Cancel</button>
+                        </li>`;
                 });
             });
+    }
 
-            function deleteCustomTour(id) {
-                fetch(`deleteCustomTour.php?id=${id}`, { method: "DELETE" })
-                    .then(() => loadCustomTours());
+    document.getElementById("customTourForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const destination = document.getElementById("destination").value;
+        const duration = document.getElementById("duration").value;
+        const budget = document.getElementById("budget").value;
+        const services = [
+            document.getElementById("guide").checked ? "Guide" : "",
+            document.getElementById("hotel").checked ? "Hotel" : "",
+            document.getElementById("transport").checked ? "Transport" : ""
+        ].filter(Boolean).join(", ");
+        const user_id = localStorage.getItem("user_id") || null;
+
+        fetch("addCustomTour.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id, destination, duration, budget, services }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                loadCustomTours();
+                document.getElementById("customTourForm").reset();
+                alert("Custom tour request submitted successfully!");
+            } else {
+                alert("Error submitting request: " + data.error);
             }
-
-            loadCustomTours(); // Initial fetch
         });
-    </script>
+    });
+
+    function deleteCustomTour(id) {
+        fetch(`deleteCustomTour.php?id=${id}`, { method: "DELETE" })
+            .then(() => loadCustomTours());
+    }
+
+    loadCustomTours();
+});
+</script>
     <footer class="bg-gray-700 text-white py-8">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
