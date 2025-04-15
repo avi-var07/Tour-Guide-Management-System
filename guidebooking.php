@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +8,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide Booking</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white">
 <nav class="flex justify-between items-center bg-gray-800 p-4">
@@ -29,7 +29,7 @@ session_start();
                 <li><a href="guidebooking.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Hire a Guide</a></li>
                 <li><a href="booking.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Booking</a></li>
                 <li><a href="userDashboard.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">User Dashboard</a></li>
-                <li><a href="packageManagement.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
+                <li><a href="package LATManagement.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Tour Package Management</a></li>
                 <li><a href="customTour.php" class="block px-4 py-2 hover:bg-gray-700 text-blue-400">Custom Tour Planning</a></li>
             </ul>
         </li>
@@ -54,9 +54,6 @@ session_start();
             <?php endif; ?>
           </ul>
         </nav>
-
-
-    
 
     <!-- Page Title -->
     <div class="container mx-auto px-4 py-8 text-center">
@@ -92,16 +89,52 @@ session_start();
         </div>
     </div>
 
-
-    <footer class="text-center py-4 bg-gray-700 text-white fixed bottom-0 w-full">
-        <p>&copy; 2025 Tour Operator | 
-            <a href="https://www.instagram.com/" class="hover:text-pink-400">Instagram</a> | 
-            <a href="https://twitter.com/" class="hover:text-blue-400">Twitter</a>
-        </p>
-    </footer>
+    <footer class="bg-gray-700 text-white py-8">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Navigation Links -->
+            <div>
+                <h3 class="text-lg font-semibold text-blue-400 mb-4">Explore</h3>
+                <ul class="space-y-2">
+                    <li><a href="mainPage.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-home mr-2"></i>Home</a></li>
+                    <li><a href="destination.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-map-marker-alt mr-2"></i>Destinations</a></li>
+                    <li><a href="guidebooking.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-user-guide mr-2"></i>Hire a Guide</a></li>
+                    <li><a href="booking.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-ticket-alt mr-2"></i>Tour Booking</a></li>
+                    <li><a href="customTour.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-map mr-2"></i>Custom Tour Planning</a></li>
+                </ul>
+            </div>
+            <!-- Account Links -->
+            <div>
+                <h3 class="text-lg font-semibold text-blue-400 mb-4">Account</h3>
+                <ul class="space-y-2">
+                    <li><a href="userDashboard.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-user mr-2"></i>User Dashboard</a></li>
+                    <li><a href="packageManagement.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-suitcase mr-2"></i>Tour Package Management</a></li>
+                    <li><a href="feedback.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-comment mr-2"></i>Feedback</a></li>
+                    <?php if (isset($_SESSION['username'])): ?>
+                        <li><a href="logout.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
+                    <?php else: ?>
+                        <li><a href="signup.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-sign-in-alt mr-2"></i>Login</a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+            <!-- Social Media & Contact -->
+            <div>
+                <h3 class="text-lg font-semibold text-blue-400 mb-4">Connect With Us</h3>
+                <ul class="space-y-2">
+                    <li><a href="about.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-info-circle mr-2"></i>About Us</a></li>
+                    <li><a href="https://www.instagram.com/" target="_blank" class="hover:text-pink-400 text-gray-300"><i class="fab fa-instagram mr-2"></i>Instagram</a></li>
+                    <li><a href="https://x.com/" target="_blank" class="hover:text-blue-400 text-gray-300"><i class="fab fa-twitter mr-2"></i>X</a></li>
+                    <li><a href="mailto:support@touroperator.com" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-envelope mr-2"></i>Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-8 text-center border-t border-gray-600 pt-4">
+            <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
     
     <script>
-  
       document.addEventListener("DOMContentLoaded", function () {
     // Bookings dropdown toggle
     const dropdownBtn = document.getElementById("dropdownBtn");
@@ -159,11 +192,28 @@ session_start();
         });
     }
 });
+
         const guides = [
             { id: 1, name: "Ravi Sharma", location: "Goa", expertise: "Adventure", experience: "5 Years", rating: 4.7, available: true },
             { id: 2, name: "Priya Mehta", location: "Kerala", expertise: "Cultural", experience: "7 Years", rating: 4.9, available: true },
             { id: 3, name: "Amit Kumar", location: "Ladakh", expertise: "Wildlife", experience: "4 Years", rating: 4.5, available: false },
             { id: 4, name: "Sanya Gupta", location: "Rajasthan", expertise: "Historical", experience: "6 Years", rating: 4.8, available: true },
+            { id: 5, name: "Vikram Singh", location: "Goa", expertise: "Wildlife", experience: "3 Years", rating: 4.4, available: true },
+            { id: 6, name: "Anjali Nair", location: "Kerala", expertise: "Adventure", experience: "8 Years", rating: 4.6, available: false },
+            { id: 7, name: "Karan Thakur", location: "Ladakh", expertise: "Adventure", experience: "6 Years", rating: 4.8, available: true },
+            { id: 8, name: "Meera Joshi", location: "Rajasthan", expertise: "Cultural", experience: "5 Years", rating: 4.7, available: true },
+            { id: 9, name: "Suresh Patel", location: "Goa", expertise: "Historical", experience: "10 Years", rating: 4.9, available: true },
+            { id: 10, name: "Nisha Rawat", location: "Kerala", expertise: "Wildlife", experience: "4 Years", rating: 4.5, available: false },
+            { id: 11, name: "Rahul Desai", location: "Goa", expertise: "Cultural", experience: "6 Years", rating: 4.6, available: true },
+            { id: 12, name: "Lakshmi Menon", location: "Kerala", expertise: "Historical", experience: "9 Years", rating: 4.8, available: true },
+            { id: 13, name: "Tenzin Norbu", location: "Ladakh", expertise: "Cultural", experience: "5 Years", rating: 4.7, available: false },
+            { id: 14, name: "Arjun Rathore", location: "Rajasthan", expertise: "Adventure", experience: "7 Years", rating: 4.9, available: true },
+            { id: 15, name: "Deepa Kulkarni", location: "Goa", expertise: "Wildlife", experience: "4 Years", rating: 4.5, available: true },
+            { id: 16, name: "Manu Varghese", location: "Kerala", expertise: "Adventure", experience: "6 Years", rating: 4.7, available: true },
+            { id: 17, name: "Sonam Dorji", location: "Ladakh", expertise: "Historical", experience: "8 Years", rating: 4.8, available: true },
+            { id: 18, name: "Kavita Sharma", location: "Rajasthan", expertise: "Wildlife", experience: "5 Years", rating: 4.6, available: false },
+            { id: 19, name: "Naveen D'Souza", location: "Goa", expertise: "Adventure", experience: "7 Years", rating: 4.8, available: true },
+            { id: 20, name: "Rekha Pillai", location: "Kerala", expertise: "Cultural", experience: "6 Years", rating: 4.7, available: true }
         ];
 
         function loadGuides(filterLocation = "", filterExpertise = "") {
@@ -194,17 +244,13 @@ session_start();
             const selectedExpertise = document.getElementById("expertiseFilter").value;
             loadGuides(selectedLocation, selectedExpertise);
         }
+
         function bookGuide(guideName) {
             window.location.href = `booking.php?guide=${encodeURIComponent(guideName)}`;
         }
 
-
-
-        
-
         // Load all guides on page load
         loadGuides();
     </script>
-
 </body>
 </html>
