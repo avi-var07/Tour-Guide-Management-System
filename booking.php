@@ -65,13 +65,13 @@ if (!isset($_SESSION['username'])) {
           </ul>
         </nav>
 
-<div class="flex justify-center items-center min-h-screen">
+        <div class="flex justify-center items-center min-h-screen">
     <div class="form-container p-8 rounded-lg w-full max-w-lg">
         <h1 class="text-2xl font-bold text-center text-black mb-6">Book A Memory with Us</h1>
         <form method="POST" action="booking.php" name="form" onsubmit="return validateForm()" class="space-y-4">
 
             <?php
-            include 'config.php'; // Ensure this file contains your database connection
+            include 'config.php';
 
             if (isset($_SESSION['username'])) {
                 $email = $_SESSION['username'];
@@ -99,14 +99,12 @@ if (!isset($_SESSION['username'])) {
 
             <input type="text" name="first_name" value="<?php echo htmlspecialchars($full_name); ?>" placeholder="Full Name" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" required>
             <input type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" placeholder="Email" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" required>
-
             <input type="text" id="pincode" name="pincode" value="<?php echo htmlspecialchars($pincode); ?>" required maxlength="6" pattern="[0-9]{6}" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-green-500 text-black" placeholder="Pincode" onkeyup="fetchLocation()">
-
             <input type="text" id="city" name="city" value="<?php echo htmlspecialchars($city); ?>" placeholder="City" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" readonly required>
             <input type="text" id="state" name="state" value="<?php echo htmlspecialchars($state); ?>" placeholder="State" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" readonly required>
-
-            <input type="tel" name="phone" value="<?php echo htmlspecialchars($phone); ?>" pattern="[0-9]{10}" maxlength="10" placeholder="Phone" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" pattern="[0-9]{10}" required>
+            <input type="tel" name="phone" value="<?php echo htmlspecialchars($phone); ?>" pattern="[0-9]{10}" maxlength="10" placeholder="Phone" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" required>
             <input type="text" name="destination" placeholder="Destination" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" required>
+            <input type="text" name="guide" placeholder="Guide Name (Optional)" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black">
 
             <button type="submit" class="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition duration-300">
                 Submit
@@ -114,7 +112,6 @@ if (!isset($_SESSION['username'])) {
         </form>
     </div>
 </div>
-
 
 <footer class="bg-gray-700 text-white py-8">
     <div class="container mx-auto px-4">
@@ -218,12 +215,11 @@ if (!isset($_SESSION['username'])) {
 include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Double check the login status before processing form submission
     if (!isset($_SESSION['username'])) {
         echo "<script>alert('Please login first!'); window.location.href='signup.php';</script>";
         exit;
     }
-    
+
     $first_name = trim($_POST["first_name"]);
     $email = trim($_POST["email"]);
     $pincode = trim($_POST["pincode"]);
@@ -231,15 +227,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $state = trim($_POST["state"]);
     $phone = trim($_POST["phone"]);
     $destination = trim($_POST["destination"]);
+    $guide = trim($_POST["guide"] ?? ""); // Optional guide field
 
     if (empty($first_name) || empty($email) || empty($pincode) || empty($city) || empty($state) || empty($phone) || empty($destination)) {
-        echo "<script>alert('All fields are required!'); window.history.back();</script>";
+        echo "<script>alert('All required fields must be filled!'); window.history.back();</script>";
         exit;
     }
 
-    // Insert into bookings table, using first_name instead of separate first_name and last_name
-    $stmt = $conn->prepare("INSERT INTO bookings (first_name, email, pincode, city, state, phone, destination) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssss", $first_name, $email, $pincode, $city, $state, $phone, $destination);
+    // Insert into bookings table
+    $stmt = $conn->prepare("INSERT INTO bookings (first_name, email, pincode, city, state, phone, destination, guide) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssss", $first_name, $email, $pincode, $city, $state, $phone, $destination, $guide);
 
     if ($stmt->execute()) {
         echo "<script>alert('Booking Successful!'); window.location.href='mainpage.php';</script>";
@@ -251,7 +248,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
-
 <!-- Include the common JavaScript for dropdown and theme toggle -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
