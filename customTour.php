@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <ul class="space-y-2">
                     <li><a href="mainPage.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-home mr-2"></i>Home</a></li>
                     <li><a href="destination.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-map-marker-alt mr-2"></i>Destinations</a></li>
-                    <li><a href="guidebooking.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-user-guide mr-2"></i>Hire a Guide</a></li>
+                    <li><a href="guidebooking.php" class="hover:text-yellow-400 text-gray-300"><i class="fa-solid fa-user-tie"></i>Hire a Guide</a></li>
                     <li><a href="booking.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-ticket-alt mr-2"></i>Tour Booking</a></li>
                     <li><a href="customTour.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-map mr-2"></i>Custom Tour Planning</a></li>
                 </ul>
@@ -247,9 +247,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 <h3 class="text-lg font-semibold text-blue-400 mb-4">Connect With Us</h3>
                 <ul class="space-y-2">
                     <li><a href="about.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-info-circle mr-2"></i>About Us</a></li>
-                    <li><a href="https://www.instagram.com/" target="_blank" class="hover:text-pink-400 text-gray-300"><i class="fab fa-instagram mr-2"></i>Instagram</a></li>
+                    <li><a href="https://www.instagram.com/S_iddharth73" target="_blank" class="hover:text-pink-400 text-gray-300"><i class="fab fa-instagram mr-2"></i>Instagram</a></li>
                     <li><a href="https://x.com/" target="_blank" class="hover:text-blue-400 text-gray-300"><i class="fab fa-twitter mr-2"></i>X</a></li>
-                    <li><a href="mailto:support@touroperator.com" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-envelope mr-2"></i>Contact Us</a></li>
+                    <li><a href="mailto:aviralvarshney07@gmail.com" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-envelope mr-2"></i>Contact Us</a></li>
                 </ul>
             </div>
         </div>
