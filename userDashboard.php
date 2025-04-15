@@ -1,6 +1,12 @@
 <?php
 session_start();
+include 'config.php';
+require 'vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,72 +62,78 @@ session_start();
           </ul>
         </nav>
  
+        <div class="max-w-4xl mx-auto mt-10 bg-gray-800 p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold mb-6">User Dashboard</h2>
 
-    <!-- Dashboard Container -->
-    <div class="max-w-4xl mx-auto mt-10 bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-bold mb-6">User Dashboard</h2>
+    <!-- Profile Image Section -->
+    <div class="flex items-center space-x-4">
+        <div id="profileImage" class="w-24 h-24 flex items-center justify-center rounded-full bg-gray-700 text-white text-3xl font-bold"></div>
+        <input type="file" id="imageUpload" accept="image/*" class="hidden">
+        <button onclick="document.getElementById('imageUpload').click()" class="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">Upload Image</button>
+    </div>
 
-        <!-- Profile Image Section -->
-        <div class="flex items-center space-x-4">
-            <div id="profileImage" class="w-24 h-24 flex items-center justify-center rounded-full bg-gray-700 text-white text-3xl font-bold"></div>
-            <input type="file" id="imageUpload" accept="image/*" class="hidden">
-            <button onclick="document.getElementById('imageUpload').click()" class="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">Upload Image</button>
+    <!-- Default Avatars -->
+    <h3 class="mt-6 text-lg font-semibold">Choose a Default Avatar</h3>
+    <div class="flex space-x-4 mt-2">
+        <img src="avatars/avatar1.png" class="w-16 h-16 rounded-full cursor-pointer border-2 border-transparent hover:border-yellow-500" onclick="setProfileImage(this.src)">
+        <img src="avatars/avatar2.png" class="w-16 h-16 rounded-full cursor-pointer border-2 border-transparent hover:border-yellow-500" onclick="setProfileImage(this.src)">
+    </div>
+
+    <!-- Profile Form -->
+    <form id="profileForm" class="space-y-4 mt-6">
+        <div>
+            <label class="block text-sm font-medium text-gray-400">Full Name</label>
+            <input type="text" id="fullName" name="fullName" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600">
         </div>
-
-        <!-- Default Avatars -->
-        <h3 class="mt-6 text-lg font-semibold">Choose a Default Avatar</h3>
-        <div class="flex space-x-4 mt-2">
-            <img src="avatars/avatar1.png" class="w-16 h-16 rounded-full cursor-pointer border-2 border-transparent hover:border-yellow-500" onclick="setProfileImage(this.src)">
-            <img src="avatars/avatar2.png" class="w-16 h-16 rounded-full cursor-pointer border-2 border-transparent hover:border-yellow-500" onclick="setProfileImage(this.src)">
+        <div>
+            <label class="block text-sm font-medium text-gray-400">Email</label>
+            <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600" readonly>
         </div>
-
-        <!-- Profile Form -->
-        <form id="profileForm" class="space-y-4 mt-6">
-            <div>
-                <label class="block text-sm font-medium text-gray-400">Full Name</label>
-                <input type="text" id="fullName" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-400">Email</label>
-                <input type="email" id="email" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-400">Phone Number</label>
-                <input type="text" id="phone" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-400">Change Password</label>
-                <input type="password" id="password" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600">
-            </div>
-
-            <button type="submit" class="w-full bg-yellow-500 text-black px-4 py-2 rounded-lg hover:bg-yellow-600">Update Profile</button>
-        </form>
-
-        <!-- Manage Bookings Section -->
-        <div class="mt-6">
-            <h3 class="text-xl font-bold mb-4">New Booking</h3>
-            <a href="booking.php" class="block bg-blue-500 text-white text-center px-4 py-2 rounded-lg hover:bg-blue-600">View My Bookings</a>
+        <div>
+            <label class="block text-sm font-medium text-gray-400">Phone Number</label>
+            <input type="text" id="phone" name="phone" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600">
         </div>
-        <h2 class="text-2xl font-semibold mt-6">Booking & Feedback History</h2>
+        <div>
+            <label class="block text-sm font-medium text-gray-400">Current Password</label>
+            <input type="password" id="currentPassword" name="currentPassword" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-400">New Password</label>
+            <input type="password" id="newPassword" name="newPassword" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-400">Retype New Password</label>
+            <input type="password" id="retypePassword" name="retypePassword" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600">
+        </div>
+        <div id="otpSection" class="hidden">
+            <label class="block text-sm font-medium text-gray-400">Enter OTP</label>
+            <input type="text" id="otp" name="otp" class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600">
+            <button type="button" onclick="verifyOTP()" class="bg-green-500 px-4 py-2 rounded hover:bg-green-600 mt-2">Verify OTP</button>
+        </div>
+        <button type="submit" class="w-full bg-yellow-500 text-black px-4 py-2 rounded-lg hover:bg-yellow-600">Update Profile</button>
+    </form>
+
+    <!-- Manage Bookings Section -->
+    <div class="mt-6">
+        <h3 class="text-xl font-bold mb-4">New Booking</h3>
+        <a href="booking.php" class="block bg-blue-500 text-white text-center px-4 py-2 rounded-lg hover:bg-blue-600">View My Bookings</a>
+    </div>
+    <h2 class="text-2xl font-semibold mt-6">Booking & Feedback History</h2>
     <div class="mt-4 bg-gray-700 p-4 rounded-lg">
         <h3 class="text-lg font-semibold">Past Bookings</h3>
         <ul id="userBookings" class="list-disc ml-5 text-gray-300">
             <li class="text-gray-400">Log in to get history</li>
         </ul>
-
         <h3 class="text-lg font-semibold mt-4">Guide Hire History</h3>
         <ul id="guideHistory" class="list-disc ml-5 text-gray-300">
             <li class="text-gray-400">Log in to get history</li>
         </ul>
-
         <h3 class="text-lg font-semibold mt-4">Feedback Given</h3>
         <ul id="userFeedback" class="list-disc ml-5 text-gray-300">
             <li class="text-gray-400">Log in to get history</li>
         </ul>
     </div>
+</div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
     // Bookings dropdown toggle
@@ -181,161 +193,90 @@ session_start();
     }
 });
 
-        $(document).ready(function() {
-            $.ajax({
-                url: "fetch_customer.php",
-                type: "GET",
-                dataType: "json",
-                success: function(response) {
-                    if (response.error) {
-                        alert(response.error);
-                    } else {
-                        $("#fullname").val(response.fname);
-                        $("#email").val(response.email);
-                        $("#phone").val(response.phone);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log("AJAX Error:", error);
+<?php if (isset($_SESSION['username'])): ?>
+        fetch('fetch_customer.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error("Error:", data.error);
+                } else {
+                    document.getElementById('fullName').value = data.fname || '';
+                    document.getElementById('email').value = data.email || '';
+                    document.getElementById('phone').value = data.phone || '';
+                    document.getElementById('profileImage').innerHTML = data.fname ? data.fname.charAt(0).toUpperCase() : '?';
+                }
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+    <?php endif; ?>
+
+    // Profile form submission
+    document.getElementById("profileForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const currentPassword = formData.get('currentPassword');
+        const newPassword = formData.get('newPassword');
+        const retypePassword = formData.get('retypePassword');
+
+        if (newPassword || retypePassword) {
+            if (newPassword !== retypePassword) {
+                alert("New passwords do not match!");
+                return;
+            }
+            if (!currentPassword) {
+                alert("Current password is required to change password!");
+                return;
+            }
+            // Initiate OTP for password change
+            fetch('send_otp.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: '<?php echo $_SESSION['username']; ?>', currentPassword })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('otpSection').classList.remove('hidden');
+                    alert("OTP sent to your email!");
+                } else {
+                    alert("Error: " + data.error);
                 }
             });
-        });
-        document.addEventListener("DOMContentLoaded", function() {
-            const userId = localStorage.getItem("user_id"); // Assume user ID is stored in localStorage after login
-    
-            if (!userId) {
-                console.log("User not logged in.");
-                return;
-            }
-    
-            // Fetch user history if logged in
-            fetch(`fetchUserHistory.php?user_id=${userId}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.bookings.length > 0) {
-                        document.getElementById("userBookings").innerHTML = 
-                            data.bookings.map(booking => `<li>${booking.destination} - ${booking.date}</li>`).join("");
-                    }
-    
-                    if (data.guides.length > 0) {
-                        document.getElementById("guideHistory").innerHTML = 
-                            data.guides.map(guide => `<li>${guide.name} (${guide.location}) - Rated ${"⭐".repeat(Math.round(guide.rating))}</li>`).join("");
-                    }
-    
-                    if (data.feedback.length > 0) {
-                        document.getElementById("userFeedback").innerHTML = 
-                            data.feedback.map(feed => `<li>${feed.trip} - "${feed.comment}"</li>`).join("");
-                    }
-                })
-                .catch(error => console.error("Error fetching user history:", error));
-        });
-        document.addEventListener("DOMContentLoaded", function () {
-    fetch('fetch_customer.php')
+        } else {
+            // Update profile without password change
+            fetch('update_profile.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            });
+        }
+    });
+
+    // Verify OTP
+    window.verifyOTP = function () {
+        const otp = document.getElementById('otp').value;
+        const newPassword = document.getElementById('newPassword').value;
+        fetch('verify_otp.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: '<?php echo $_SESSION['username']; ?>', otp, newPassword })
+        })
         .then(response => response.json())
         .then(data => {
-            if (data.error) {
-                console.error("Error:", data.error);
+            if (data.success) {
+                alert("Password updated successfully!");
+                document.getElementById('otpSection').classList.add('hidden');
+                document.getElementById('profileForm').reset();
+                fetchUserData();
             } else {
-                document.getElementById('fullName').value = data.fname;
-                document.getElementById('email').value = data.email;
-                document.getElementById('phone').value = data.phone;
+                alert("Error: " + data.error);
             }
-        })
-        .catch(error => console.error('Error fetching user data:', error));
-});
-
-        // Fetch User History
-        document.getElementById("fetchHistory").addEventListener("click", function () {
-            fetch('fetchUserHistory.php')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("history").innerHTML = data;
-                })
-                .catch(error => console.error('Error fetching history:', error));
         });
-
-   
+    };
 </script>
 
-<!-- User Dashboard Fields -->
-<p>Full Name: <span id="fullname"></span></p>
-<p>Email: <span id="email"></span></p>
-<p>Phone: <span id="phone"></span></p>
-
-    </script>
-    <div class="bg-gray-800 p-6 rounded-md shadow-md text-white">
-        <h2 class="text-xl font-semibold mb-4">Wallet & Payment Methods</h2>
-    
-        <!-- Current Balance -->
-        <div class="flex justify-between items-center bg-gray-700 p-3 rounded-md mb-4">
-            <span class="text-lg">Wallet Balance:</span>
-            <span id="walletBalance" class="text-xl font-bold text-yellow-400">₹0</span>
-        </div>
-    
-        <!-- Add Payment Method -->
-        <div>
-            <h3 class="text-lg font-medium mb-2">Saved Payment Methods</h3>
-            <ul id="paymentMethods" class="space-y-3">
-                <!-- Dynamically added payment methods will appear here -->
-            </ul>
-    
-            <button onclick="togglePaymentForm()" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-md mt-3">
-                + Add Payment Method
-            </button>
-        </div>
-    
-        <!-- Hidden Form for Adding Payment Methods -->
-        <div id="paymentForm" class="hidden mt-4 bg-gray-700 p-4 rounded-md">
-            <label class="block mb-2">Select Payment Type:</label>
-            <select id="paymentType" class="w-full p-2 rounded-md text-black">
-                <option value="card">Credit/Debit Card</option>
-                <option value="upi">UPI</option>
-                <option value="netbanking">Net Banking</option>
-            </select>
-    
-            <input id="paymentDetails" type="text" class="w-full p-2 mt-3 rounded-md text-black" placeholder="Enter details (Card No, UPI ID, etc.)">
-            
-            <button onclick="addPaymentMethod()" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 mt-3 rounded-md">
-                Save
-            </button>
-        </div>
-    </div>
-    
-    <script>
-        function togglePaymentForm() {
-            document.getElementById('paymentForm').classList.toggle('hidden');
-        }
-    
-        function addPaymentMethod() {
-            const type = document.getElementById('paymentType').value;
-            const details = document.getElementById('paymentDetails').value.trim();
-    
-            if (details === "") {
-                alert("Please enter payment details!");
-                return;
-            }
-    
-            const paymentList = document.getElementById('paymentMethods');
-            const newPayment = document.createElement('li');
-            newPayment.classList = "bg-gray-600 p-3 rounded-md flex justify-between items-center";
-    
-            let typeText = "";
-            if (type === "card") typeText = "💳 Card";
-            else if (type === "upi") typeText = "📲 UPI";
-            else if (type === "netbanking") typeText = "🏦 Net Banking";
-    
-            newPayment.innerHTML = `
-                <span>${typeText}: ${details}</span>
-                <button onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-600">Remove</button>
-            `;
-    
-            paymentList.appendChild(newPayment);
-            document.getElementById('paymentDetails').value = "";
-            togglePaymentForm();
-        }
-    </script>
-    
-    </div>
 
     <!-- JavaScript for Profile Image & Avatar Selection -->
     <script>
