@@ -1,7 +1,8 @@
 <?php
 session_start();
-
+include 'config.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,28 @@ session_start();
     <title>Package Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .loading-spinner {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .new-package {
+            background-color: rgba(34, 197, 94, 0.1);
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 2s;
+        }
+    </style>
 </head>
 <body class="text-white">
 <nav class="flex justify-between items-center bg-gray-800 p-4">
@@ -18,7 +41,6 @@ session_start();
         <li><a href="mainPage.php" class="hover:text-yellow-400 text-blue-400">Home</a></li>
         <li><a href="destination.php" class="hover:text-yellow-400 text-blue-400">Destination</a></li>
         <li><a href="feedback.php" class="hover:text-yellow-400 text-blue-400">Feedback</a></li>
-        
         <li class="relative">
             <button id="dropdownBtn" class="text-blue-400 cursor-pointer focus:outline-none flex items-center hover:text-yellow-400">
                 Bookings
@@ -36,27 +58,53 @@ session_start();
         </li>
         <li><a href="about.php" class="hover:text-yellow-400 text-blue-400">About</a></li>
         <button id="themeToggle" class="ml-4 bg-gray-700 text-white px-4 py-2 rounded-md text-blue-400">
-          <img src="theme_icon.png" alt="Theme Toggle" height="20px" width="20px">
+            <img src="theme_icon.png" alt="Theme Toggle" height="20px" width="20px">
         </button>
         <?php if (isset($_SESSION['username'])): ?>
-          <li class="relative">
-            <button id="userDropdownBtn" class="text-blue-400 cursor-pointer focus:outline-none flex items-center hover:text-yellow-400">
-              <?php echo $_SESSION['username']; ?>
-              <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
-            </button>
-            <ul id="userDropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-48 z-50">
-              <li><a href="logout.php" class="block px-4 py-2 hover:bg-gray-700 text-red-400">Logout</a></li>
-            </ul>
-          </li>
-          <?php else: ?>
+            <li class="relative">
+                <button id="userDropdownBtn" class="text-blue-400 cursor-pointer focus:outline-none flex items-center hover:text-yellow-400">
+                    <?php echo htmlspecialchars($_SESSION['username']); ?>
+                    <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <ul id="userDropdownMenu" class="absolute hidden bg-gray-800 shadow-lg rounded-md mt-2 w-48 z-50">
+                    <li><a href="logout.php" class="block px-4 py-2 hover:bg-gray-700 text-red-400">Logout</a></li>
+                </ul>
+            </li>
+        <?php else: ?>
             <li><a href="signup.php" class="hover:text-red-400 bg-blue-500 text-white px-4 py-2 rounded">Login</a></li>
-            <?php endif; ?>
-          </ul>
-        </nav>
-        <script>
-      document.addEventListener("DOMContentLoaded", function () {
+        <?php endif; ?>
+    </ul>
+</nav>
+
+<div class="bg-gray-900 text-white p-6">
+    <h1 class="text-2xl font-bold mb-4">Tour Package Management</h1>
+
+    <!-- Add Package Form -->
+    <div class="bg-gray-800 p-4 rounded-lg mb-6">
+        <h2 class="text-lg font-semibold mb-2">Add New Package</h2>
+        <form id="packageForm">
+            <input type="text" id="packageName" name="packageName" placeholder="Package Name" class="w-full p-2 rounded mb-2 text-black" required>
+            <input type="text" id="destination" name="destination" placeholder="Destination" class="w-full p-2 rounded mb-2 text-black" required>
+            <input type="number" id="price" name="price" placeholder="Price (₹)" class="w-full p-2 rounded mb-2 text-black" required min="0" step="0.01">
+            <input type="number" id="duration" name="duration" placeholder="Duration (days)" class="w-full p-2 rounded mb-2 text-black" required min="1">
+            <button type="submit" id="submitBtn" class="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 flex items-center">
+                Add Package
+                <span id="loadingSpinner" class="loading-spinner"></span>
+            </button>
+        </form>
+    </div>
+
+    <!-- Package List -->
+    <div class="bg-gray-800 p-4 rounded-lg">
+        <h2 class="text-lg font-semibold mb-2">Available Packages</h2>
+        <ul id="packageList" class="list-disc ml-5"></ul>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
     // Bookings dropdown toggle
     const dropdownBtn = document.getElementById("dropdownBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
@@ -112,83 +160,104 @@ session_start();
             }
         });
     }
-});
 
-    </script>
-    <div class="bg-gray-900 text-white p-6">
+    // Package Management
+    const submitBtn = document.getElementById("submitBtn");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+    let latestPackageId = null;
 
-    <h1 class="text-2xl font-bold mb-4">Tour Package Management</h1>
-
-    <!-- Add Package Form -->
-    <div class="bg-gray-800 p-4 rounded-lg mb-6">
-        <h2 class="text-lg font-semibold mb-2">Add New Package</h2>
-        <form id="packageForm">
-            <input type="text" id="packageName" placeholder="Package Name" class="w-full p-2 rounded mb-2 text-black">
-            <input type="text" id="destination" placeholder="Destination" class="w-full p-2 rounded mb-2 text-black">
-            <input type="number" id="price" placeholder="Price (₹)" class="w-full p-2 rounded mb-2 text-black">
-            <input type="number" id="duration" placeholder="Duration (days)" class="w-full p-2 rounded mb-2 text-black">
-            <button type="submit" class="bg-blue-500 px-4 py-2 rounded">Add Package</button>
-        </form>
-    </div>
-
-    <!-- Package List -->
-    <div class="bg-gray-800 p-4 rounded-lg">
-        <h2 class="text-lg font-semibold mb-2">Available Packages</h2>
-        <ul id="packageList" class="list-disc ml-5"></ul>
-    </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Fetch & display packages from the database
-            function loadPackages() {
-                fetch("fetchPackages.php")
-                    .then(response => response.json())
-                    .then(data => {
-                        const packageList = document.getElementById("packageList");
-                        packageList.innerHTML = "";
-                        data.forEach(pkg => {
-                            packageList.innerHTML += `
-                                <li class="mb-2">
-                                    <strong>${pkg.name}</strong> - ${pkg.destination} | ₹${pkg.price} | ${pkg.duration} days
-                                    <button onclick="deletePackage(${pkg.id})" class="text-red-400 ml-2">Delete</button>
-                                </li>`;
-                        });
-                    });
-            }
-
-            // Add new package
-            document.getElementById("packageForm").addEventListener("submit", function (event) {
-                event.preventDefault();
-                const packageName = document.getElementById("packageName").value;
-                const destination = document.getElementById("destination").value;
-                const price = document.getElementById("price").value;
-                const duration = document.getElementById("duration").value;
-
-                fetch("addPackage.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ packageName, destination, price, duration }),
-                })
-                .then(response => response.json())
-                .then(() => {
-                    loadPackages(); // Refresh list
-                    document.getElementById("packageForm").reset();
+    function loadPackages() {
+        fetch("fetchPackages.php")
+            .then(response => response.json())
+            .then(data => {
+                const packageList = document.getElementById("packageList");
+                packageList.innerHTML = "";
+                data.forEach(pkg => {
+                    const isNew = latestPackageId && pkg.id === latestPackageId;
+                    packageList.innerHTML += `
+                        <li class="mb-2 ${isNew ? 'new-package' : ''}">
+                            <strong>${pkg.name}</strong> - ${pkg.destination} | ₹${pkg.price} | ${pkg.duration} days
+                            <button onclick="deletePackage(${pkg.id})" class="text-red-400 ml-2 hover:text-red-600">Delete</button>
+                        </li>`;
                 });
+                if (latestPackageId) {
+                    setTimeout(() => {
+                        const newPackage = document.querySelector(".new-package");
+                        if (newPackage) newPackage.classList.remove("new-package");
+                    }, 2000);
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching packages:", error);
+                alert("Failed to load packages.");
             });
+    }
 
-            // Delete package
-            function deletePackage(id) {
-                fetch(`deletePackage.php?id=${id}`, { method: "DELETE" })
-                    .then(() => loadPackages());
+    document.getElementById("packageForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+        loadingSpinner.style.display = "inline-block";
+
+        const formData = new FormData(this);
+
+        fetch("addPackage.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Add Package";
+            loadingSpinner.style.display = "none";
+
+            if (data.success) {
+                latestPackageId = data.packageId;
+                loadPackages();
+                document.getElementById("packageForm").reset();
+                alert("Package added successfully! Confirmation email is being sent.");
+                // Optional: Refresh the page after a short delay to emphasize the update
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                alert("Error: " + data.error);
             }
-
-            loadPackages(); // Initial fetch
+        })
+        .catch(error => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Add Package";
+            loadingSpinner.style.display = "none";
+            console.error("Error adding package:", error);
+            alert("Failed to add package.");
         });
-    </script>
-    <footer class="bg-gray-700 text-white py-8">
+    });
+
+    window.deletePackage = function (id) {
+        if (confirm("Are you sure you want to delete this package?")) {
+            fetch(`deletePackage.php?id=${id}`, { method: "DELETE" })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        loadPackages();
+                    } else {
+                        alert("Error: " + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error deleting package:", error);
+                    alert("Failed to delete package.");
+                });
+        }
+    };
+
+    loadPackages();
+});
+</script>
+
+<footer class="bg-gray-700 text-white py-8">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Navigation Links -->
             <div>
                 <h3 class="text-lg font-semibold text-blue-400 mb-4">Explore</h3>
                 <ul class="space-y-2">
@@ -199,7 +268,6 @@ session_start();
                     <li><a href="customTour.php" class="hover:text-yellow-400 text-gray-300"><i class="fas fa-map mr-2"></i>Custom Tour Planning</a></li>
                 </ul>
             </div>
-            <!-- Account Links -->
             <div>
                 <h3 class="text-lg font-semibold text-blue-400 mb-4">Account</h3>
                 <ul class="space-y-2">
@@ -213,7 +281,6 @@ session_start();
                     <?php endif; ?>
                 </ul>
             </div>
-            <!-- Social Media & Contact -->
             <div>
                 <h3 class="text-lg font-semibold text-blue-400 mb-4">Connect With Us</h3>
                 <ul class="space-y-2">
@@ -229,8 +296,5 @@ session_start();
         </div>
     </div>
 </footer>
-
 </body>
 </html>
-<!-- 
- -->
