@@ -22,6 +22,18 @@ $destinations = [
         'cuisines' => ['Rogan Josh', 'Dum Aloo', 'Kahwa', 'Yakhni', 'Gushtaba', 'Nadir Monji', 'Haaq'],
         'famous_spots' => ['Shikara Ride at Dal Lake', 'Floating Market', 'Café de Linz', 'Shalimar Bagh', 'Khanqah-e-Moula', 'Char Chinar', 'Harwan Garden'],
         'nearby' => ['Gulmarg', 'Sonamarg', 'Pahalgam', 'Yusmarg', 'Dachigam National Park', 'Aru Valley', 'Betaab Valley'],
+        'description' => 'Srinagar, the heart of Kashmir Valley, is a city where nature and culture intertwine seamlessly. Set against the backdrop of the Zabarwan Mountains, it is renowned for its shimmering lakes, historic gardens, and vibrant houseboat culture. Visitors are captivated by the serene Dal Lake, where shikara rides offer glimpses of floating markets and lotus blooms. The city’s Mughal gardens, laid out in Persian style, showcase meticulous landscaping and cascading fountains, while its spiritual sites like Shankaracharya Temple offer panoramic views and peace. Srinagar’s bustling markets, rich handicrafts (Pashmina shawls, carpets), and warm hospitality make it a must-visit for those seeking a blend of relaxation and exploration.',
+        'state_context' => 'Jammu & Kashmir, nestled in the northernmost part of India, is a region of unparalleled natural beauty and cultural richness, often called "Paradise on Earth." Bordered by the Himalayas, it features serene lakes, lush valleys, and snow-capped peaks, with Srinagar as its summer capital. The state’s history is a tapestry of Hindu, Buddhist, and Islamic influences, reflected in its architecture, cuisine, and festivals. Despite its complex socio-political landscape, Jammu & Kashmir remains a haven for travelers seeking tranquility and adventure, with Srinagar’s Dal Lake and Mughal gardens epitomizing its charm.
+',
+        'attractions_descriptions' => [
+            'Dal Lake is the jewel of Srinagar, famous for its shikara rides and floating gardens.',
+            'Mughal Gardens showcase exquisite Persian-style landscaping with vibrant flowerbeds.',
+            'Shankaracharya Temple, perched on a hill, offers spiritual solace and panoramic views.',
+            'Hazratbal Shrine, a revered Muslim site, is known for its serene lakeside location.',
+            'Nishat Bagh, a Mughal garden, is a terraced marvel with stunning lake views.',
+            'Chashme Shahi, another Mughal garden, is famous for its natural spring.',
+            'Pari Mahal, a historic monument, blends architecture with breathtaking vistas.'
+        ]
     ],
     [
         'name' => 'Leh-Ladakh',
@@ -44,6 +56,20 @@ $destinations = [
         'cuisines' => ['Thukpa', 'Momos', 'Skyu', 'Butter Tea', 'Chhutagi', 'Paba', 'Tingmo'],
         'famous_spots' => ['Leh Market', 'Leh Palace', 'German Bakery', 'Hall of Fame', 'Sangam (Confluence)', 'Diskit Monastery', 'Tso Kar Lake'],
         'nearby' => ['Nubra Valley', 'Tso Moriri Lake', 'Kargil', 'Alchi', 'Lamayuru', 'Stok Village', 'Dras'],
+        'description' => 'Leh-Ladakh is an adventurer’s paradise, where dramatic landscapes meet ancient spirituality. At over 3,500 meters, Leh town buzzes with markets, monasteries, and cafes, serving as the gateway to Ladakh’s wonders. From the azure Pangong Lake to the gravity-defying Magnetic Hill, every site feels otherworldly. The region’s monasteries, like Thiksey and Hemis, offer glimpses into Tibetan Buddhism, while rugged terrains like Nubra and Zanskar valleys beckon trekkers and bikers. Ladakh’s stark beauty, clear skies (perfect for stargazing), and cultural richness make it a bucket-list destination for thrill-seekers and soul-searchers alike.
+',
+        'state_context' => 'Jammu & Kashmir’s diverse geography extends to the rugged, high-altitude desert of Ladakh, a land of stark beauty and spiritual depth. Known as “Little Tibet,” Ladakh’s Buddhist monasteries, barren mountains, and turquoise lakes create a surreal landscape. Its sparse population and extreme climate foster a unique culture of resilience and hospitality, with Leh as the vibrant hub for travelers exploring this remote region.
+
+',
+        'attractions_descriptions' => [
+            'Pangong Lake is a mesmerizing turquoise lake, famous for its ever-changing hues.',
+            'Magnetic Hill defies gravity, where vehicles seem to roll uphill on their own.',
+            'Thiksey Monastery is a stunning Buddhist complex resembling the Potala Palace.',
+            'Nubra Valley offers surreal landscapes with sand dunes and double-humped camels.',
+            'Hemis Monastery is a cultural hub, known for its vibrant annual festival.',
+            'Shanti Stupa provides peace and sweeping views of Leh’s rugged terrain.',
+            'Zanskar Valley is a remote paradise for trekkers and adventure enthusiasts.'
+        ]
     ],
     [
         'name' => 'Shimla',
@@ -66,6 +92,17 @@ $destinations = [
         'cuisines' => ['Chana Madra', 'Siddu', 'Babru', 'Himachali Trout', 'Dham', 'Patande', 'Sepu Vadi'],
         'famous_spots' => ['Scandal Point', 'Indian Coffee House', 'Christ Church', 'Lakkar Bazaar', 'Green Valley', 'Toy Train Ride', 'State Museum'],
         'nearby' => ['Kufri', 'Chail', 'Narkanda', 'Mashobra', 'Fagu', 'Tattapani', 'Naldehra'],
+        'description' => 'Shimla, the charming hill station of Himachal Pradesh, is known for its colonial architecture, scenic beauty, and vibrant culture. It’s a perfect getaway for a relaxing weekend.',
+        'state_context' => 'Himachal Pradesh is a northern Indian state celebrated for its lush hills, adventure sports, and spiritual retreats. Shimla, its capital, retains a colonial charm alongside natural splendor.',
+        'attractions_descriptions' => [
+            'The Ridge is a vibrant open space with stunning mountain views and cultural events.',
+            'Mall Road is Shimla’s bustling heart, lined with shops, cafes, and colonial buildings.',
+            'Jakhu Temple is a sacred site dedicated to Lord Hanuman, perched on a hilltop.',
+            'Viceregal Lodge is a historic colonial mansion with beautiful gardens.',
+            'Christ Church, a neo-Gothic landmark, is one of India’s oldest churches.',
+            'Annandale is a scenic ground known for golf, picnics, and polo matches.',
+            'Kali Bari Temple is a serene shrine dedicated to Goddess Kali, attracting devotees.'
+        ]
     ],
     [
         'name' => 'Manali',
@@ -88,6 +125,17 @@ $destinations = [
         'cuisines' => ['Siddu', 'Trout Fish', 'Babru', 'Mittha', 'Dham', 'Chana Madra', 'Kullu Puti'],
         'famous_spots' => ['Old Manali Cafes', 'Manali Club House', 'Manu Temple', 'Tibetan Monastery', 'Naggar Castle', 'Van Vihar', 'Mall Road'],
         'nearby' => ['Naggar', 'Kasol', 'Kullu', 'Manikaran', 'Rohtang La', 'Parvati Valley', 'Sissu'],
+        'description' => 'Manali is a vibrant hill station in Himachal Pradesh, offering adventure, spirituality, and stunning Himalayan views. It’s a hotspot for trekkers, skiers, and nature lovers.',
+        'state_context' => 'Himachal Pradesh, nestled in the Himalayas, is renowned for its adventure tourism and serene landscapes. Manali is a gateway to thrilling experiences and cultural exploration.',
+        'attractions_descriptions' => [
+            'Solang Valley is a paradise for adventure sports like paragliding and zorbing.',
+            'Hadimba Temple is an ancient wooden shrine surrounded by cedar forests.',
+            'Rohtang Pass offers breathtaking views and snow activities in season.',
+            'Vashisht Hot Springs are natural thermal springs with healing properties.',
+            'Manu Temple is a sacred site dedicated to the sage Manu, steeped in mythology.',
+            'Jogini Falls is a scenic waterfall perfect for treks and picnics.',
+            'Beas Kund is a pristine high-altitude lake, a trekker’s delight.'
+        ]
     ],
     [
         'name' => 'Nainital',
@@ -110,6 +158,17 @@ $destinations = [
         'cuisines' => ['Aloo Ke Gutke', 'Bhatt Ki Churkani', 'Bal Mithai', 'Ras Bhaat', 'Kafuli', 'Singori', 'Phaanu'],
         'famous_spots' => ['Café Lakeside', 'Tiffin Top', 'Nainital Zoo', 'Mall Road', 'Governor’s House', 'St. John’s Church', 'Hanuman Garhi'],
         'nearby' => ['Bhimtal', 'Naukuchiatal', 'Sattal', 'Ranikhet', 'Almora', 'Mukteshwar', 'Kausani'],
+        'description' => 'Nainital, a picturesque hill station in Uttarakhand, is centered around the serene Naini Lake, offering tranquility and scenic beauty. It’s ideal for a relaxing weekend escape.',
+        'state_context' => 'Uttarakhand, known as the “Land of Gods,” is famous for its Himalayan landscapes and spiritual centers. Nainital is a jewel in its crown, blending nature and culture.',
+        'attractions_descriptions' => [
+            'Naini Lake is a serene emerald lake, perfect for boating and evening strolls.',
+            'Snow View Point offers stunning Himalayan vistas via a scenic cable car ride.',
+            'Naina Devi Temple is a sacred shrine by the lake, revered by locals.',
+            'Tiffin Top provides panoramic views of Nainital and the surrounding hills.',
+            'Eco Cave Gardens are a network of caves and hanging gardens for families.',
+            'High Altitude Zoo houses rare Himalayan wildlife like snow leopards.',
+            'Naina Peak is a trekking spot with breathtaking views of the town below.'
+        ]
     ],
     [
         'name' => 'Gangtok',
@@ -132,6 +191,17 @@ $destinations = [
         'cuisines' => ['Phagshapa', 'Thukpa', 'Momos', 'Sel Roti', 'Gundruk', 'Sinki Soup', 'Chhurpi'],
         'famous_spots' => ['MG Marg', 'Baker’s Café', 'Flower Exhibition Centre', 'Tashi View Point', 'Gangtok Ropeway', 'Sikkim Himalayan Zoo', 'Café Live & Loud'],
         'nearby' => ['Namchi', 'Pelling', 'Ravangla', 'Yuksom', 'Lachung', 'Lachen', 'Zuluk'],
+        'description' => 'Gangtok, the capital of Sikkim, is a vibrant hill city known for its monasteries, scenic lakes, and warm hospitality. It’s a gateway to Sikkim’s natural and cultural treasures.',
+        'state_context' => 'Sikkim, India’s smallest state, is a biodiversity hotspot with rich Buddhist heritage and Himalayan vistas. Gangtok serves as its cultural and administrative hub.',
+        'attractions_descriptions' => [
+            'Tsomgo Lake is a glacial lake revered for its crystal-clear waters and serenity.',
+            'Rumtek Monastery is a major Buddhist center with intricate architecture.',
+            'Nathula Pass, a high-altitude border pass, offers stunning views and history.',
+            'Enchey Monastery is a 200-year-old shrine with peaceful ambiance.',
+            'Ban Jhakri Falls is a scenic waterfall with a cultural theme park.',
+            'Hanuman Tok is a hilltop temple with panoramic views of Kanchenjunga.',
+            'Do-Drul Chorten is a significant stupa surrounded by prayer wheels.'
+        ]
     ],
     [
         'name' => 'Shillong',
@@ -152,8 +222,19 @@ $destinations = [
         ],
         'festivals' => ['Shad Suk Mynsiem', 'Wangala Festival', 'Nongkrem Dance Festival', 'Behdienkhlam Festival', 'Strawberry Festival', 'Christmas Festival', 'Meghalaya Day'],
         'cuisines' => ['Jadoh', 'Dohneiiong', 'Tungrymbai', 'Pukhlein', 'Nakham Bitchi', 'Pumaloi', 'Dohjem'],
-        'famous_spots' => ['Café Shillong', 'Don Bosco Museum', 'Police Bazar', 'Mawjymbuin Cave', 'Air Force Museum', 'All Saints Cathedral', 'Butterfly Museum'],
+        'famous_spots' => ['Café Shillong', 'Don Bosco Museum', 'Police Bazar', 'Mawjymbuin Cave', 'Air Force Museum', 'All Saints-absolute', 'Butterfly Museum'],
         'nearby' => ['Cherrapunji', 'Mawlynnong', 'Dawki', 'Mawsynram', 'Nongpoh', 'Jowai', 'Nartiang'],
+        'description' => 'Shillong, the "Scotland of the East," is Meghalaya’s capital, known for its rolling hills, waterfalls, and vibrant music scene. It’s a perfect blend of nature and urban charm.',
+        'state_context' => 'Meghalaya, meaning "abode of clouds," is a northeastern state with lush landscapes and indigenous Khasi culture. Shillong is its cultural and musical epicenter.',
+        'attractions_descriptions' => [
+            'Elephant Falls is a three-tiered waterfall surrounded by lush greenery.',
+            'Umiam Lake is a serene reservoir ideal for boating and picnics.',
+            'Shillong Peak offers panoramic views of the city and hills.',
+            'Ward’s Lake is a picturesque man-made lake with gardens and boating.',
+            'Lady Hydari Park is a tranquil park with a mini zoo and flowerbeds.',
+            'Laitlum Canyons provide dramatic vistas of Meghalaya’s rugged terrain.',
+            'Cathedral of Mary is a stunning Gothic-style church in the heart of Shillong.'
+        ]
     ],
     [
         'name' => 'Kaziranga',
@@ -176,6 +257,17 @@ $destinations = [
         'cuisines' => ['Masor Tenga', 'Khar', 'Duck Meat Curry', 'Pitika', 'Pork Anishi', 'Aloo Pitika', 'Ou Tenga'],
         'famous_spots' => ['Kaziranga Orchid Park', 'Local Tea Gardens', 'Ethnic Village Restaurant', 'Hathikuli Tea Estate', 'Brahmaputra River Bank', 'Kohora Village', 'Rangmon Bird Watching'],
         'nearby' => ['Majuli', 'Tezpur', 'Jorhat', 'Sivsagar', 'Dibrugarh', 'Golaghat', 'Hoollongapar Gibbon Sanctuary'],
+        'description' => 'Kaziranga, a UNESCO World Heritage Site in Assam, is famed for its one-horned rhinoceros and diverse wildlife. It’s a paradise for nature lovers and adventure seekers.',
+        'state_context' => 'Assam, in northeastern India, is known for its tea plantations, Brahmaputra River, and rich biodiversity. Kaziranga is a crown jewel of its wildlife conservation efforts.',
+        'attractions_descriptions' => [
+            'Elephant Safaris offer an intimate way to explore Kaziranga’s wildlife.',
+            'Jeep Safari provides thrilling rides through the park’s diverse ecosystems.',
+            'Tea Gardens showcase Assam’s world-famous tea production heritage.',
+            'Kaziranga Orchid Park displays vibrant orchids and local culture.',
+            'Panbari Reserve is a quieter area for spotting rhinos and birds.',
+            'Kakochang Falls is a scenic waterfall ideal for nature outings.',
+            'Deopahar Ruins reveal ancient archaeological remnants amidst greenery.'
+        ]
     ],
     [
         'name' => 'Jaipur',
@@ -198,6 +290,17 @@ $destinations = [
         'cuisines' => ['Dal Baati Churma', 'Laal Maas', 'Ghewar', 'Ker Sangri', 'Pyaaz Kachori', 'Mawa Kachori', 'Rajasthani Thali'],
         'famous_spots' => ['Patrika Gate', 'Masala Chowk', 'Albert Hall Museum', 'Chokhi Dhani', 'Jal Mahal', 'Hathi Gaon', 'Bapu Bazaar'],
         'nearby' => ['Ajmer', 'Pushkar', 'Alwar', 'Ranthambore', 'Neemrana', 'Bharatpur', 'Tonk'],
+        'description' => 'Jaipur, the Pink City, is Rajasthan’s vibrant capital, known for its majestic forts, palaces, and rich heritage. It’s a cultural hub with a colorful history.',
+        'state_context' => 'Rajasthan, India’s largest state, is synonymous with royal history, desert landscapes, and vibrant festivals. Jaipur embodies its regal and artistic legacy.',
+        'attractions_descriptions' => [
+            'Hawa Mahal, the Palace of Winds, is famous for its intricate latticework.',
+            'Amber Fort is a grand hilltop fortress with stunning architecture.',
+            'City Palace blends Mughal and Rajput styles, housing a royal museum.',
+            'Jantar Mantar is a UNESCO-listed astronomical observatory.',
+            'Nahargarh Fort offers sweeping views of Jaipur’s skyline.',
+            'Jaigarh Fort is known for its massive cannon and robust defenses.',
+            'Albert Hall Museum showcases Rajasthan’s art and history.'
+        ]
     ],
     [
         'name' => 'Varanasi',
@@ -220,6 +323,17 @@ $destinations = [
         'cuisines' => ['Kachori Sabzi', 'Tamatar Chaat', 'Baati Chokha', 'Malaiyo', 'Litti Chokha', 'Puri Sabzi', 'Banarasi Paan'],
         'famous_spots' => ['Blue Lassi Shop', 'Assi Ghat', 'Banaras Hindu University', 'Gyanvapi Mosque', 'Sankat Mochan Temple', 'Kashi Kalash Foundation', 'Man Mandir Ghat'],
         'nearby' => ['Sarnath', 'Allahabad', 'Ayodhya', 'Mirzapur', 'Chunar', 'Jaunpur', 'Vindhyachal'],
+        'description' => 'Varanasi, one of the world’s oldest cities, is India’s spiritual capital, known for its sacred ghats, temples, and vibrant Ganges River rituals.',
+        'state_context' => 'Uttar Pradesh, India’s most populous state, is a cultural and historical hub. Varanasi, its spiritual heart, draws millions for its religious significance.',
+        'attractions_descriptions' => [
+            'Kashi Vishwanath Temple is a revered shrine dedicated to Lord Shiva.',
+            'Dashashwamedh Ghat hosts the iconic Ganga Aarti every evening.',
+            'Sarnath is a Buddhist pilgrimage site where Buddha gave his first sermon.',
+            'Assi Ghat is a lively spot for sunrise views and cultural events.',
+            'Manikarnika Ghat is a sacred cremation site steeped in tradition.',
+            'Ramnagar Fort houses a museum and offers riverfront views.',
+            'Bharat Mata Temple is dedicated to Mother India with a unique marble map.'
+        ]
     ],
     [
         'name' => 'Kasol',
@@ -242,6 +356,17 @@ $destinations = [
         'cuisines' => ['Israeli Salad', 'Shakshuka', 'Tandoori Trout', 'Falafel', 'Hummus Platter', 'Nutella Pancakes', 'Himachali Dham'],
         'famous_spots' => ['Moon Dance Café', 'Jim Morrison Café', 'Tosh Village', 'Evergreen Café', 'Bhoj Café', 'Parvati River Bank', 'The Psychedelic'],
         'nearby' => ['Malana', 'Manikaran', 'Tosh', 'Pulga', 'Barshaini', 'Nakthan', 'Kutla'],
+        'description' => 'Kasol, a quaint village in Himachal Pradesh’s Parvati Valley, is a backpacker’s paradise known for its scenic treks, vibrant cafes, and laid-back vibe.',
+        'state_context' => 'Himachal Pradesh is a haven for adventure and offbeat travel. Kasol, in its Parvati Valley, attracts global travelers for its unique blend of nature and culture.',
+        'attractions_descriptions' => [
+            'Parvati Valley is a scenic haven with lush trails and serene rivers.',
+            'Kheerganga Trek leads to natural hot springs amidst Himalayan views.',
+            'Manikaran Sahib is a sacred Sikh and Hindu pilgrimage site with hot springs.',
+            'Tosh Village is a tranquil hamlet known for its hippie vibe and cafes.',
+            'Chalal Trek offers a short, scenic walk to a peaceful village.',
+            'Rasol Village is a hidden gem with rustic charm and trekking trails.',
+            'Malana Village is famous for its unique culture and ancient traditions.'
+        ]
     ],
     [
         'name' => 'Rishikesh',
