@@ -17,6 +17,64 @@ if (!$destination) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title><?php echo htmlspecialchars($destination['name']); ?> Package Details</title>
+    <style>
+        .slideshow-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .slide {
+            display: none;
+            width: 100%;
+        }
+        .slide img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        .dots {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+        .active, .dot:hover {
+            background-color: #717171;
+        }
+    </style>
 </head>
 <body class="text-white bg-gray-900">
     <nav class="flex justify-between items-center bg-gray-800 p-4">
@@ -62,25 +120,39 @@ if (!$destination) {
         </ul>
     </nav>
 
+    <div class="slideshow-container">
+        <div class="slide">
+            <img src="<?php echo htmlspecialchars(file_exists($destination['image']) ? $destination['image'] : 'images/destination/default.jpg'); ?>" alt="<?php echo htmlspecialchars($destination['name']); ?>">
+        </div>
+        <?php foreach ($destination['attractions_images'] as $image): ?>
+            <div class="slide">
+                <img src="<?php echo htmlspecialchars(file_exists($image) ? $image : 'images/destination/default.jpg'); ?>" alt="Attraction">
+            </div>
+        <?php endforeach; ?>
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
+    <div class="dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <?php for ($i = 0; $i < count($destination['attractions_images']); $i++): ?>
+            <span class="dot" onclick="currentSlide(<?php echo $i + 2; ?>)"></span>
+        <?php endfor; ?>
+    </div>
+
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-4xl font-bold text-center mb-8"><?php echo htmlspecialchars($destination['name']); ?> Package Details</h1>
         <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <img src="<?php echo htmlspecialchars(file_exists($destination['image']) ? $destination['image'] : 'images/destination/default.jpg'); ?>" alt="<?php echo htmlspecialchars($destination['name']); ?>" class="w-full h-96 object-cover rounded-md mb-6">
-            
             <h2 class="text-2xl font-semibold mb-4">About <?php echo htmlspecialchars($destination['name']); ?></h2>
             <p class="text-gray-300 mb-4">
                 Located in <?php echo htmlspecialchars($destination['state']); ?>, this <?php echo htmlspecialchars($destination['type']); ?> destination is perfect for a <?php echo htmlspecialchars($destination['budget']); ?> trip lasting <?php echo htmlspecialchars($destination['duration']); ?>.
             </p>
 
             <h3 class="text-xl font-semibold mt-6 mb-2">Key Attractions</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                <?php foreach (array_combine($destination['attractions'], $destination['attractions_images']) as $attraction => $image): ?>
-                    <div class="text-center">
-                        <img src="<?php echo htmlspecialchars(file_exists($image) ? $image : 'images/destination/default.jpg'); ?>" alt="<?php echo htmlspecialchars($attraction); ?>" class="w-full h-48 object-cover rounded-md mb-2" loading="lazy">
-                        <p class="text-gray-300"><?php echo htmlspecialchars($attraction); ?></p>
-                    </div>
+            <ul class="list-disc list-inside text-gray-300 mb-6">
+                <?php foreach ($destination['attractions'] as $attraction): ?>
+                    <li><?php echo htmlspecialchars($attraction); ?></li>
                 <?php endforeach; ?>
-            </div>
+            </ul>
 
             <h3 class="text-xl font-semibold mt-6 mb-2">Cultural Festivals</h3>
             <ul class="list-disc list-inside text-gray-300">
@@ -110,7 +182,7 @@ if (!$destination) {
                 <?php endforeach; ?>
             </ul>
 
-            <a href="booking.php?destination=Bali Paradise&price=1299" class="book-now-btn mt-6 inline-block bg-blue-500 px-6 py-3 rounded-md text-black hover:bg-blue-600">Book Now</a>
+            <a href="booking.php?destination=<?php echo urlencode($destination['name']); ?>&price=1299" class="book-now-btn mt-6 inline-block bg-blue-500 px-6 py-3 rounded-md text-black hover:bg-blue-600">Book Now</a>
         </div>
     </div>
 
@@ -119,7 +191,50 @@ if (!$destination) {
     </footer>
 
     <script>
+        let slideIndex = 1;
+        let slideInterval;
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+
+            slides[slideIndex-1].style.display = "block";
+            dots[slideIndex-1].className += " active";
+        }
+
+        function plusSlides(n) {
+            clearInterval(slideInterval);
+            showSlides(slideIndex += n);
+            startSlideShow();
+        }
+
+        function currentSlide(n) {
+            clearInterval(slideInterval);
+            showSlides(slideIndex = n);
+            startSlideShow();
+        }
+
+        function startSlideShow() {
+            slideInterval = setInterval(() => {
+                plusSlides(1);
+            }, 3000); // Changed to 3000ms (3 seconds)
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
+            showSlides(slideIndex);
+            startSlideShow();
+
             const dropdownBtn = document.getElementById("dropdownBtn");
             const dropdownMenu = document.getElementById("dropdownMenu");
 
@@ -176,4 +291,3 @@ if (!$destination) {
     </script>
 </body>
 </html>
-Enhancing PhonePe Payment Flow for Tour Booking - Claude
