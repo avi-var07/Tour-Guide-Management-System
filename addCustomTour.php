@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Port = 587;
 
             // Recipients
-            $mail->setFrom('your_email@example.com', 'Tour Operator');
+            $mail->setFrom(SMTP_USER, 'Tour Operator');
             $mail->addAddress($email);
 
             // Content
