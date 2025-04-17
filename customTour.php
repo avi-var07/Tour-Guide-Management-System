@@ -61,7 +61,7 @@ use PHPMailer\PHPMailer\Exception;
             </button>
             <ul id="userDropdownMenu" class="absolute hidden right-0 bg-white text-gray-800 shadow-xl rounded-lg mt-2 w-48 z-50 py-2 border border-gray-100 group-hover:block">
                 <li><a href="userDashboard.php" class="block px-4 py-2 hover:bg-blue-50">My Profile</a></li>
-                <li><a href="booking.php" class="block px-4 py-2 hover:bg-blue-50">My Bookings</a></li>
+                
                 <li><hr class="my-1 border-gray-200"></li>
                 <li><a href="logout.php" class="block px-4 py-2 hover:bg-red-50 text-red-600 font-medium">Logout</a></li>
             </ul>
@@ -83,10 +83,22 @@ use PHPMailer\PHPMailer\Exception;
         <form id="customTourForm">
             <label class="block mb-2">Select Destination:</label>
             <select id="destination" class="w-full p-2 rounded mb-2 text-black">
+                <option value="Manali">Select</option>
                 <option value="Manali">Manali</option>
                 <option value="Goa">Goa</option>
                 <option value="Shimla">Shimla</option>
-                <option value="Jaipur">Jaipur</option>
+                <option value="Jaipur">Tamil Nadu</option>
+                <option value="Jaipur">Assam</option>
+                <option value="Jaipur">Andhra Pradesh</option>
+                <option value="Jaipur">Arunachal Pradesh</option>
+                <option value="Jaipur">Mumbai</option>
+                <option value="Jaipur">Kolkata</option>
+                <option value="Jaipur">Darjeeling</option>
+                <option value="Jaipur">Raipur</option>
+                <option value="Jaipur">Indore</option>
+                <option value="Jaipur">Chattisgarh</option>
+                <option value="Jaipur">Chandigarh</option>
+                <option value="Jaipur">Guwahti</option>
             </select>
 
             <label class="block mb-2">Duration (Days):</label>
@@ -102,7 +114,7 @@ use PHPMailer\PHPMailer\Exception;
                 <label><input type="checkbox" id="transport" class="mr-1"> Transport</label>
             </div>
 
-            <button type="submit" class="bg-blue-500 px-4 py-2 rounded">Submit Request</button>
+            <button id = "submitBtn" type="submit" class="bg-blue-500 px-4 py-2 rounded">Submit Request</button>
         </form>
     </div>
 
@@ -113,6 +125,20 @@ use PHPMailer\PHPMailer\Exception;
     </div>
 </div>
         <script>
+             document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form"); // Adjust selector if needed
+    const submitBtn = document.getElementById("submitBtn");
+
+    form.addEventListener("submit", function(e) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
+
+      // Wait for server response before saying "Submitted"
+      setTimeout(() => {
+        submitBtn.textContent = "Submitted, check mail!";
+      }, 2000); // Adjust delay as per actual processing time
+    });
+  });
       document.addEventListener("DOMContentLoaded", function () {
     // Bookings dropdown toggle
     const dropdownBtn = document.getElementById("dropdownBtn");
@@ -343,26 +369,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 </ul>
             </div>
             
-            <!-- Newsletter Section -->
-            <div>
-                <h3 class="text-lg font-semibold text-white mb-5 flex items-center">
-                    <span class="bg-purple-600 w-8 h-8 rounded-full flex items-center justify-center mr-2">
-                        <i class="fas fa-envelope-open text-white"></i>
-                    </span>
-                    Newsletter
-                </h3>
-                <p class="text-gray-300 mb-4">Subscribe to our newsletter for exclusive travel deals and updates.</p>
-                <form class="flex">
-                    <input type="email" placeholder="Your email address" class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none flex-grow">
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-r-lg transition-colors duration-200">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
+          
         
-        <!-- Bottom Section with Copyright -->
-        <div class="mt-12 pt-6 border-t border-gray-700 text-center">
+        
+        <div >
             <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
             
         </div>
