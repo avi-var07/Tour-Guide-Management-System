@@ -162,7 +162,7 @@ session_start();
             </button>
             <ul id="userDropdownMenu" class="absolute hidden right-0 bg-white text-gray-800 shadow-xl rounded-lg mt-2 w-48 z-50 py-2 border border-gray-100 group-hover:block">
                 <li><a href="userDashboard.php" class="block px-4 py-2 hover:bg-blue-50">My Profile</a></li>
-                <li><a href="booking.php" class="block px-4 py-2 hover:bg-blue-50">My Bookings</a></li>
+                
                 <li><hr class="my-1 border-gray-200"></li>
                 <li><a href="logout.php" class="block px-4 py-2 hover:bg-red-50 text-red-600 font-medium">Logout</a></li>
             </ul>
@@ -510,27 +510,10 @@ session_start();
                     </li>
                 </ul>
             </div>
-            
-            <!-- Newsletter Section -->
-            <div>
-                <h3 class="text-lg font-semibold text-white mb-5 flex items-center">
-                    <span class="bg-purple-600 w-8 h-8 rounded-full flex items-center justify-center mr-2">
-                        <i class="fas fa-envelope-open text-white"></i>
-                    </span>
-                    Newsletter
-                </h3>
-                <p class="text-gray-300 mb-4">Subscribe to our newsletter for exclusive travel deals and updates.</p>
-                <form class="flex">
-                    <input type="email" placeholder="Your email address" class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none flex-grow">
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-r-lg transition-colors duration-200">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
+           
         
         <!-- Bottom Section with Copyright -->
-        <div class="mt-12 pt-6 border-t border-gray-700 text-center">
+        <div>
             <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
             
         </div>
@@ -539,69 +522,69 @@ session_start();
 
 <!-- Scripts -->
 <script>
-    // Slideshow functionality
     let slideIndex = 0;
-    
-    // Initialize the slideshow on page load
-    document.addEventListener('DOMContentLoaded', function() {
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function () {
         showSlides();
-        
-        // Set up dropdown toggles
+
+        // Dropdown: Main Menu
         const dropdownBtn = document.getElementById('dropdownBtn');
         const dropdownMenu = document.getElementById('dropdownMenu');
-        
+
         if (dropdownBtn && dropdownMenu) {
-            dropdownBtn.addEventListener('click', function() {
+            dropdownBtn.addEventListener('click', function (event) {
+                event.stopPropagation(); // Prevent window click from triggering
                 dropdownMenu.classList.toggle('hidden');
             });
         }
-        
+
+        // Dropdown: User Menu
         const userDropdownBtn = document.getElementById('userDropdownBtn');
         const userDropdownMenu = document.getElementById('userDropdownMenu');
-        
+
         if (userDropdownBtn && userDropdownMenu) {
-            userDropdownBtn.addEventListener('click', function() {
+            userDropdownBtn.addEventListener('click', function (event) {
+                event.stopPropagation();
                 userDropdownMenu.classList.toggle('hidden');
             });
         }
-        
-       
 
+        // Close dropdowns on outside click
+        window.addEventListener('click', function () {
+            if (dropdownMenu) dropdownMenu.classList.add('hidden');
+            if (userDropdownMenu) userDropdownMenu.classList.add('hidden');
+        });
+    });
 
-    
+    // Auto slideshow
     function showSlides() {
-        let i;
         let slides = document.getElementsByClassName("mySlides");
-        
-        // Hide all slides
-        for (i = 0; i < slides.length; i++) {
+
+        for (let i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
-        
-        // Increment slide index
+
         slideIndex++;
-        
-        // Reset if end of slides
         if (slideIndex > slides.length) {
             slideIndex = 1;
         }
-        
-        // Show current slide
-        slides[slideIndex - 1].style.display = "block";
-        
-        // Change slide every 5 seconds
+
+        if (slides.length > 0) {
+            slides[slideIndex - 1].style.display = "block";
+        }
+
         setTimeout(showSlides, 5000);
     }
-    
-    // Manual slide navigation
+
+    // Manual navigation
     function plusSlides(n) {
         showSlideManual(slideIndex + n);
     }
-    
+
     function showSlideManual(n) {
         let slides = document.getElementsByClassName("mySlides");
-        
-        // Reset index if out of bounds
+
         if (n > slides.length) {
             slideIndex = 1;
         } else if (n < 1) {
@@ -609,31 +592,17 @@ session_start();
         } else {
             slideIndex = n;
         }
-        
-        // Hide all slides
+
         for (let i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
-        
-        // Show current slide
-        slides[slideIndex - 1].style.display = "block";
+
+        if (slides.length > 0) {
+            slides[slideIndex - 1].style.display = "block";
+        }
     }
-    
-    // Close dropdowns when clicking outside
-    window.addEventListener('click', function(event) {
-        const dropdownMenu = document.getElementById('dropdownMenu');
-        const dropdownBtn = document.getElementById('dropdownBtn');
-        const userDropdownMenu = document.getElementById('userDropdownMenu');
-        const userDropdownBtn = document.getElementById('userDropdownBtn');
-        
-        if (dropdownMenu && !event.target.closest('#dropdownBtn') && !event.target.closest('#dropdownMenu')) {
-            dropdownMenu.classList.add('hidden');
-        }
-        
-        if (userDropdownMenu && !event.target.closest('#userDropdownBtn') && !event.target.closest('#userDropdownMenu')) {
-            userDropdownMenu.classList.add('hidden');
-        }
-    });
+</script>
+
 </script>
 </body>
 </html>
