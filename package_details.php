@@ -97,11 +97,6 @@ if (!$destination) {
         </li>
         <li><a href="about.php" class="text-white hover:text-yellow-300 transition-colors font-medium hover-lift">About</a></li>
         
-        <li>
-            <button id="themeToggle" class="ml-4 bg-blue-700 hover:bg-blue-600 text-white p-2 rounded-full transition-colors focus:ring-2 focus:ring-yellow-300 focus:outline-none">
-                <i class="fas fa-moon"></i>
-            </button>
-        </li>
         
         <?php if (isset($_SESSION['username'])): ?>
         <li class="relative group ml-4">
@@ -114,7 +109,7 @@ if (!$destination) {
             </button>
             <ul id="userDropdownMenu" class="absolute hidden right-0 bg-white text-gray-800 shadow-xl rounded-lg mt-2 w-48 z-50 py-2 border border-gray-100 group-hover:block">
                 <li><a href="userDashboard.php" class="block px-4 py-2 hover:bg-blue-50">My Profile</a></li>
-                <li><a href="booking.php" class="block px-4 py-2 hover:bg-blue-50">My Bookings</a></li>
+ 
                 <li><hr class="my-1 border-gray-200"></li>
                 <li><a href="logout.php" class="block px-4 py-2 hover:bg-red-50 text-red-600 font-medium">Logout</a></li>
             </ul>
@@ -229,7 +224,7 @@ if (!$destination) {
                 <div class="sticky top-24 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
                     <h2 class="text-2xl font-bold mb-4">Book Your Trip</h2>
                     <p class="text-gray-700 dark:text-gray-300 mb-4">Experience the wonders of <?php echo htmlspecialchars($destination['name']); ?> with our exclusive package.</p>
-                    <a href="booking.php?destination=<?php echo urlencode($destination['name']); ?>&price=<?php echo isset($destination['price']) ? $destination['price'] : '1299'; ?>" class="block text-center bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition">Book Now</a>
+                    <a href="guidebooking.php"class="block text-center bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition">Book Now</a>
                 </div>
             </div>
         </div>
@@ -349,27 +344,10 @@ if (!$destination) {
                     </li>
                 </ul>
             </div>
-            
-            <!-- Newsletter Section -->
-            <div>
-                <h3 class="text-lg font-semibold text-white mb-5 flex items-center">
-                    <span class="bg-purple-600 w-8 h-8 rounded-full flex items-center justify-center mr-2">
-                        <i class="fas fa-envelope-open text-white"></i>
-                    </span>
-                    Newsletter
-                </h3>
-                <p class="text-gray-300 mb-4">Subscribe to our newsletter for exclusive travel deals and updates.</p>
-                <form class="flex">
-                    <input type="email" placeholder="Your email address" class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none flex-grow">
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-r-lg transition-colors duration-200">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
+          
         
         <!-- Bottom Section with Copyright -->
-        <div class="mt-12 pt-6 border-t border-gray-700 text-center">
+        <div >
             <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
             
         </div>
@@ -412,25 +390,6 @@ if (!$destination) {
                 });
             }
 
-            // Theme Toggle
-            if (themeToggleBtn) {
-                const savedTheme = localStorage.getItem("theme") || "dark";
-                body.classList.toggle("bg-gray-100", savedTheme === "light");
-                body.classList.toggle("bg-gray-900", savedTheme === "dark");
-                body.classList.toggle("text-gray-900", savedTheme === "light");
-                body.classList.toggle("text-white", savedTheme === "dark");
-                themeToggleBtn.innerHTML = savedTheme === "light" ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-
-                themeToggleBtn.addEventListener("click", () => {
-                    const newTheme = body.classList.contains("bg-gray-900") ? "light" : "dark";
-                    body.classList.toggle("bg-gray-100", newTheme === "light");
-                    body.classList.toggle("bg-gray-900", newTheme === "dark");
-                    body.classList.toggle("text-gray-900", newTheme === "light");
-                    body.classList.toggle("text-white", newTheme === "dark");
-                    themeToggleBtn.innerHTML = newTheme === "light" ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-                    localStorage.setItem("theme", newTheme);
-                });
-            }
 
             // Carousel
             let currentSlide = 0;
