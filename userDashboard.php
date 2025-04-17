@@ -329,7 +329,7 @@ use PHPMailer\PHPMailer\Exception;
             // Handle Form Submission
             document.getElementById("profileForm").addEventListener("submit", function(event) {
                 event.preventDefault();
-                alert("Profile updated successfully! (Backend integration required)");
+                
             });
         });
     </script>
