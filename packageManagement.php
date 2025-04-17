@@ -79,7 +79,7 @@ include 'config.php';
             </button>
             <ul id="userDropdownMenu" class="absolute hidden right-0 bg-white text-gray-800 shadow-xl rounded-lg mt-2 w-48 z-50 py-2 border border-gray-100 group-hover:block">
                 <li><a href="userDashboard.php" class="block px-4 py-2 hover:bg-blue-50">My Profile</a></li>
-                <li><a href="booking.php" class="block px-4 py-2 hover:bg-blue-50">My Bookings</a></li>
+         
                 <li><hr class="my-1 border-gray-200"></li>
                 <li><a href="logout.php" class="block px-4 py-2 hover:bg-red-50 text-red-600 font-medium">Logout</a></li>
             </ul>
@@ -385,26 +385,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 </ul>
             </div>
             
-            <!-- Newsletter Section -->
-            <div>
-                <h3 class="text-lg font-semibold text-white mb-5 flex items-center">
-                    <span class="bg-purple-600 w-8 h-8 rounded-full flex items-center justify-center mr-2">
-                        <i class="fas fa-envelope-open text-white"></i>
-                    </span>
-                    Newsletter
-                </h3>
-                <p class="text-gray-300 mb-4">Subscribe to our newsletter for exclusive travel deals and updates.</p>
-                <form class="flex">
-                    <input type="email" placeholder="Your email address" class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none flex-grow">
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-r-lg transition-colors duration-200">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
+          
         
         <!-- Bottom Section with Copyright -->
-        <div class="mt-12 pt-6 border-t border-gray-700 text-center">
+        <div>
             <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
             
         </div>
