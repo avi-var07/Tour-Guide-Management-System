@@ -120,6 +120,7 @@ if (!isset($_SESSION['username'])) {
             <input type="tel" name="phone" value="<?php echo htmlspecialchars($phone); ?>" pattern="[0-9]{10}" maxlength="10" placeholder="Phone" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" required>
             <input type="text" name="destination" placeholder="Destination" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black" required>
             <input type="text" name="guide" placeholder="Guide Name (Optional)" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black">
+            <input type="number" name="amount" value="5000" readonly placeholder="Amount (in INR)" class="w-full p-3 border rounded-lg focus:ring focus:ring-green-300 text-black " required>
 
             <button type="submit" class="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition duration-300">
                 Submit
@@ -243,26 +244,9 @@ if (!isset($_SESSION['username'])) {
                 </ul>
             </div>
             
-            <!-- Newsletter Section -->
-            <div>
-                <h3 class="text-lg font-semibold text-white mb-5 flex items-center">
-                    <span class="bg-purple-600 w-8 h-8 rounded-full flex items-center justify-center mr-2">
-                        <i class="fas fa-envelope-open text-white"></i>
-                    </span>
-                    Newsletter
-                </h3>
-                <p class="text-gray-300 mb-4">Subscribe to our newsletter for exclusive travel deals and updates.</p>
-                <form class="flex">
-                    <input type="email" placeholder="Your email address" class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none flex-grow">
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-r-lg transition-colors duration-200">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-        
+         
         <!-- Bottom Section with Copyright -->
-        <div class="mt-12 pt-6 border-t border-gray-700 text-center">
+        <div >
             <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
             
         </div>
@@ -274,6 +258,7 @@ if (!isset($_SESSION['username'])) {
         let email = document.forms["form"]["email"].value.trim();
         let phone = document.forms["form"]["phone"].value.trim();
         let pincode = document.getElementById("pincode").value.trim();
+        let amount = document.forms["form"]["amount"].value.trim();
 
         if (fullName === "") {
             alert("Full name is required!");
@@ -289,6 +274,10 @@ if (!isset($_SESSION['username'])) {
         }
         if (!/^\d{6}$/.test(pincode)) {
             alert("Pincode must be 6 digits!");
+            return false;
+        }
+        if (amount !== "5000") {
+            alert("Amount cannot be changed!");
             return false;
         }
         return true;
@@ -338,19 +327,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $state = trim($_POST["state"]);
     $phone = trim($_POST["phone"]);
     $destination = trim($_POST["destination"]);
-    $guide = trim($_POST["guide"] ?? ""); // Optional guide field
+    $guide = trim($_POST["guide"] ?? "");
+    $amount = trim($_POST["amount"]);
 
-    if (empty($first_name) || empty($email) || empty($pincode) || empty($city) || empty($state) || empty($phone) || empty($destination)) {
+    if (empty($first_name) || empty($email) || empty($pincode) || empty($city) || empty($state) || empty($phone) || empty($destination) || empty($amount)) {
         echo "<script>alert('All required fields must be filled!'); window.history.back();</script>";
         exit;
     }
 
-    // Insert into bookings table
-    $stmt = $conn->prepare("INSERT INTO bookings (first_name, email, pincode, city, state, phone, destination, guide) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssss", $first_name, $email, $pincode, $city, $state, $phone, $destination, $guide);
+    // Insert into bookings table with updated column
+    $stmt = $conn->prepare("INSERT INTO bookings (first_name, email, pincode, city, state, phone, destination, guide, amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssssi", $first_name, $email, $pincode, $city, $state, $phone, $destination, $guide, $amount);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Booking Successful!'); window.location.href='mainpage.php';</script>";
+        // Email configuration
+        $to = $email;
+        $subject = "Tour Booking Confirmation";
+        $message = "Dear $first_name,\n\nThank you for your booking!\n\nHere are your booking details:\n";
+        $message .= "Full Name: $first_name\n";
+        $message .= "Email: $email\n";
+        $message .= "Pincode: $pincode\n";
+        $message .= "City: $city\n";
+        $message .= "State: $state\n";
+        $message .= "Phone: $phone\n";
+        $message .= "Destination: $destination\n";
+        $message .= "Guide: " . ($guide ? $guide : "Not specified") . "\n";
+        $message .= "Amount: ₹$amount\n\n";
+        $message .= "Please process the payment using the attached QR code to finalize your booking.\n\nBest regards,\nTour Operator Team";
+
+        // Attachment (QR code image)
+        $file = "phonepe_qr-1.png"; // Ensure this file exists and is the uploaded QR code
+        $boundary = md5(time());
+        $headers = "From: teamTourOperator@gmail.com\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: multipart/mixed; boundary=\"" . $boundary . "\"\r\n";
+
+        $body = "--" . $boundary . "\r\n";
+        $body .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+        $body .= $message . "\r\n";
+
+        $body .= "--" . $boundary . "\r\n";
+        $body .= "Content-Type: image/jpeg; name=\"" . basename($file) . "\"\r\n";
+        $body .= "Content-Transfer-Encoding: base64\r\n";
+        $body .= "Content-Disposition: attachment; filename=\"" . basename($file) . "\"\r\n\r\n";
+        $body .= chunk_split(base64_encode(file_get_contents($file))) . "\r\n";
+        $body .= "--" . $boundary . "--";
+
+        if (mail($to, $subject, $body, $headers)) {
+            echo "<script>alert('Confirmation sent to email! Please process payment for final confirmation!'); window.location.href='mainpage.php';</script>";
+        } else {
+            echo "<script>alert('Booking successful, but email sending failed!'); window.location.href='mainpage.php';</script>";
+        }
     } else {
         echo "<script>alert('Error occurred! Please try again.'); window.history.back();</script>";
     }
