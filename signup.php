@@ -484,23 +484,7 @@ if (isset($_POST['signup'])) {
                 </ul>
             </div>
             
-            <!-- Newsletter Section -->
-            <div>
-                <h3 class="text-lg font-semibold text-white mb-5 flex items-center">
-                    <span class="bg-purple-600 w-8 h-8 rounded-full flex items-center justify-center mr-2">
-                        <i class="fas fa-envelope-open text-white"></i>
-                    </span>
-                    Newsletter
-                </h3>
-                <p class="text-gray-300 mb-4">Subscribe to our newsletter for exclusive travel deals and updates.</p>
-                <form class="flex">
-                    <input type="email" placeholder="Your email address" class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none flex-grow">
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-r-lg transition-colors duration-200">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
+            
         
         <!-- Bottom Section with Copyright -->
         <div class="mt-12 pt-6 border-t border-gray-700 text-center">
