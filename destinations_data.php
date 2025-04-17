@@ -56,11 +56,9 @@ $destinations = [
         'cuisines' => ['Thukpa', 'Momos', 'Skyu', 'Butter Tea', 'Chhutagi', 'Paba', 'Tingmo'],
         'famous_spots' => ['Leh Market', 'Leh Palace', 'German Bakery', 'Hall of Fame', 'Sangam (Confluence)', 'Diskit Monastery', 'Tso Kar Lake'],
         'nearby' => ['Nubra Valley', 'Tso Moriri Lake', 'Kargil', 'Alchi', 'Lamayuru', 'Stok Village', 'Dras'],
-        'description' => 'Leh-Ladakh is an adventurer’s paradise, where dramatic landscapes meet ancient spirituality. At over 3,500 meters, Leh town buzzes with markets, monasteries, and cafes, serving as the gateway to Ladakh’s wonders. From the azure Pangong Lake to the gravity-defying Magnetic Hill, every site feels otherworldly. The region’s monasteries, like Thiksey and Hemis, offer glimpses into Tibetan Buddhism, while rugged terrains like Nubra and Zanskar valleys beckon trekkers and bikers. Ladakh’s stark beauty, clear skies (perfect for stargazing), and cultural richness make it a bucket-list destination for thrill-seekers and soul-searchers alike.
-',
-        'state_context' => 'Jammu & Kashmir’s diverse geography extends to the rugged, high-altitude desert of Ladakh, a land of stark beauty and spiritual depth. Known as “Little Tibet,” Ladakh’s Buddhist monasteries, barren mountains, and turquoise lakes create a surreal landscape. Its sparse population and extreme climate foster a unique culture of resilience and hospitality, with Leh as the vibrant hub for travelers exploring this remote region.
+        'description' => 'Leh-Ladakh is an adventurer’s paradise, where dramatic landscapes meet ancient spirituality. At over 3,500 meters, Leh town buzzes with markets, monasteries, and cafes, serving as the gateway to Ladakh’s wonders. From the azure Pangong Lake to the gravity-defying Magnetic Hill, every site feels otherworldly. The region’s monasteries, like Thiksey and Hemis, offer glimpses into Tibetan Buddhism, while rugged terrains like Nubra and Zanskar valleys beckon trekkers and bikers. Ladakh’s stark beauty, clear skies (perfect for stargazing), and cultural richness make it a bucket-list destination for thrill-seekers and soul-searchers alike.',
+        'state_context' => 'Jammu & Kashmir’s diverse geography extends to the rugged, high-altitude desert of Ladakh, a land of stark beauty and spiritual depth. Known as “Little Tibet,” Ladakh’s Buddhist monasteries, barren mountains, and turquoise lakes create a surreal landscape. Its sparse population and extreme climate foster a unique culture of resilience and hospitality, with Leh as the vibrant hub for travelers exploring this remote region.',
 
-',
         'attractions_descriptions' => [
             'Pangong Lake is a mesmerizing turquoise lake, famous for its ever-changing hues.',
             'Magnetic Hill defies gravity, where vehicles seem to roll uphill on their own.',
@@ -389,6 +387,17 @@ $destinations = [
         'cuisines' => ['Aloo Puri', 'Kachori', 'Chole Bhature', 'Lassi', 'Pahadi Thali', 'Samosa', 'Gulab Jamun'],
         'famous_spots' => ['The Beatles Ashram', 'Little Buddha Café', 'Ganga Beach', 'Café de Goa', 'Shivpuri Rafting Point', 'Trayambakeshwar Temple', 'Bairaj Lake'],
         'nearby' => ['Haridwar', 'Neelkanth Mahadev', 'Dehradun', 'Mussoorie', 'Shivpuri', 'Kanatal', 'Tehri'],
+        'description' => 'Rishikesh, at the Ganges’ cleaner stretches, is the “Yoga Capital of the World,” buzzing with ashrams, meditation centers, and adventure sports. Lakshman Jhula’s swaying bridge connects vibrant markets, while Triveni Ghat’s evening Aarti enchants. The Beatles Ashram, where the band meditated, draws music fans, and rapids at Shivpuri thrill rafters. From Neelkanth Mahadev’s spiritual treks to riverside cafes serving global fare, Rishikesh offers a unique blend of serenity, adrenaline, and counterculture, perfect for yogis, adventurers, and soul-searchers.',
+        'state_context' => 'Uttarakhand’s spiritual and adventure hub, Rishikesh, sits on the Ganges, blending yoga ashrams with rafting rapids. The state’s Himalayan foothills and sacred sites make it a global draw for seekers of peace and thrills, with Rishikesh as its vibrant epicenter.',
+        'attractions_descriptions' => [
+            'Lakshman Jhula is a famous suspension bridge with stunning river views.',
+            'Neelkanth Mahadev Temple is a revered shrine dedicated to Lord Shiva.',
+            'River Rafting offers thrilling experiences on the Ganges’ rapids.',
+            'Triveni Ghat is a sacred bathing spot known for its evening Aarti.',
+            'The Beatles Ashram showcases the band’s connection to Rishikesh.',
+            'Ram Jhula is another iconic suspension bridge with scenic surroundings.',
+            'Parmarth Niketan is a renowned ashram offering yoga and meditation.'
+        ]
     ],
     [
         'name' => 'Tawang',
@@ -411,6 +420,17 @@ $destinations = [
         'cuisines' => ['Zan', 'Gyapa Khazi', 'Momos', 'Thukpa', 'Khura', 'Pika Pila', 'Lukter'],
         'famous_spots' => ['Tawang War Memorial', 'Craft Centre', 'Dragon Restaurant', 'PT Tso Lake', 'Sela Lake', 'Monpa Village', 'Tawang Market'],
         'nearby' => ['Bomdila', 'Zemithang', 'Dirang', 'Sangti Valley', 'Mandala Top', 'Thembang Village', 'Gorsam'],
+        'description' => 'Tawang, at 3,048 meters, is a spiritual and scenic haven in Arunachal Pradesh, home to India’s largest Buddhist monastery, Tawang Monastery. Nestled near the Bhutan border, its Sela Pass and Madhuri Lake offer breathtaking vistas, while Nuranang Falls adds natural splendor. The Tawang War Memorial honors 1962 war heroes, and Bum La Pass thrills with its strategic allure. Tawang’s Monpa culture, vibrant festivals, and serene trails make it a paradise for those seeking solitude, history, and high-altitude adventure in a less-trodden corner of India.',
+        'state_context' => 'Arunachal Pradesh, India’s easternmost state, is a land of misty mountains, tribal cultures, and Buddhist monasteries. Bordering Bhutan, China, and Myanmar, its rugged terrain and pristine rivers make Tawang a remote jewel for offbeat explorers.',
+        'attractions_descriptions' => [ 
+            'Tawang Monastery:** 400-year-old monastery with a giant Buddha statue.',  
+           ' Sela Pass: Snowy pass at 4,170 meters with lakes and views.  ',
+           ' Madhuri Lake:  Heart-shaped lake, named after a Bollywood shoot.  ',
+           ' Nuranang Falls:  100-meter waterfall, also called Jang Falls.  ',
+           ' Bum La Pass:  Indo-China border point, a thrilling excursion (permit re,quired).',  
+           ' Gorsam Chorten:  Ancient stupa with Buddhist significance.  ',
+           ' Tawang War Memorial:  Tribute to soldiers with a museum and flame. '
+           ]
     ],
     [
         'name' => 'Mcleodganj',
@@ -433,6 +453,17 @@ $destinations = [
         'cuisines' => ['Tingmo', 'Thenthuk', 'Momos', 'Butter Tea', 'Shapale', 'Tsampa Porridge', 'Bhagsu Cake'],
         'famous_spots' => ['Illiterati Café', 'Norbulingka Institute', 'Tsuglagkhang Complex', 'Tibet Museum', 'Moonpeak Espresso', 'McLeod Ganj Market', 'Shiva Café'],
         'nearby' => ['Dharamkot', 'Bhagsu Nag', 'Kangra', 'Palampur', 'Kareri Lake', 'Billing', 'Masroor Temples'],
+        'description' => 'Mcleodganj, at 2,082 meters, is the Dalai Lama’s home and a Tibetan cultural hub, often called “Little Lhasa.” Its Dalai Lama Temple and Namgyal Monastery pulse with Buddhist serenity, while Triund Trek offers jaw-dropping Himalayan views. Bhagsu Waterfall and St. John in the Wilderness add natural and colonial charm, and cafes like Illiterati serve global fare amidst mountain air. Mcleodganj’s vibrant markets, Tibetan handicrafts, and proximity to trekking routes make it a magnet for spiritual seekers, trekkers, and those craving a multicultural hill escape.',
+        'state_context' => 'Himachal Pradesh’s Dhauladhar range cradles Mcleodganj, a Tibetan enclave with global appeal. The state’s blend of adventure, spirituality, and hill charm shines here, making it a cultural and natural retreat for diverse travelers.',
+        'attractions_descriptions' => [
+            'Triund Trek is a popular hike with stunning views of the Dhauladhar range.',
+            'Dalai Lama Temple is the spiritual center of Tibetan Buddhism in India.',
+            'Bhagsu Waterfall is a scenic spot for relaxation and photography.',
+            'Namgyal Monastery is the largest Tibetan monastery outside Tibet.',
+            'St. John in the Wilderness is a historic church set in a serene forest.',
+            'Naddi View Point offers panoramic views of the Dhauladhar mountains.',
+            'Kangra Fort is one of the oldest forts in India, rich in history.'
+        ]
     ],
     [
         'name' => 'Chopta',
@@ -455,6 +486,17 @@ $destinations = [
         'cuisines' => ['Chainsoo', 'Aloo Ke Gutke', 'Madua Roti', 'Kafuli', 'Phaanu', 'Jhangora Ki Kheer', 'Gahat Dal'],
         'famous_spots' => ['Local Campsites', 'Tungnath Café', 'Village Walks', 'Chopta Meadows', 'Anusuya Devi Temple', 'Kalimath Temple', 'Gopeshwar Market'],
         'nearby' => ['Rudraprayag', 'Ukhimath', 'Kedarnath', 'Guptkashi', 'Auli', 'Joshimath', 'Madmaheshwar'],
+        'description' => 'Chopta, at 2,680 meters, is Uttarakhand’s “Mini Switzerland,” a serene base for treks to Tungnath and Chandrashila. Known for its meadows and Rhododendron blooms, it offers tranquility away from crowded hill stations. Tungnath, the highest Shiva temple, and Deoria Tal’s reflective lake captivate, while the Kanchula Korak Musk Deer Sanctuary showcases Himalayan wildlife. Chopta’s campsites, starry skies, and rustic villages like Sari make it a haven for nature lovers and trekkers seeking solitude and breathtaking vistas in an untouched Himalayan nook.',
+        'state_context' => 'Uttarakhand’s Garhwal region, home to Chopta, is a trekker’s delight, with alpine meadows and sacred temples. The state’s spiritual rivers and rugged peaks create a backdrop for Chopta’s offbeat allure, drawing adventurers and pilgrims alike.',
+        'attractions_descriptions' => [
+            'Tungnath Temple is the highest Shiva temple, offering stunning views.',
+            'Deoria Tal is a serene lake reflecting the surrounding mountains.',
+            'Chandrashila Trek leads to a summit with panoramic Himalayan vistas.',
+            'Kanchula Korak Musk Deer Sanctuary is home to diverse wildlife.',
+            'Sari Village is a quaint village with beautiful landscapes.',
+            'Omkeshwar Temple is a sacred shrine dedicated to Lord Shiva.',
+            'Ukhimath is a small town known for its temples and scenic beauty.'
+        ]
     ],
     [
         'name' => 'Meghamalai',
@@ -477,6 +519,18 @@ $destinations = [
         'cuisines' => ['Pongal', 'Chettinad Chicken', 'Meen Kuzhambu', 'Banana Bonda', 'Paruppu Vadai', 'Kambu Koozh', 'Pepper Rasam'],
         'famous_spots' => ['Tea Estates', 'Chellarkovil Viewpoint', 'Cloudlands Road', 'Meghamalai Viewpoint', 'Cardamom Plantations', 'Vattaparai Falls', 'Pothamedu'],
         'nearby' => ['Thekkady', 'Periyar Wildlife Sanctuary', 'Munnar', 'Kodaikanal', 'Madurai', 'Cumbum', 'Sabarimala'],
+        'description' => 'Meghamalai, or “High Wavy Mountains,” at 1,500 meters, is Tamil Nadu’s hidden gem, draped in tea and cardamom estates. Tucked in the Western Ghats, it’s a paradise of rolling hills, waterfalls like Suruli and Manalar, and wildlife in Meghamalai Sanctuary. Highwavy Dam and Vellimalai’s viewpoints offer serene escapes, while Maharaja Mettu’s trails thrill trekkers. Less commercial than Ooty, Meghamalai’s misty trails, colonial-era bungalows, and spice-scented air attract offbeat travelers seeking solitude, nature, and a taste of Tamil Nadu’s highlands.',
+        'state_context' => 'Tamil Nadu, South India’s cultural powerhouse, blends ancient temples, coastal beauty, and lush hills. Meghamalai, in its Western Ghats, showcases the state’s quieter side, with tea estates and misty peaks complementing its Dravidian heritage.',
+        'attractions_descriptions' => [ 
+            'Highwavy Dam: Scenic reservoir amidst tea gardens, great for picnics.', 
+            'Vellimalai: Highest peak with panoramic Ghats views.  ',
+            'Suruli Falls: 150-ft waterfall, ideal for nature walks.  ',
+            'Meghamalai Wildlife Sanctuary: Home to elephants, leopards, and birds.',
+            'Manalar Falls: Secluded cascade in dense forests.  ',
+            'Maharaja Mettu: Trekking spot with valley vistas.  ',
+            'Thoovanam Falls: Lesser-known falls, perfect for quiet retreats.'
+            
+        ],
     ],
     [
         'name' => 'Spiti Valley',
@@ -499,6 +553,17 @@ $destinations = [
         'cuisines' => ['Thukpa', 'Chhang', 'Momos', 'Butter Tea', 'Tsampa', 'Siddu', 'Paba'],
         'famous_spots' => ['Kaza Market', 'The Himalayan Café', 'Spiti River Walk', 'Hikkim Post Office', 'Komik Village', 'Dhankar Lake', 'Mud Village'],
         'nearby' => ['Tabo', 'Langza', 'Komic', 'Kaza', 'Hikkim', 'Dhankar', 'Nako'],
+        'description' => 'Spiti Valley, meaning “Middle Land” between India and Tibet, is a high-altitude desert with surreal beauty. Key Monastery and Tabo Monastery, over 1,000 years old, anchor its spiritual landscape, while Chandratal Lake’s turquoise waters mesmerize. Villages like Kibber and Langza, home to the giant Buddha statue, offer homestay warmth, and Pin Valley National Park shelters snow leopards. Spiti’s rugged roads, fossil trails, and clear skies (ideal for astrophotography) attract bikers, trekkers, and those seeking raw, untouched nature and Buddhist tranquility.',
+        'state_context' => 'Himachal Pradesh’s Spiti Valley, a remote desert region, is a land of stark beauty and ancient monasteries. Its high-altitude landscapes and Tibetan culture create a unique travel experience, attracting adventurers and spiritual seekers alike.',
+        'attractions_descriptions' => [
+            'Key Monastery is a stunning hilltop monastery with panoramic views.',
+            'Chandratal Lake is a crescent-shaped lake known for its blue waters.',
+            'Pin Valley National Park is home to diverse wildlife and stunning landscapes.',
+            'Tabo Monastery is a UNESCO World Heritage site with ancient murals.',
+            'Dhankar Monastery is perched on a cliff, offering breathtaking views.',
+            'Kibber Village is one of the highest inhabited villages in the world.',
+            'Langza Buddha Statue is a giant statue overlooking the valley.'
+        ]
     ],
     [
         'name' => 'Ziro Valley',
@@ -521,6 +586,17 @@ $destinations = [
         'cuisines' => ['Pika Pila', 'Bamboo Shoot Curry', 'Apong', 'Fish Stew', 'Lukter', 'Pe Hak', 'Dung Po'],
         'famous_spots' => ['Tarin Fish Farm', 'Ziro Pine Grove', 'Hapoli Market', 'Rice Fields', 'Hong Village', 'Ziro Church', 'Pine Bamboo Restaurant'],
         'nearby' => ['Itanagar', 'Daporijo', 'Along', 'Pasighat', 'Tuting', 'Majuli', 'Yingkiong'],
+        'description' => 'Ziro Valley, at 1,700 meters, is a breathtaking expanse of rice fields, pine groves, and Apatani villages, framed by misty hills. Home to the Apatani tribe, known for sustainable farming and facial tattoos (a fading tradition), Ziro is a UNESCO tentative World Heritage Site for its cultural landscape. Attractions like Talley Valley’s biodiversity and Ziro Puto’s panoramic views enchant nature lovers, while the Ziro Music Festival draws global artists and travelers. With serene trails, homestays, and local brews like Apong, Ziro offers an offbeat escape for those seeking tranquility, tribal culture, and vibrant festivals in Arunachal’s heart.',
+        'state_context' => 'Arunachal Pradesh, India’s easternmost state, is a tapestry of tribal cultures, Himalayan peaks, and pristine valleys. Bordering Bhutan, China, and Myanmar, its rugged terrain and biodiversity make it a haven for adventurers and cultural explorers. Ziro Valley, in the Lower Subansiri district, showcases the state’s serene beauty and Apatani tribal heritage, offering a glimpse into a world where tradition and nature coexist harmoniously.',
+        'attractions_descriptions' => [
+            'Talley Valley is a biodiversity hotspot with lush forests and wildlife.',
+            'Kile Pakho offers panoramic views of the valley and surrounding hills.',
+            'Ziro Puto is a hilltop offering stunning views of the Ziro Valley.',
+            'Shivling at Siddeshwar Nath is a sacred site with a unique rock formation.',
+            'Meghna Cave Temple is an ancient temple with beautiful rock carvings.',
+            'Pine Grove is a serene area with tall pine trees and scenic beauty.',
+            'Dolo Mando is a hilltop offering breathtaking views of the valley.'
+        ]
     ],
     [
         'name' => 'Auli',
@@ -543,6 +619,17 @@ $destinations = [
         'cuisines' => ['Chainsoo', 'Gahat Dal', 'Aloo Ke Gutke', 'Bal Mithai', 'Kafuli', 'Jhangora Ki Kheer', 'Singori'],
         'famous_spots' => ['Ski Resorts', 'Auli Chair Lift', 'Joshimath Market', 'Narsingh Temple', 'Auli Lake', 'Chenab Lake', 'Kwani Bugyal'],
         'nearby' => ['Valley of Flowers', 'Badrinath', 'Hemkund Sahib', 'Mana Village', 'Tapkeshwar', 'Kedarnath', 'Chamoli'],
+        'description' => 'Auli, at 2,800 meters, is India’s premier skiing destination, often compared to Swiss Alps for its powdery slopes and pine-fringed meadows. Perched above Joshimath, it boasts panoramic views of Nanda Devi, India’s second-highest peak. The Auli Ropeway, one of Asia’s longest, connects to Gurso Bugyal’s grasslands, while Chattrakund Lake’s turquoise waters add charm. Winter brings skiers, and summer attracts trekkers to Nanda Devi National Park. With cozy resorts, spiritual vibes from nearby Badrinath, and crisp mountain air, Auli is a year-round delight for adventure seekers and nature lovers.',
+        'state_context' => 'Uttarakhand, the “Land of Gods,” is a Himalayan haven of pilgrimage sites, adventure trails, and alpine meadows. Auli, in the Garhwal region, is its winter sports capital, offering snow-clad slopes and serene vistas, complementing the state’s spiritual and natural allure.',
+        'attractions_descriptions' => [
+            'Skiing Slopes are perfect for winter sports enthusiasts.',
+            'Gurso Bugyal is a beautiful meadow with stunning views.',
+            'Joshimath is a historic town and base for Auli.',
+            'Nanda Devi National Park is a UNESCO World Heritage site.',
+            'Auli Ropeway offers breathtaking views of the Himalayas.',
+            'Chattrakund Lake is a serene lake surrounded by forests.',
+            'Vishnuprayag is the confluence of Alaknanda and Dhauliganga rivers.'
+        ]
     ],
     [
         'name' => 'Gokarna',
@@ -565,6 +652,16 @@ $destinations = [
         'cuisines' => ['Neer Dosa', 'Kane Rava Fry', 'Fish Curry', 'Banana Buns', 'Bangude Pulimunchi', 'Chicken Sukka', 'Mysore Pak'],
         'famous_spots' => ['Namaste Café', 'Half Moon Beach', 'Mirjan Fort', 'Prema Restaurant', 'Gokarna Cliffs', 'Sunset Point', 'Shri Hari Café'],
         'nearby' => ['Murudeshwar', 'Yana Caves', 'Karwar', 'Ankola', 'Dandeli', 'Udupi', 'Honnavar'],
+        'description' => 'Gokarna, a coastal town at 10 meters above sea level, is Karnataka’s hidden gem, blending spirituality with laid-back beach vibes. Unlike Goa’s crowds, its Om Beach, Kudle Beach, and Half Moon Beach offer tranquility, with golden sands and turquoise waves. The Mahabaleshwar Temple, a Shiva shrine, attracts devotees, while Yana Caves add adventure. Gokarna’s shacks, like Namaste Café, serve fresh seafood, and its cliffs and sunsets inspire wanderers. Ideal for budget travelers, it’s a perfect mix of pilgrimage, surfing, and chilling by the sea, steeped in coastal Karnataka’s charm.',
+        'state_context' => 'Karnataka, South India’s dynamic state, blends tech hubs, ancient ruins, and coastal beauty. Gokarna, on its Arabian Sea shore, is a serene counterpoint to Karnataka’s bustling cities, offering beaches and temples that draw pilgrims and beachcombers alike.',
+        'attractions_descriptions' => [
+            'Om Beach is famous for its unique shape resembling the Om symbol.',
+            'Kudle Beach is a serene beach perfect for relaxation and sunsets.',
+            'Mahabaleshwar Temple is a revered Hindu temple dedicated to Lord Shiva.',
+            'Half Moon Beach is a secluded beach accessible by boat or trek.',
+            'Gokarna Main Beach is the town’s main beach, lively and vibrant.',
+            'Yana Caves are unique rock formations and trekking spots.'
+        ]
     ],
     [
         'name' => 'Coorg',
@@ -587,6 +684,17 @@ $destinations = [
         'cuisines' => ['Pandi Curry', 'Kadambuttu', 'Noolputtu', 'Coorgi Style Chicken Curry', 'Bamboo Shoot Curry', 'Akki Roti', 'Koli Curry'],
         'famous_spots' => ['Raja’s Seat', 'Namdroling Monastery', 'Coorg Cuisine', 'Madikeri Fort', 'Coffee Plantations', 'Tadiandamol Peak', 'Omkareshwara Temple'],
         'nearby' => ['Nagarhole', 'Madikeri', 'Mysore', 'Wayanad', 'Mangalore', 'Kushalnagar', 'Kabini'],
+        'description' => 'Coorg, or Kodagu, at 1,500 meters, is Karnataka’s “Scotland of India,” blanketed in coffee plantations, misty hills, and waterfalls like Abbey Falls. Known for its warrior Kodava community, it blends rugged charm with cozy homestays. Attractions like Mandalpatti’s viewpoints and Talacauvery, the Cauvery River’s source, captivate, while Dubare Elephant Camp offers unique wildlife encounters. Coorg’s spicy cuisine, vibrant festivals, and treks to Tadiandamol Peak make it a haven for nature lovers, foodies, and those seeking a cultural immersion in Karnataka’s green heart.',
+        'state_context' => 'Karnataka’s Western Ghats cradle Coorg, a lush hill region famed for coffee and Kodava culture. The state’s blend of heritage sites, like Hampi, and natural escapes, like Coorg, makes it a diverse draw, with Coorg offering a refreshing contrast to urban Bangalore.',
+        'attractions_descriptions' => [
+            'Abbey Falls is a picturesque waterfall surrounded by coffee plantations.',
+            'Mandalpatti offers stunning panoramic views of the Western Ghats.',
+            'Dubare Elephant Camp is a unique experience to interact with elephants.',
+            'Talacauvery is the origin of the Cauvery River, with scenic beauty.',
+            'Raja’s Seat is a viewpoint with beautiful sunset views.',
+            'Iruppu Falls is a serene waterfall ideal for nature lovers.',
+            'Nagarhole National Park is a wildlife sanctuary known for its biodiversity.'
+        ]
     ],
     [
         'name' => 'Andaman & Nicobar',
@@ -609,6 +717,17 @@ $destinations = [
         'cuisines' => ['Fish Curry', 'Grilled Lobster', 'Prawn Masala', 'Coconut Prawn Curry', 'Chilli Crab', 'Tandoori Fish', 'Amritsari Kulcha'],
         'famous_spots' => ['SeaShell Bar & Lounge', 'Corbyn’s Cove', 'Aberdeen Bazaar', 'Viper Island', 'Samudrika Museum', 'Chatham Saw Mill', 'Marina Park'],
         'nearby' => ['Neil Island', 'Baratang Island', 'Diglipur', 'Little Andaman', 'Rangat', 'Long Island', 'Mayabunder'],
+        'description' => 'Andaman & Nicobar, a cluster of 572 islands, is a turquoise haven where adventure meets serenity. Havelock Island’s Radhanagar Beach, voted Asia’s best, stuns with its sands, while Cellular Jail in Port Blair narrates India’s freedom struggle. Snorkeling at Elephant Beach, exploring Ross Island’s ruins, and visiting active volcano Barren Island thrill explorers. Neil Island’s coral reefs and laid-back vibe enchant, and the islands’ seafood, vibrant markets, and festivals like the Island Tourism Festival add flavor. Perfect for luxury seekers, it’s a scuba diver’s, historian’s, and beach lover’s utopia.',
+        'state_context' => 'The Andaman & Nicobar Islands, a Union Territory in the Bay of Bengal, are India’s tropical paradise, with coral reefs, white beaches, and dense jungles. Far from the mainland, their tribal heritage and colonial past create a unique blend, making them a dream for adventure and relaxation.',
+        'attractions_descriptions' => [
+            'Havelock Island is known for its stunning beaches and water sports.',
+            'Radhanagar Beach is famous for its pristine sands and sunsets.',
+            'Cellular Jail is a historical site with a poignant history.',
+            'Neil Island is known for its coral reefs and tranquil beaches.',
+            'Ross Island has ruins of British colonial buildings.',
+            'Barren Island is home to India’s only active volcano.',
+            'Elephant Beach is famous for snorkeling and water sports.'
+        ]
     ],
     [
         'name' => 'Darjeeling',
@@ -631,6 +750,17 @@ $destinations = [
         'cuisines' => ['Thukpa', 'Momos', 'Sel Roti', 'Churpee Soup', 'Aloo Dum', 'Gundruk', 'Sael Roti'],
         'famous_spots' => ['Glenary’s Bakery', 'Chowrasta', 'Japanese Peace Pagoda', 'Tea Gardens', 'Mall Road', 'Keventer’s Café', 'Himalayan Mountaineering Institute'],
         'nearby' => ['Kalimpong', 'Mirik', 'Kurseong', 'Gangtok', 'Pelling', 'Lava', 'Sikkim'],
+        'description' => 'Darjeeling, at 2,050 meters, is India’s “Queen of Hills,” famed for its tea estates and Himalayan vistas, including Kanchenjunga’s peaks. The UNESCO-listed Darjeeling Himalayan Railway, or Toy Train, chugs through misty slopes, while Tiger Hill’s sunrise mesmerizes. Batasia Loop’s war memorial and Peace Pagoda’s serenity add depth, and the Padmaja Naidu Zoo showcases Himalayan wildlife. With colonial-era cafes like Glenary’s, vibrant Chowrasta markets, and festivals like the Tea Festival, Darjeeling blends nostalgia, nature, and culture, enchanting tea lovers and romantics alike.',
+        'state_context' => 'West Bengal, a cultural mosaic, spans Kolkata’s urban buzz to Darjeeling’s Himalayan calm. Known for tea gardens and Bengali heritage, the state’s northern hills, where Darjeeling lies, offer cool climes and colonial charm, making it a timeless retreat.',
+        'attractions_descriptions' => [
+            'Tiger Hill is famous for its stunning sunrise views over Kanchenjunga.',
+            'Batasia Loop is a unique railway loop with a war memorial.',
+            'Darjeeling Himalayan Railway is a UNESCO World Heritage site.',
+            'Padmaja Naidu Himalayan Zoo is home to rare Himalayan species.',
+            'Peace Pagoda offers panoramic views and tranquility.',
+            'Ghoom Monastery is one of the oldest Tibetan monasteries in the region.',
+            'Rock Garden is a beautiful garden with waterfalls and scenic views.'
+        ]
     ],
     [
         'name' => 'Lonavala & Khandala',
@@ -653,6 +783,17 @@ $destinations = [
         'cuisines' => ['Vada Pav', 'Misal Pav', 'Chikki', 'Puran Poli', 'Pav Bhaji', 'Sabudana Vada', 'Bhel Puri'],
         'famous_spots' => ['Cooper’s Chikki', 'Lion’s Point', 'German Bakery', 'Kune Falls', 'Sunset Point', 'Della Adventure Park', 'Wax Museum'],
         'nearby' => ['Karla Caves', 'Pawna Lake', 'Maval', 'Kamshet', 'Talegaon', 'Khopoli', 'Igatpuri'],
+        'description' => 'Lonavala and Khandala, at 620 meters, are Maharashtra’s beloved monsoon getaways, just 80 km from Mumbai. Nestled in the Sahyadri hills, they boast misty valleys, waterfalls like Bhushi Dam, and forts like Rajmachi. Tiger’s Leap’s cliff views and Pawna Lake’s camping draw crowds, while Karla Caves’ Buddhist rock-cut shrines add history. Famous for Lonavala’s chikki (nut brittle), cozy cafes, and treks to Duke’s Nose, these towns offer a refreshing blend of nature, adventure, and nostalgia, perfect for weekenders seeking a quick hill retreat.',
+        'state_context' => 'Maharashtra, India’s economic powerhouse, blends Mumbai’s urban pulse with Western Ghats’ greenery. Lonavala and Khandala, twin hill stations, offer a quick escape from city life, showcasing the state’s knack for balancing modernity with nature’s tranquility.',
+        'attractions_descriptions' => [
+            'Tiger’s Leap is a cliff with stunning views and a waterfall.',
+            'Bhushi Dam is a popular picnic spot during the monsoon.',
+            'Rajmachi Fort offers trekking opportunities and scenic views.',
+            'Karla Caves are ancient rock-cut Buddhist caves.',
+            'Lohagad Fort is a historic fort with panoramic views.',
+            'Pawna Lake is perfect for camping and water sports.',
+            'Duke’s Nose is a trekking spot with breathtaking views.'
+        ]
     ],
     [
         'name' => 'Mahabaleshwar',
@@ -675,6 +816,17 @@ $destinations = [
         'cuisines' => ['Strawberries with Cream', 'Puran Poli', 'Bhakri', 'Kanda Bhaji', 'Misal Pav', 'Corn Patties', 'Pav Bhaji'],
         'famous_spots' => ['Mapro Garden', 'Lingmala Falls', 'Venna Lake Boating', 'Arthur’s Seat', 'Sunset Point', 'Strawberry Farms', 'Mahabaleshwar Temple'],
         'nearby' => ['Panchgani', 'Tapola', 'Wai', 'Satara', 'Raigad', 'Pratapgad', 'Kaas Plateau'],
+        'description' => 'Mahabaleshwar, at 1,353 meters, is Maharashtra’s summer capital, famed for juicy strawberries, misty valleys, and viewpoints like Elephant’s Head Point. Venna Lake’s boating and Mapro Garden’s strawberry shakes delight families, while Pratapgad Fort narrates Maratha history. Lingmala Falls’ cascades and Wilson Point’s sunrises enchant, and the town’s temples, like Mahabaleshwar Temple, add spiritual depth. With horse rides, cozy cafes, and treks to Kate’s Point, it’s a perfect weekend escape for Mumbaikars and Punekars craving nature, food, and cool mountain air.',
+        'state_context' => 'Maharashtra’s Western Ghats shine in Mahabaleshwar, a hill station blending colonial charm with strawberry fields. The state’s coastal and hilly diversity, from Konkan beaches to Sahyadri peaks, makes Mahabaleshwar a refreshing retreat for urban dwellers.',
+        'attractions_descriptions' => [
+            'Elephant’s Head Point offers stunning views of the valley.',
+            'Venna Lake is perfect for boating and picnics.',
+            'Pratapgad Fort is a historic fort with panoramic views.',
+            'Mapro Garden is famous for strawberries and delicious treats.',
+            'Lingmala Falls is a beautiful waterfall ideal for nature lovers.',
+            'Wilson Point is the highest point in Mahabaleshwar with sunrise views.',
+            'Kate’s Point offers breathtaking views of the surrounding hills.'
+        ]
     ],
     [
         'name' => 'Tirthan Valley',
@@ -697,6 +849,17 @@ $destinations = [
         'cuisines' => ['Siddu', 'Chana Madra', 'Bhatura', 'Rajma Chawal', 'Lingdi Aloo', 'Kullu Trout', 'Babru'],
         'famous_spots' => ['Raju’s Cottage', 'Gushaini Trails', 'River Crossing Camps', 'Trout Fishing Spots', 'Banjar Market', 'Sai Ropa', 'Sojha Village'],
         'nearby' => ['Shoja', 'Jibhi', 'Manali', 'Kullu', 'Aut', 'Banjar', 'Mandi'],
+        'description' => 'Tirthan Valley, at 1,600 meters, is a hidden paradise named after the Tirthan River, flowing from the Great Himalayan National Park (GHNP), a UNESCO site. Ideal for anglers (trout fishing), trekkers (Serolsar Lake),PURPLE and campers, it offers serene trails to Jalori Pass and Chhoie Waterfall. Villages like Lambri exude rustic charm, and Raghupur Fort’s ruins add history. With eco-lodges, starry skies, and no urban clutter, Tirthan is a haven for nature lovers, digital nomads, and those seeking quiet Himalayan solitude, enriched by local Pahadi culture.',
+        'state_context' => 'Himachal Pradesh’s lesser-known Tirthan Valley, in the Kullu district, epitomizes the state’s serene side, far from crowded Manali. Its rivers, forests, and Himalayan peaks offer an offbeat escape, blending adventure with untouched natural beauty.',
+        'attractions_descriptions' => [
+            'Great Himalayan National Park is a UNESCO World Heritage site.',
+            'Serolsar Lake is a serene lake surrounded by lush forests.',
+            'Jalori Pass offers stunning views and trekking opportunities.',
+            'Chhoie Waterfall is a beautiful waterfall ideal for picnics.',
+            'Tirthan River is perfect for trout fishing and river activities.',
+            'Lambri Village is a quaint village with traditional architecture.',
+            'Raghupur Fort offers panoramic views of the valley.'
+        ]
     ],
     [
         'name' => 'Puducherry',
@@ -719,6 +882,17 @@ $destinations = [
         'cuisines' => ['Creole Curries', 'Baguettes', 'Seafood Vindaloo', 'Stuffed Crab', 'Prawn Balchao', 'Mutton Korma', 'Pain au Chocolat'],
         'famous_spots' => ['Café Des Arts', 'White Town', 'Rock Beach', 'Le Café', 'Serenity Beach', 'Goubert Market', 'La Maison Rose'],
         'nearby' => ['Auroville', 'Paradise Beach', 'Chidambaram', 'Mahabalipuram', 'Kanchipuram', 'Pichavaram Mangroves', 'Tharangambadi'],
+        'description' => 'Puducherry, or Pondicherry, at sea level, is a charming coastal town where French boulevards meet Tamil vibrancy. White Town’s pastel villas and Promenade Beach’s waves create a relaxed vibe, while Auroville’s Matrimandir draws spiritual seekers. Sri Aurobindo Ashram offers meditative calm, and Paradise Beach’s sands invite lounging. With French cafes, vibrant markets, and festivals like Bastille Day, Puducherry is a party destination with soul, ideal for couples, foodies, and those craving a blend of cultures, beaches, and quirky history on India’s east coast.',
+        'state_context' => 'Puducherry, a Union Territory on India’s Coromandel Coast, is a former French colony with a unique blend of Tamil and European cultures. Its palm-fringed beaches, colonial villas, and spiritual communes like Auroville make it a quirky coastal escape, distinct from mainland India.',
+        'attractions_descriptions' => [
+            'Promenade Beach is a popular beach with a scenic promenade.',
+            'Auroville is an experimental township promoting peace and unity.',
+            'Paradise Beach is known for its pristine sands and tranquility.',
+            'Sri Aurobindo Ashram is a spiritual community founded by Sri Aurobindo.',
+            'French Quarter showcases colonial architecture and vibrant streets.',
+            'Puducherry Museum exhibits the region’s history and culture.',
+            'Botanical Garden is a serene garden with diverse flora.'
+        ] 
     ],
 ];
 
