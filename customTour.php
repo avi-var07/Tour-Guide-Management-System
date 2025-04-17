@@ -85,22 +85,23 @@ use PHPMailer\PHPMailer\Exception;
         <form id="customTourForm">
             <label class="block mb-2">Select Destination:</label>
             <select id="destination" class="w-full p-2 rounded mb-2 text-black">
-                <option value="Manali">Select</option>
+                
+                <option value="">Select</option>
                 <option value="Manali">Manali</option>
                 <option value="Goa">Goa</option>
                 <option value="Shimla">Shimla</option>
-                <option value="Jaipur">Tamil Nadu</option>
-                <option value="Jaipur">Assam</option>
-                <option value="Jaipur">Andhra Pradesh</option>
-                <option value="Jaipur">Arunachal Pradesh</option>
-                <option value="Jaipur">Mumbai</option>
-                <option value="Jaipur">Kolkata</option>
-                <option value="Jaipur">Darjeeling</option>
-                <option value="Jaipur">Raipur</option>
-                <option value="Jaipur">Indore</option>
-                <option value="Jaipur">Chattisgarh</option>
-                <option value="Jaipur">Chandigarh</option>
-                <option value="Jaipur">Guwahti</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Assam">Assam</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Darjeeling">Darjeeling</option>
+                <option value="Raipur">Raipur</option>
+                <option value="Indore">Indore</option>
+                <option value="Chattisgarh">Chattisgarh</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Guwahti">Guwahti</option>
             </select>
 
             <label class="block mb-2">Duration (Days):</label>
@@ -126,8 +127,8 @@ use PHPMailer\PHPMailer\Exception;
         <ul id="tourRequests" class="list-disc ml-5"></ul>
     </div>
 </div>
-        <script>
-             document.addEventListener("DOMContentLoaded", function() {
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
     const form = document.querySelector("form"); // Adjust selector if needed
     const submitBtn = document.getElementById("submitBtn");
 
@@ -135,10 +136,10 @@ use PHPMailer\PHPMailer\Exception;
       submitBtn.disabled = true;
       submitBtn.textContent = "Submitting...";
 
-      // Wait for server response before saying "Submitted"
+      
       setTimeout(() => {
         submitBtn.textContent = "Submitted, check mail!";
-      }, 2000); // Adjust delay as per actual processing time
+      }, 2000); 
     });
   });
       document.addEventListener("DOMContentLoaded", function () {
@@ -198,9 +199,6 @@ use PHPMailer\PHPMailer\Exception;
         });
     }
 });
-
-    </script>
-    <script>
 document.addEventListener("DOMContentLoaded", function () {
     function loadCustomTours() {
         fetch("fetchCustomTours.php")
@@ -216,11 +214,21 @@ document.addEventListener("DOMContentLoaded", function () {
                             <button onclick="deleteCustomTour(${tour.id})" class="text-red-400 ml-2">Cancel</button>
                         </li>`;
                 });
+            })
+            .catch(error => {
+                console.error("Error loading tour requests:", error);
             });
     }
 
     document.getElementById("customTourForm").addEventListener("submit", function (event) {
         event.preventDefault();
+        
+        // Disable the submit button to prevent double submission
+        const submitBtn = document.getElementById("submitBtn");
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+        
+        // Get form values
         const destination = document.getElementById("destination").value;
         const duration = document.getElementById("duration").value;
         const budget = document.getElementById("budget").value;
@@ -229,30 +237,77 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("hotel").checked ? "Hotel" : "",
             document.getElementById("transport").checked ? "Transport" : ""
         ].filter(Boolean).join(", ");
-        const user_id = localStorage.getItem("user_id") || null;
-
+        
+        // For debugging
+        console.log("Submitting form with data:", {
+            destination,
+            duration,
+            budget,
+            services
+        });
+        
         fetch("addCustomTour.php", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ user_id, destination, duration, budget, services }),
+            headers: { 
+                "Content-Type": "application/json",
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            body: JSON.stringify({ 
+                destination, 
+                duration, 
+                budget, 
+                services 
+            }),
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log("Server response:", data);
+            
             if (data.success) {
                 loadCustomTours();
                 document.getElementById("customTourForm").reset();
-                alert("Custom tour request submitted successfully!");
+                submitBtn.textContent = "Submitted, check mail!";
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Submit Request";
+                }, 5000);
             } else {
-                alert("Error submitting request: " + data.error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit Request";
+                alert("Error submitting request: " + (data.error || "Unknown error"));
             }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit Request";
+            alert("An error occurred while submitting your request: " + error.message);
         });
     });
 
-    function deleteCustomTour(id) {
-        fetch(`deleteCustomTour.php?id=${id}`, { method: "DELETE" })
-            .then(() => loadCustomTours());
-    }
+    // Function to handle deleting custom tours
+    window.deleteCustomTour = function(id) {
+        if (confirm("Are you sure you want to cancel this tour request?")) {
+            fetch(`deleteCustomTour.php?id=${id}`, { method: "DELETE" })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to delete tour request");
+                    }
+                    loadCustomTours();
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Failed to cancel tour request");
+                });
+        }
+    };
 
+    // Load custom tours when the page loads
     loadCustomTours();
 });
 </script>
@@ -354,11 +409,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <ul class="space-y-3">
                     <li class="text-gray-300 flex items-start">
                         <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-400"></i>
-                        <span>Tour Operator | Jalandhar, Punjab</span>
+                        <span>Kahan Chale | Jalandhar, Punjab</span>
                     </li>
                     <li class="text-gray-300 flex items-center">
                         <i class="fas fa-envelope mr-3 text-yellow-400"></i>
-                        <a href="mailto:aviralvarshney07@gmail.com" class="hover:text-yellow-400 transition-colors duration-200">teamTourOperator@gmail.com</a>
+                        <a href="mailto:aviralvarshney07@gmail.com" class="hover:text-yellow-400 transition-colors duration-200">teamKahanChale@gmail.com</a>
                     </li>
                     <li class="text-gray-300 flex items-center">
                         <i class="fas fa-phone-alt mr-3 text-yellow-400"></i>
@@ -375,7 +430,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         
         <div >
-            <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
+            <p class="text-gray-400 text-sm">© 2025 Kahan Chale. All rights reserved.</p>
             
         </div>
     </div>

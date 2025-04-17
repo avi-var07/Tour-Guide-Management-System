@@ -1,5 +1,89 @@
 <?php
 session_start();
+// Database connection
+$servername = "localhost";
+$username = "root";  // Your database username
+$password = "";      // Your database password
+$dbname = "travel";  // Your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Process form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
+    $guide_fname = $_POST['guide_fname'];
+    $trip_name = $_POST['trip_name'];
+    $trip_destination = $_POST['trip_destination'];
+    $departure_date = $_POST['departure_date'];
+    
+    // Get ratings
+    $accommodation_rating = isset($_POST['accommodation']) ? $_POST['accommodation'] : "Not Rated";
+    $transport_rating = isset($_POST['transport']) ? $_POST['transport'] : "Not Rated";
+    $food_rating = isset($_POST['food']) ? $_POST['food'] : "Not Rated";
+    $places_rating = isset($_POST['places']) ? $_POST['places'] : "Not Rated";
+    $professionalism_rating = isset($_POST['professionalism']) ? $_POST['professionalism'] : "Not Rated";
+    $costs_rating = isset($_POST['costs']) ? $_POST['costs'] : "Not Rated";
+    $communication_rating = isset($_POST['ease_of_communication']) ? $_POST['ease_of_communication'] : "Not Rated";
+    $safety_rating = isset($_POST['safety']) ? $_POST['safety'] : "Not Rated";
+    $driver_rating = isset($_POST['driver']) ? $_POST['driver'] : "Not Rated";
+    $tour_guide_rating = isset($_POST['tour_guide']) ? $_POST['tour_guide'] : "Not Rated";
+    $knowledge_rating = isset($_POST['knowledge']) ? $_POST['knowledge'] : "Not Rated";
+    $registration_rating = isset($_POST['registration_process']) ? $_POST['registration_process'] : "Not Rated";
+    $payment_rating = isset($_POST['payment_process']) ? $_POST['payment_process'] : "Not Rated";
+    
+    $overall_rating = isset($_POST['overall_rating']) ? $_POST['overall_rating'] : null;
+    $places_enjoyed = $_POST['places_enjoyed'];
+    $places_not_enjoyed = $_POST['places_not_enjoyed'];
+    $places_next = $_POST['places_next'];
+    $heard_about_us = isset($_POST['heard_about_us']) ? $_POST['heard_about_us'] : null;
+    $additional_feedback = $_POST['additional_feedback'];
+    $recommend = isset($_POST['recommend']) ? $_POST['recommend'] : null;
+    $promo_emails = isset($_POST['promo_emails']) ? $_POST['promo_emails'] : null;
+    
+    // Prepare SQL statement
+    $sql = "INSERT INTO feedback (
+                guide_fname, trip_name, trip_destination, departure_date, 
+                accommodation_rating, transport_rating, food_rating, places_rating, 
+                professionalism_rating, costs_rating, communication_rating, safety_rating, 
+                driver_rating, tour_guide_rating, knowledge_rating, registration_rating, 
+                payment_rating, overall_rating, places_enjoyed, places_not_enjoyed, 
+                places_next, heard_about_us, additional_feedback, recommend, promo_emails
+            ) VALUES (
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            )";
+    
+    // Prepare and bind parameters
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param(
+        "sssssssssssssssssssssssss",
+        $guide_fname, $trip_name, $trip_destination, $departure_date,
+        $accommodation_rating, $transport_rating, $food_rating, $places_rating,
+        $professionalism_rating, $costs_rating, $communication_rating, $safety_rating,
+        $driver_rating, $tour_guide_rating, $knowledge_rating, $registration_rating,
+        $payment_rating, $overall_rating, $places_enjoyed, $places_not_enjoyed,
+        $places_next, $heard_about_us, $additional_feedback, $recommend, $promo_emails
+    );
+    
+    // Execute the statement
+    if ($stmt->execute()) {
+        // Feedback submitted successfully
+        $feedback_success = true;
+    } else {
+        // Error in submission
+        $feedback_error = "Error: " . $stmt->error;
+    }
+    
+    // Close statement
+    $stmt->close();
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -104,7 +188,17 @@ session_start();
         <?php endif; ?>
     </ul>
 </nav>
-
+<?php if (isset($feedback_success)): ?>
+    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 max-w-3xl mx-auto" role="alert">
+        <p class="font-bold">Success!</p>
+        <p>Your feedback has been submitted successfully. Thank you for your time!</p>
+    </div>
+<?php elseif (isset($feedback_error)): ?>
+    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 max-w-3xl mx-auto" role="alert">
+        <p class="font-bold">Error</p>
+        <p><?php echo $feedback_error; ?></p>
+    </div>
+<?php endif; ?>
 <div class="container mx-auto px-4 py-10 pt-24 animate-fadeIn">
     <div class="text-center mb-8">
         <h1 class="text-4xl font-bold text-yellow-400 mb-3">Tour Feedback Form</h1>
@@ -360,7 +454,7 @@ session_start();
                 <ul class="space-y-3">
                     <li class="text-gray-300 flex items-start">
                         <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-400"></i>
-                        <span>Tour Operator | Jalandhar, Punjab</span>
+                        <span>Kahan Chale | Jalandhar, Punjab</span>
                     </li>
                     <li class="text-gray-300 flex items-center">
                         <i class="fas fa-envelope mr-3 text-yellow-400"></i>
@@ -379,9 +473,9 @@ session_start();
             
           
         
-        <!-- Bottom Section with Copyright -->
+        
         <div >
-            <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
+            <p class="text-gray-400 text-sm">© 2025 Kahan Chale. All rights reserved.</p>
             
         </div>
     </div>
@@ -471,6 +565,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     
     // Form validation
+    
 const form = document.querySelector('form[name="feedbackForm"]');
 
 form.addEventListener('submit', function(e) {
@@ -505,13 +600,8 @@ form.addEventListener('submit', function(e) {
     if (!isFormValid) {
         e.preventDefault();
         alert('Please complete all required fields before submitting.');
-    } else {
-        e.preventDefault(); // Prevent default form submission
-        alert('Thanks for the feedback!');
-        // If you want the form to still submit after the alert, use:
-        // setTimeout(() => form.submit(), 100);
-        form.submit();
     }
+    // Form will submit automatically if validation passes
 });
     // Animate form elements on scroll
     const animateOnScroll = () => {

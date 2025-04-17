@@ -371,7 +371,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <ul class="space-y-3">
                     <li class="text-gray-300 flex items-start">
                         <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-400"></i>
-                        <span>Tour Operator | Jalandhar, Punjab</span>
+                        <span>Kahan Chale | Jalandhar, Punjab</span>
                     </li>
                     <li class="text-gray-300 flex items-center">
                         <i class="fas fa-envelope mr-3 text-yellow-400"></i>
@@ -390,9 +390,9 @@ document.addEventListener("DOMContentLoaded", function () {
             
           
         
-        <!-- Bottom Section with Copyright -->
+    
         <div>
-            <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
+            <p class="text-gray-400 text-sm">© 2025 Kahan Chale. All rights reserved.</p>
             
         </div>
     </div>

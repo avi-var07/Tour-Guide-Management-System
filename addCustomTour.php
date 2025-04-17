@@ -1,78 +1,127 @@
 <?php
 session_start();
-include 'config.php';
-require 'vendor/autoload.php';
+require 'config.php'; 
+require 'vendor/autoload.php'; 
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-header('Content-Type: application/json');
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $user_id = $data['user_id'] ?? null;
-    $destination = trim($data['destination']);
-    $duration = (int)$data['duration'];
-    $budget = (float)$data['budget'];
-    $services = trim($data['services']);
-
-    if (empty($destination) || $duration <= 0 || $budget <= 0) {
-        echo json_encode(['success' => false, 'error' => 'Invalid input']);
+// Check if this is an AJAX request
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    
+    // Check if user is logged in
+    if (!isset($_SESSION['username'])) {
+        echo json_encode(['success' => false, 'error' => 'User not logged in']);
         exit;
     }
-
-    // Insert into database
-    $stmt = $conn->prepare("INSERT INTO custom_tours (user_id, destination, duration, budget, services) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("isids", $user_id, $destination, $duration, $budget, $services);
-
-    if ($stmt->execute()) {
-        // Send email
-        $email = $_SESSION['username'] ?? 'user@example.com';
+    
+    // Get JSON data from request
+    $jsonData = file_get_contents('php://input');
+    $data = json_decode($jsonData, true);
+    
+    // Validate input
+    if (empty($data['destination']) || empty($data['duration']) || empty($data['budget'])) {
+        echo json_encode(['success' => false, 'error' => 'Missing required fields']);
+        exit;
+    }
+    
+    try {
+        // Connect to database
+        $conn = new mysqli($servername, $username, $password, $dbname, $port);
+        
+        // Check connection
+        if ($conn->connect_error) {
+            throw new Exception("Connection failed: " . $conn->connect_error);
+        }
+        
+        // Use username (email) directly from session
+        $userEmail = $_SESSION['username'];
+        
+        // Insert tour request in database using email instead of user_id
+        $stmt = $conn->prepare("INSERT INTO custom_tours (user_id, destination, duration, budget, services) VALUES ((SELECT id FROM customer WHERE email = ?), ?, ?, ?, ?)");
+        $stmt->bind_param("sisds", $userEmail, $data['destination'], $data['duration'], $data['budget'], $data['services']);
+        
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to save tour request");
+        }
+        
+        // Send confirmation email
         $mail = new PHPMailer(true);
+        
         try {
             // Server settings
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = SMTP_USER;
-            $mail->Password = SMTP_PASS;
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Username = SMTP_USER; // Using constant from config.php
+            $mail->Password = SMTP_PASS; // Using constant from config.php
+            $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
-
+            
             // Recipients
-            $mail->setFrom(SMTP_USER, 'Tour Operator');
-            $mail->addAddress($email);
-
+            $mail->setFrom(SMTP_USER, 'Kahan Chale');
+            $mail->addAddress($userEmail, $_SESSION['username'] ?? 'User');
+            
             // Content
             $mail->isHTML(true);
-            $mail->Subject = 'Custom Tour Request Submitted';
+            $mail->Subject = 'Custom Tour Request Confirmation';
             $mail->Body = "
-                <h2>Custom Tour Request Confirmation</h2>
-                <p>Dear Customer,</p>
-                <p>Your custom tour request has been submitted successfully.</p>
-                <p><strong>Details:</strong></p>
-                <ul>
-                    <li>Destination: $destination</li>
-                    <li>Duration: $duration days</li>
-                    <li>Budget: ₹$budget</li>
-                    <li>Services: $services</li>
-                </ul>
-                <p>We will get back to you soon with further details.</p>
-                <p>Best regards,<br>Tour Operator</p>
+                <div style='font-family: Arial, sans-serif; color: #333;'>
+                    <div style='background-color: #2563eb; color: white; padding: 20px; text-align: center;'>
+                        <h1>Your Custom Tour Request</h1>
+                    </div>
+                    <div style='padding: 20px; border: 1px solid #e5e7eb; border-top: none;'>
+                        <h2>Thank you for your custom tour request!</h2>
+                        <p>We have received your request with the following details:</p>
+                        <table style='width: 100%; border-collapse: collapse; margin: 20px 0;'>
+                            <tr style='background-color: #f3f4f6;'>
+                                <th style='padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb;'>Destination</th>
+                                <td style='padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb;'>{$data['destination']}</td>
+                            </tr>
+                            <tr>
+                                <th style='padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb;'>Duration</th>
+                                <td style='padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb;'>{$data['duration']} days</td>
+                            </tr>
+                            <tr style='background-color: #f3f4f6;'>
+                                <th style='padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb;'>Budget</th>
+                                <td style='padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb;'>₹{$data['budget']}</td>
+                            </tr>
+                            <tr>
+                                <th style='padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb;'>Additional Services</th>
+                                <td style='padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb;'>{$data['services']}</td>
+                            </tr>
+                        </table>
+                        <p>Our team will review your request and get back to you within 24-48 hours with a personalized itinerary and pricing options.</p>
+                        <p>If you have any questions, please contact us at:</p>
+                        <p>📧 <a href='mailto:aviralvarshney07@gmail.com'>teamKahanChale@gmail.com</a><br>
+                        📞 +91 9876543210</p>
+                        <p>Thank you for choosing Kahan Chale for your travel needs!</p>
+                        <div style='margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 12px; color: #6b7280;'>
+                            <p>© 2025 Kahan Chale. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
             ";
-
+            
             $mail->send();
-            echo json_encode(['success' => true]);
+            echo json_encode(['success' => true, 'message' => 'Tour request submitted and confirmation email sent!']);
         } catch (Exception $e) {
-            echo json_encode(['success' => true, 'email_error' => "Email could not be sent: {$mail->ErrorInfo}"]);
+            // Email failed but database entry was successful
+            echo json_encode([
+                'success' => true, 
+                'message' => 'Tour request submitted but email could not be sent',
+                'error' => $mail->ErrorInfo
+            ]);
         }
-    } else {
-        echo json_encode(['success' => false, 'error' => 'Database error']);
+        
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
     }
-
-    $stmt->close();
-    $conn->close();
-} else {
-    echo json_encode(['success' => false, 'error' => 'Invalid request method']);
+    
+    exit;
 }
+
+// If it's not an AJAX request, redirect to the custom tour page
+header("Location: customTour.php");
+exit;
 ?>

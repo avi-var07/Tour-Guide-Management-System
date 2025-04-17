@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Port = 587;
 
             // Recipients
-            $mail->setFrom(SMTP_USER, 'Tour Operator');
+            $mail->setFrom(SMTP_USER, 'Kahan Chale');
             $mail->addAddress($email);
 
             // Content
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <li><strong>Duration:</strong> $duration days</li>
                 </ul>
                 <p>Thank you for using our services!</p>
-                <p>Best regards,<br>Tour Operator</p>
+                <p>Best regards,<br>Kahan Chale</p>
             ";
 
             $mail->send();

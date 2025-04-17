@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 ?>
@@ -5,7 +6,7 @@ session_start();
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tour Operator - Travel with Us</title>
+  <title>Kahan Chale - Travel with Us</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
@@ -235,7 +236,7 @@ session_start();
     <div class="text-center mb-16 animate-fadeIn">
       <h2 class="text-4xl font-bold text-white mb-3">
         <span class="inline-block animate-float">✈️</span> 
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-blue-500">Tour Operator</span>
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-blue-500">Kahan Chale</span>
       </h2>
       <p class="text-xl text-blue-200 max-w-2xl mx-auto">Your ultimate travel companion for exploring the world's most beautiful destinations</p>
     </div>
@@ -496,7 +497,7 @@ session_start();
                 <ul class="space-y-3">
                     <li class="text-gray-300 flex items-start">
                         <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-400"></i>
-                        <span>Tour Operator | Jalandhar, Punjab</span>
+                        <span>Kahan Chale | Jalandhar, Punjab</span>
                     </li>
                     <li class="text-gray-300 flex items-center">
                         <i class="fas fa-envelope mr-3 text-yellow-400"></i>
@@ -516,7 +517,7 @@ session_start();
         
       
         <div>
-            <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
+            <p class="text-gray-400 text-sm">© 2025 Kahan Chale. All rights reserved.</p>
             
         </div>
     </div>

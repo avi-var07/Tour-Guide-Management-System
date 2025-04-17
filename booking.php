@@ -230,11 +230,11 @@ if (!isset($_SESSION['username'])) {
                 <ul class="space-y-3">
                     <li class="text-gray-300 flex items-start">
                         <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-400"></i>
-                        <span>Tour Operator | Jalandhar, Punjab</span>
+                        <span>Kahan Chale | Jalandhar, Punjab</span>
                     </li>
                     <li class="text-gray-300 flex items-center">
                         <i class="fas fa-envelope mr-3 text-yellow-400"></i>
-                        <a href="mailto:aviralvarshney07@gmail.com" class="hover:text-yellow-400 transition-colors duration-200">teamTourOperator@gmail.com</a>
+                        <a href="mailto:aviralvarshney07@gmail.com" class="hover:text-yellow-400 transition-colors duration-200">teamKahanChale@gmail.com</a>
                     </li>
                     <li class="text-gray-300 flex items-center">
                         <i class="fas fa-phone-alt mr-3 text-yellow-400"></i>
@@ -248,9 +248,9 @@ if (!isset($_SESSION['username'])) {
             </div>
             
          
-        <!-- Bottom Section with Copyright -->
+        
         <div >
-            <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
+            <p class="text-gray-400 text-sm">© 2025 Kahan Chale. All rights reserved.</p>
             
         </div>
     </div>
@@ -356,12 +356,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message .= "Destination: $destination\n";
         $message .= "Guide: " . ($guide ? $guide : "Not specified") . "\n";
         $message .= "Amount: ₹$amount\n\n";
-        $message .= "Please process the payment using the attached QR code to finalize your booking.\n\nBest regards,\nTour Operator Team";
+        $message .= "Please process the payment using the attached QR code to finalize your booking.\n\nBest regards,\nKahan Chale Team";
 
         // Attachment (QR code image)
         $file = "phonepe_qr-1.png"; // Ensure this file exists and is the uploaded QR code
         $boundary = md5(time());
-        $headers = "From: teamTourOperator@gmail.com\r\n";
+        $headers = "From: teamKahanChale@gmail.com\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: multipart/mixed; boundary=\"" . $boundary . "\"\r\n";
 

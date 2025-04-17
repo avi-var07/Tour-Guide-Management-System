@@ -40,7 +40,7 @@ if (isset($_POST['send_otp'])) {
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        $mail->setFrom(SMTP_USER, 'Tour Operator');
+        $mail->setFrom(SMTP_USER, 'Kahan Chale');
         $mail->addAddress($email);
         $mail->Subject = "Your OTP for Signup";
         $mail->Body = "Your OTP is: " . $otp;
@@ -124,7 +124,7 @@ if (isset($_POST['signup'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup - Tour Operator</title>
+    <title>Signup - Kahan Chale</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-image: url('background-travel.jpg'); background-size: cover; background-position: center; }
@@ -470,7 +470,7 @@ if (isset($_POST['signup'])) {
                 <ul class="space-y-3">
                     <li class="text-gray-300 flex items-start">
                         <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-400"></i>
-                        <span>Tour Operator | Jalandhar, Punjab</span>
+                        <span>Kahan Chale | Jalandhar, Punjab</span>
                     </li>
                     <li class="text-gray-300 flex items-center">
                         <i class="fas fa-envelope mr-3 text-yellow-400"></i>
@@ -489,9 +489,9 @@ if (isset($_POST['signup'])) {
             
             
         
-        <!-- Bottom Section with Copyright -->
+        
         <div class="mt-12 pt-6 border-t border-gray-700 text-center">
-            <p class="text-gray-400 text-sm">© 2025 Tour Operator. All rights reserved.</p>
+            <p class="text-gray-400 text-sm">© 2025 Kahan Chale. All rights reserved.</p>
             
         </div>
     </div>

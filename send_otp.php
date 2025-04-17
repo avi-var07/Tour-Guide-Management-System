@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
-                $mail->setFrom(SMTP_USER, 'Tour Operator');
+                $mail->setFrom(SMTP_USER, 'Kahan Chale');
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->Subject = 'Password Change OTP';
